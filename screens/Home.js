@@ -38,46 +38,60 @@ export default function Home() {
       <Text style={styles.title}>Welcome to Echo Alliance</Text>
 
       <Modal visible={modalBénévole} animationType="fade" transparent>
-        <View className={styles.modalContainer}>
+        <View style={styles.modalContainer}>
           <FontAwesomeIcon icon="fa-solid fa-xmark" onPress={() => handleModalBénévol()} />
-          <Text>Bénévole</Text>
-          <Text>TEXTE A REMPLIR POUR EXPLIQUER DES TRUCS SUR LES BENEVOLES</Text>
-          <TouchableOpacity>connection</TouchableOpacity>
-          <TouchableOpacity>inscription</TouchableOpacity>
+          <Text style={styles.textButton}>Bénévole</Text>
+          <Text style={styles.textButton}>TEXTE A REMPLIR POUR EXPLIQUER DES TRUCS SUR LES BENEVOLES</Text>
+          <View style={styles.register}>
+            <TouchableOpacity>
+              <Text style={styles.textButton}>connection</Text>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={styles.textButton}>inscription</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </Modal>
 
       <Modal visible={modalAssociation} animationType="fade" transparent>
-        <View className={styles.modalContainer}>
+        <View style={styles.modalContainer}>
           <FontAwesomeIcon icon="fa-solid fa-xmark" onPress={() => handleModalAssociation()} />
           <Text>Association</Text>
           <Text>TEXTE A REMPLIR POUR EXPLIQUER DES TRUCS SUR LES ASSOCIATIONS</Text>
-          <TouchableOpacity>connection</TouchableOpacity>
-          <TouchableOpacity>inscription</TouchableOpacity>
+          <TouchableOpacity>
+            <Text>connection</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text>inscription</Text>
+          </TouchableOpacity>
         </View>
 
       </Modal>
 
       <Modal visible={modalEntreprise} animationType="fade" transparent>
-        <View className={styles.modalContainer}>
+        <View style={styles.modalContainer}>
           <FontAwesomeIcon icon="fa-solid fa-xmark" onPress={() => handleModalEntreprise()} />
           <Text>Entreprise</Text>
           <Text>TEXTE A REMPLIR POUR EXPLIQUER DES TRUCS SUR LES ENTREPRISES </Text>
-          <TouchableOpacity>connection</TouchableOpacity>
-          <TouchableOpacity>inscription</TouchableOpacity>
+          <TouchableOpacity>
+            <Text>connection</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text>inscription</Text>
+          </TouchableOpacity>
         </View>
       </Modal>
 
       <TouchableOpacity onPress={() => handleModalBénévol()} style={styles.button} activeOpacity={0.8}>
-        <Text style={styles.textButton}>Go to map</Text>
+        <Text style={styles.textButton}>Bénévole</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => handleModalAssociation()} style={styles.button} activeOpacity={0.8}>
-        <Text style={styles.textButton}>Go to map</Text>
+        <Text style={styles.textButton}>Association</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => handleModalEntreprise()} style={styles.button} activeOpacity={0.8}>
-        <Text style={styles.textButton}>Go to map</Text>
+        <Text style={styles.textButton}>Entreprise</Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>
   )
@@ -112,4 +126,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 16,
   },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: '#001234',
+    color: '#ffffff',
+
+  }
 });
