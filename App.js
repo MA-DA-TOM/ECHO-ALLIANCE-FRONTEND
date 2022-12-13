@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Home from "./screens/Home";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import BenevoleMenu from "./screens/Benevole-Menu";
 import BenevoleMap from "./screens/Benevole-Map";
@@ -12,6 +13,12 @@ import BenevoleAvantage from "./screens/Benevole-Avantage";
 import BenevoleMission from "./screens/Benevole-Mission";
 import BenevoleAlert from "./screens/Benevole-Alert";
 import BenevoleSearch from "./screens/Benevole-Search";
+import BenevoleConnection from "./screens/Benevole-Connection";
+import BenevoleInscription from "./screens/Benevole-Inscription";
+import AssociationConnection from "./screens/Association-Connection";
+import AssociationInscription from "./screens/Association-Inscription";
+import EntrepriseConnection from "./screens/Entreprise-Connection";
+import EntrepriseInscription from "./screens/Entreprise-Inscription";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -78,6 +85,7 @@ export default function App() {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator screenOptions={{ headerShown: true }}>
+				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen name="BenevoleMenu" component={BenevoleMenu} />
 				<Stack.Screen name="TabNavigator" component={TabNavigator} />
 				<Stack.Screen
@@ -88,10 +96,6 @@ export default function App() {
 				<Stack.Screen
 					name="BenevoleAvantage"
 					component={BenevoleAvantage}
-				/>
-				<Stack.Screen
-					name="BenevoleSearch"
-					component={BenevoleSearch}
 				/>
 				<Stack.Screen name="BenevoleAlert" component={BenevoleAlert} />
 				<Stack.Screen
@@ -105,6 +109,30 @@ export default function App() {
 				<Stack.Screen
 					name="BenevoleSearch"
 					component={BenevoleSearch}
+				/>
+				<Stack.Screen
+					name="BenevoleConnection"
+					component={BenevoleConnection}
+				/>
+				<Stack.Screen
+					name="BenevoleInscription"
+					component={BenevoleInscription}
+				/>
+				<Stack.Screen
+					name="AssociationConnection"
+					component={AssociationConnection}
+				/>
+				<Stack.Screen
+					name="AssociationInscription"
+					component={AssociationInscription}
+				/>
+				<Stack.Screen
+					name="EntrepriseConnection"
+					component={EntrepriseConnection}
+				/>
+				<Stack.Screen
+					name="EntrepriseInscription"
+					component={EntrepriseInscription}
 				/>
 			</Stack.Navigator>
 		</NavigationContainer>
