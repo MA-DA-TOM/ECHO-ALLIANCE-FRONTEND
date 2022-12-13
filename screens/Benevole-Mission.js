@@ -8,51 +8,40 @@ import {
 	View,
 } from "react-native";
 
-export default function BenevoleAlert({ navigation }) {
+export default function BenevoleMission({ navigation }) {
 	return (
 		<KeyboardAvoidingView
 			style={styles.container}
 			behavior={Platform.OS === "ios" ? "padding" : "height"}
 		>
 			<View style={styles.container1}>
-				<Text style={styles.title}>Problème</Text>
+				<Text style={styles.title}>Mission</Text>
 			</View>
 			<View style={styles.container2}>
-				<Text style={styles.temoignage}>Témoignage:</Text>
+				<Text style={styles.association}>Association:</Text>
 			</View>
 			<View style={styles.container3}>
-				<Text style={styles.txt}></Text>
+				<Text style={styles.action}>Action:</Text>
 			</View>
 			<View style={styles.container4}>
-				<Image
-					style={styles.photo}
-					source={require("../assets/logo-photo.png")}
-				/>
+				<Text style={styles.horaire}>Horaires:</Text>
 			</View>
 			<View style={styles.container5}>
+				<Text style={styles.lieu}>Lieu:</Text>
+			</View>
+			<View style={styles.container6}>
 				<Image
-					style={styles.paysage}
-					source={require("../assets/logo-paysage.png")}
-				/>
-				<Image
-					style={styles.paysage}
-					source={require("../assets/logo-paysage.png")}
-				/>
-				<Image
-					style={styles.paysage}
-					source={require("../assets/logo-paysage.png")}
-				/>
-				<Image
-					style={styles.paysage}
-					source={require("../assets/logo-paysage.png")}
+					style={styles.logo}
+					source={require("../assets/logo-map.png")}
 				/>
 			</View>
+
 			<TouchableOpacity
 				onPress={() => navigation.navigate("TabNavigator")}
 				style={styles.button}
 				activeOpacity={0.8}
 			>
-				<Text style={styles.textButton}>Envoyer</Text>
+				<Text style={styles.textButton}>S'inscrire</Text>
 			</TouchableOpacity>
 		</KeyboardAvoidingView>
 	);
@@ -64,15 +53,21 @@ const styles = StyleSheet.create({
 		backgroundColor: "#ffffff",
 		justifyContent: "space-around",
 	},
-	cross: {
+	header: {
+		marginRight: "5%",
+		marginLeft: "5%",
+		flexDirection: "row",
+		flexWrap: "wrap",
+		justifyContent: "space-between",
+	},
+	profile: {
 		height: 30,
 		width: 30,
 	},
-	photo: {
-		height: 70,
-		width: 70,
+	home: {
+		height: 30,
+		width: 30,
 	},
-	paysage: { height: 50, width: 50 },
 	container1: {
 		alignItems: "center",
 	},
@@ -84,32 +79,27 @@ const styles = StyleSheet.create({
 		textDecorationLine: "underline",
 	},
 	container2: {
+		justifyContent: "space-between",
+		marginRight: "20%",
 		marginLeft: "5%",
+		flexWrap: "wrap",
+		flexDirection: "row",
 	},
 	container3: {
-		height: 100,
-		backgroundColor: "#ffffff",
-		margin: 5,
-		padding: 5,
-		borderWidth: 2,
+		marginLeft: "5%",
 	},
 	container4: {
-		backgroundColor: "#ffffff",
-		borderColor: "#8BE38E",
-		borderWidth: 3,
-		height: 100,
-		width: 100,
-		borderRadius: 100,
-		alignItems: "center",
-		justifyContent: "center",
-		marginLeft: 135,
+		marginLeft: "5%",
 	},
 	container5: {
-		marginRight: "5%",
 		marginLeft: "5%",
-		flexDirection: "row",
-		flexWrap: "wrap",
-		justifyContent: "space-around",
+	},
+	container6: {
+		alignItems: "center",
+	},
+	cloche: {
+		height: 30,
+		width: 30,
 	},
 
 	button: {
@@ -126,9 +116,30 @@ const styles = StyleSheet.create({
 		fontWeight: "600",
 		fontSize: 16,
 	},
+	card1: {
+		height: 160,
+		width: 160,
+		backgroundColor: "#ffffff",
+		margin: 5,
+		alignItems: "center",
+		borderWidth: 1,
+		borderRadius: 100,
+	},
 
-	temoignage: {
+	association: {
 		fontWeight: "bold",
-		fontSize: 20,
+	},
+	action: {
+		fontWeight: "bold",
+	},
+	horaire: {
+		fontWeight: "bold",
+	},
+	lieu: {
+		fontWeight: "bold",
+	},
+	logo: {
+		height: 70,
+		width: 70,
 	},
 });

@@ -1,135 +1,161 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Modal
-} from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-
+	Image,
+	KeyboardAvoidingView,
+	Platform,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View,
+	Modal,
+} from "react-native";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function Home() {
+	const [modalBénévole, setModalBénévole] = useState(false);
+	const [modalAssociation, setModalAssociation] = useState(false);
+	const [modalEntreprise, setModalEntreprise] = useState(false);
 
-  const [modalBénévole, setModalBénévole] = useState(false);
-  const [modalAssociation, setModalAssociation] = useState(false);
-  const [modalEntreprise, setModalEntreprise] = useState(false);
+	// activé/désactivé Modal
+	const handleModalBénévol = () => {
+		setModalBénévole(!modalBénévole);
+	};
 
+	const handleModalAssociation = () => {
+		setModalAssociation(!modalAssociation);
+	};
 
-  // activé/désactivé Modal
-  const handleModalBénévol = () => {
-    setModalBénévole(!modalBénévole);
-  }
+	const handleModalEntreprise = () => {
+		setModalEntreprise(!modalEntreprise);
+	};
 
-  const handleModalAssociation = () => {
-    setModalAssociation(!modalAssociation);
-  }
+	return (
+		<KeyboardAvoidingView
+			style={styles.container}
+			behavior={Platform.OS === "ios" ? "padding" : "height"}
+		>
+			<View style={styles.subcontainer}>
+				<Text style={styles.title}>
+					Welcome to <Text style={styles.echo}>Echo Alliance</Text>
+				</Text>
+			</View>
+			<Modal visible={modalBénévole} animationType="fade" transparent>
+				<View className={styles.modalContainer}>
+					<FontAwesome
+						name="rotate-right"
+						size={25}
+						color="#ffffff"
+						onPress={() => handleModalBénévol()}
+					/>
+					<Text>Bénévole</Text>
+					<Text>
+						TEXTE A REMPLIR POUR EXPLIQUER DES TRUCS SUR LES
+						BENEVOLES
+					</Text>
+					<TouchableOpacity>connection</TouchableOpacity>
+					<TouchableOpacity>inscription</TouchableOpacity>
+				</View>
+			</Modal>
 
-  const handleModalEntreprise = () => {
-    setModalEntreprise(!modalEntreprise);
-  }
+			<Modal visible={modalAssociation} animationType="fade" transparent>
+				<View className={styles.modalContainer}>
+					<FontAwesome
+						name="rotate-right"
+						size={25}
+						color="#ffffff"
+						onPress={() => handleModalAssociation()}
+					/>
+					<Text>Association</Text>
+					<Text>
+						TEXTE A REMPLIR POUR EXPLIQUER DES TRUCS SUR LES
+						ASSOCIATIONS
+					</Text>
+					<TouchableOpacity>
+						<Text>connection</Text>
+					</TouchableOpacity>
+					<TouchableOpacity>
+						<Text>inscription</Text>
+					</TouchableOpacity>
+				</View>
+			</Modal>
 
+			<Modal visible={modalEntreprise} animationType="fade" transparent>
+				<View className={styles.modalContainer}>
+					<FontAwesome
+						name="rotate-right"
+						size={25}
+						color="#ffffff"
+						onPress={() => handleModalEntreprise()}
+					/>
+					<Text>Entreprise</Text>
+					<Text>
+						TEXTE A REMPLIR POUR EXPLIQUER DES TRUCS SUR LES
+						ENTREPRISES{" "}
+					</Text>
+					<TouchableOpacity>
+						<Text>connection</Text>
+					</TouchableOpacity>
+					<TouchableOpacity>
+						<Text>inscription</Text>
+					</TouchableOpacity>
+				</View>
+			</Modal>
 
-  return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <Text style={styles.title}>Welcome to Echo Alliance</Text>
+			<TouchableOpacity
+				onPress={() => handleModalBénévol()}
+				style={styles.button}
+				activeOpacity={0.8}
+			>
+				<Text style={styles.textButton}>Bénévoles</Text>
+			</TouchableOpacity>
 
-      <Modal visible={modalBénévole} animationType="fade" transparent>
-        <View style={styles.modalContainer}>
-          <FontAwesomeIcon icon="fa-solid fa-xmark" onPress={() => handleModalBénévol()} />
-          <Text style={styles.textButton}>Bénévole</Text>
-          <Text style={styles.textButton}>TEXTE A REMPLIR POUR EXPLIQUER DES TRUCS SUR LES BENEVOLES</Text>
-          <View style={styles.register}>
-            <TouchableOpacity>
-              <Text style={styles.textButton}>connection</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.textButton}>inscription</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
+			<TouchableOpacity
+				onPress={() => handleModalAssociation()}
+				style={styles.button}
+				activeOpacity={0.8}
+			>
+				<Text style={styles.textButton}>Associations</Text>
+			</TouchableOpacity>
 
-      <Modal visible={modalAssociation} animationType="fade" transparent>
-        <View style={styles.modalContainer}>
-          <FontAwesomeIcon icon="fa-solid fa-xmark" onPress={() => handleModalAssociation()} />
-          <Text>Association</Text>
-          <Text>TEXTE A REMPLIR POUR EXPLIQUER DES TRUCS SUR LES ASSOCIATIONS</Text>
-          <TouchableOpacity>
-            <Text>connection</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text>inscription</Text>
-          </TouchableOpacity>
-        </View>
-
-      </Modal>
-
-      <Modal visible={modalEntreprise} animationType="fade" transparent>
-        <View style={styles.modalContainer}>
-          <FontAwesomeIcon icon="fa-solid fa-xmark" onPress={() => handleModalEntreprise()} />
-          <Text>Entreprise</Text>
-          <Text>TEXTE A REMPLIR POUR EXPLIQUER DES TRUCS SUR LES ENTREPRISES </Text>
-          <TouchableOpacity>
-            <Text>connection</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text>inscription</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
-
-      <TouchableOpacity onPress={() => handleModalBénévol()} style={styles.button} activeOpacity={0.8}>
-        <Text style={styles.textButton}>Bénévole</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => handleModalAssociation()} style={styles.button} activeOpacity={0.8}>
-        <Text style={styles.textButton}>Association</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => handleModalEntreprise()} style={styles.button} activeOpacity={0.8}>
-        <Text style={styles.textButton}>Entreprise</Text>
-      </TouchableOpacity>
-    </KeyboardAvoidingView>
-  )
+			<TouchableOpacity
+				onPress={() => handleModalEntreprise()}
+				style={styles.button}
+				activeOpacity={0.8}
+			>
+				<Text style={styles.textButton}>Entreprises</Text>
+			</TouchableOpacity>
+		</KeyboardAvoidingView>
+	);
 }
 
-
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    width: '80%',
-    fontSize: 38,
-    fontWeight: '600',
-  },
-  button: {
-    alignItems: 'center',
-    paddingTop: 8,
-    width: '80%',
-    marginTop: 30,
-    backgroundColor: '#ec6e5b',
-    borderRadius: 10,
-    marginBottom: 80,
-  },
-  textButton: {
-    color: '#ffffff',
-    height: 30,
-    fontWeight: '600',
-    fontSize: 16,
-  },
-  modalContainer: {
-    flex: 1,
-    backgroundColor: '#001234',
-    color: '#ffffff',
-
-  }
+	container: {
+		flex: 1,
+		backgroundColor: "#ffffff",
+		alignItems: "center",
+		justifyContent: "space-around",
+	},
+	title: {
+		width: "100%",
+		fontSize: 30,
+		fontWeight: "600",
+	},
+	echo: {
+		color: "#0CA789",
+	},
+	button: {
+		alignItems: "center",
+		paddingTop: 15,
+		width: "80%",
+		marginTop: 30,
+		backgroundColor: "#0CA789",
+		borderRadius: 10,
+		marginBottom: 50,
+	},
+	textButton: {
+		color: "#ffffff",
+		height: 30,
+		fontWeight: "600",
+		fontSize: 16,
+	},
 });
