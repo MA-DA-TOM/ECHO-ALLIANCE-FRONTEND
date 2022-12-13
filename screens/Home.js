@@ -40,64 +40,179 @@ export default function Home() {
 				</Text>
 			</View>
 			<Modal visible={modalBénévole} animationType="fade" transparent>
-				<View className={styles.modalContainer}>
+				<View style={styles.modalContainer}>
 					<FontAwesome
 						name="rotate-right"
 						size={25}
 						color="#ffffff"
 						onPress={() => handleModalBénévol()}
 					/>
-					<Text>Bénévole</Text>
-					<Text>
-						TEXTE A REMPLIR POUR EXPLIQUER DES TRUCS SUR LES
-						BENEVOLES
+					<TouchableOpacity
+						style={styles.crossContainer}
+						onPress={() => handleModalBénévol()}
+					>
+						<Image
+							style={styles.cross}
+							source={require("../assets/logo-cross.png")}
+						/>
+					</TouchableOpacity>
+					<Text style={styles.title2}>
+						<Text style={styles.benevole}>Bénévoles</Text>
 					</Text>
-					<TouchableOpacity>connection</TouchableOpacity>
-					<TouchableOpacity>inscription</TouchableOpacity>
+					<View style={styles.texte}>
+						<Text>
+							Lorem ipsum dolor sit amet, consectetur adipiscing
+							elit. Sed non risus. Suspendisse lectus tortor,
+							dignissim sit amet, adipiscing nec, ultricies sed,
+							dolor. Cras elementum ultrices diam. Maecenas ligula
+							massa, varius a, semper congue, euismod non, mi.
+							Proin porttitor, orci nec nonummy molestie, enim est
+							eleifend mi, non fermentum diam nisl sit amet erat.
+							Duis semper. Duis arcu massa, scelerisque vitae,
+							consequat in, pretium a, enim. Pellentesque congue.
+							Ut in risus volutpat libero pharetra tempor. Cras
+							vestibulum bibendum augue. Praesent egestas leo in
+							pede. Praesent blandit odio eu enim. Pellentesque
+							sed dui ut augue blandit sodales. Vestibulum ante
+							ipsum primis in faucibus orci luctus et ultrices
+							posuere cubilia Curae; Aliquam nibh. Mauris ac
+							mauris sed pede pellentesque fermentum. Maecenas
+							adipiscing ante non diam sodales hendrerit.
+						</Text>
+					</View>
+					<View style={styles.boutons3}>
+						<TouchableOpacity style={styles.buttonC}>
+							<Text style={styles.textButton}>Charte</Text>
+						</TouchableOpacity>
+						<View style={styles.divboutons}>
+							<TouchableOpacity style={styles.ICbutton}>
+								<Text style={styles.textButton}>
+									Inscription
+								</Text>
+							</TouchableOpacity>
+							<TouchableOpacity style={styles.ICbutton}>
+								<Text style={styles.textButton}>Connexion</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
 				</View>
 			</Modal>
 
 			<Modal visible={modalAssociation} animationType="fade" transparent>
-				<View className={styles.modalContainer}>
+				<View style={styles.modalContainer}>
 					<FontAwesome
 						name="rotate-right"
 						size={25}
 						color="#ffffff"
 						onPress={() => handleModalAssociation()}
 					/>
-					<Text>Association</Text>
-					<Text>
-						TEXTE A REMPLIR POUR EXPLIQUER DES TRUCS SUR LES
-						ASSOCIATIONS
+					<TouchableOpacity
+						style={styles.crossContainer}
+						onPress={() => handleModalAssociation()}
+					>
+						<Image
+							style={styles.cross}
+							source={require("../assets/logo-cross.png")}
+						/>
+					</TouchableOpacity>
+					<Text style={styles.title2}>
+						<Text style={styles.benevole}>Associations</Text>
 					</Text>
-					<TouchableOpacity>
-						<Text>connection</Text>
-					</TouchableOpacity>
-					<TouchableOpacity>
-						<Text>inscription</Text>
-					</TouchableOpacity>
+					<View style={styles.texte}>
+						<Text>
+							Lorem ipsum dolor sit amet, consectetur adipiscing
+							elit. Sed non risus. Suspendisse lectus tortor,
+							dignissim sit amet, adipiscing nec, ultricies sed,
+							dolor. Cras elementum ultrices diam. Maecenas ligula
+							massa, varius a, semper congue, euismod non, mi.
+							Proin porttitor, orci nec nonummy molestie, enim est
+							eleifend mi, non fermentum diam nisl sit amet erat.
+							Duis semper. Duis arcu massa, scelerisque vitae,
+							consequat in, pretium a, enim. Pellentesque congue.
+							Ut in risus volutpat libero pharetra tempor. Cras
+							vestibulum bibendum augue. Praesent egestas leo in
+							pede. Praesent blandit odio eu enim. Pellentesque
+							sed dui ut augue blandit sodales. Vestibulum ante
+							ipsum primis in faucibus orci luctus et ultrices
+							posuere cubilia Curae; Aliquam nibh. Mauris ac
+							mauris sed pede pellentesque fermentum. Maecenas
+							adipiscing ante non diam sodales hendrerit.
+						</Text>
+					</View>
+					<View style={styles.boutons3}>
+						<TouchableOpacity style={styles.buttonC}>
+							<Text style={styles.textButton}>Charte</Text>
+						</TouchableOpacity>
+						<View style={styles.divboutons}>
+							<TouchableOpacity style={styles.ICbutton}>
+								<Text style={styles.textButton}>
+									Inscription
+								</Text>
+							</TouchableOpacity>
+							<TouchableOpacity style={styles.ICbutton}>
+								<Text style={styles.textButton}>Connexion</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
 				</View>
 			</Modal>
 
 			<Modal visible={modalEntreprise} animationType="fade" transparent>
-				<View className={styles.modalContainer}>
+				<View style={styles.modalContainer}>
 					<FontAwesome
 						name="rotate-right"
 						size={25}
 						color="#ffffff"
 						onPress={() => handleModalEntreprise()}
 					/>
-					<Text>Entreprise</Text>
-					<Text>
-						TEXTE A REMPLIR POUR EXPLIQUER DES TRUCS SUR LES
-						ENTREPRISES{" "}
+					<TouchableOpacity
+						style={styles.crossContainer}
+						onPress={() => handleModalEntreprise()}
+					>
+						<Image
+							style={styles.cross}
+							source={require("../assets/logo-cross.png")}
+						/>
+					</TouchableOpacity>
+					<Text style={styles.title2}>
+						<Text style={styles.benevole}>Entreprises</Text>
 					</Text>
-					<TouchableOpacity>
-						<Text>connection</Text>
-					</TouchableOpacity>
-					<TouchableOpacity>
-						<Text>inscription</Text>
-					</TouchableOpacity>
+					<View style={styles.texte}>
+						<Text>
+							Lorem ipsum dolor sit amet, consectetur adipiscing
+							elit. Sed non risus. Suspendisse lectus tortor,
+							dignissim sit amet, adipiscing nec, ultricies sed,
+							dolor. Cras elementum ultrices diam. Maecenas ligula
+							massa, varius a, semper congue, euismod non, mi.
+							Proin porttitor, orci nec nonummy molestie, enim est
+							eleifend mi, non fermentum diam nisl sit amet erat.
+							Duis semper. Duis arcu massa, scelerisque vitae,
+							consequat in, pretium a, enim. Pellentesque congue.
+							Ut in risus volutpat libero pharetra tempor. Cras
+							vestibulum bibendum augue. Praesent egestas leo in
+							pede. Praesent blandit odio eu enim. Pellentesque
+							sed dui ut augue blandit sodales. Vestibulum ante
+							ipsum primis in faucibus orci luctus et ultrices
+							posuere cubilia Curae; Aliquam nibh. Mauris ac
+							mauris sed pede pellentesque fermentum. Maecenas
+							adipiscing ante non diam sodales hendrerit.
+						</Text>
+					</View>
+					<View style={styles.boutons3}>
+						<TouchableOpacity style={styles.buttonC}>
+							<Text style={styles.textButton}>Charte</Text>
+						</TouchableOpacity>
+						<View style={styles.divboutons}>
+							<TouchableOpacity style={styles.ICbutton}>
+								<Text style={styles.textButton}>
+									Inscription
+								</Text>
+							</TouchableOpacity>
+							<TouchableOpacity style={styles.ICbutton}>
+								<Text style={styles.textButton}>Connexion</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
 				</View>
 			</Modal>
 
@@ -139,6 +254,7 @@ const styles = StyleSheet.create({
 		width: "100%",
 		fontSize: 30,
 		fontWeight: "600",
+		alignItems: "center",
 	},
 	echo: {
 		color: "#0CA789",
@@ -147,15 +263,64 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		paddingTop: 15,
 		width: "80%",
-		marginTop: 30,
 		backgroundColor: "#0CA789",
 		borderRadius: 10,
-		marginBottom: 50,
+	},
+	ICbutton: {
+		alignItems: "center",
+		paddingTop: 15,
+		width: "49%",
+		backgroundColor: "#0CA789",
+		borderRadius: 10,
+		marginBottom: 30,
 	},
 	textButton: {
 		color: "#ffffff",
 		height: 30,
 		fontWeight: "600",
 		fontSize: 16,
+	},
+
+	modalContainer: {
+		flex: 1,
+		backgroundColor: "#ffffff",
+		alignItems: "center",
+		justifyContent: "space-between",
+	},
+
+	divboutons: {
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-around",
+		width: "80%",
+		borderRadius: 10,
+	},
+	buttonC: {
+		alignItems: "center",
+		backgroundColor: "#0CA789",
+		borderRadius: 10,
+		paddingTop: 15,
+		marginBottom: 5,
+	},
+	buttons: {
+		alignItems: "center",
+		paddingTop: 15,
+		backgroundColor: "#0CA789",
+		borderRadius: 10,
+	},
+	benevole: {
+		color: "#0CA789",
+		width: "100%",
+		fontSize: 30,
+		fontWeight: "600",
+		alignItems: "center",
+	},
+	texte: { margin: 5 },
+	cross: {
+		height: 30,
+		width: 30,
+		alignItems: "flex-end",
+		justifyContent: "flex-end",
+		marginLeft: 300,
 	},
 });
