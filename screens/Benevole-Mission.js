@@ -37,7 +37,7 @@ export default function BenevoleMission({ navigation }) {
 			</View>
 
 			<TouchableOpacity
-				onPress={() => navigation.navigate("TabNavigator")}
+				onPress={() => navigation.navigate("BenevoleSearch")}
 				style={styles.button}
 				activeOpacity={0.8}
 			>
