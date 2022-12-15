@@ -1,0 +1,15 @@
+[
+    { "nameAssociation": "SDF Asso", "date": "30/01/2023", "adresse": "56 Rue Aldona, 33400 Talence, France", "coordinates": { "latitude": 44.79873636799764, "longitude": -0.5874810550146314 } },
+
+    { "nameAssociation": "SPORT Asso", "date": "31/01/2023", "adresse": "146 Rue Stéhélin, 33200 Bordeaux, France", "coordinates": { "latitude": 44.856995219354715, "longitude": -0.6325868834126513 } },
+
+    { "nameAssociation": "SPORT Asso", "date": "30/01/2023", "adresse": "60 Rue du Sablonat, 33800 Bordeaux, France", "coordinates": { "latitude": 44.817962861408155, "longitude": -0.5750093973930537 } },
+
+    { "nameAssociation": "ECO Asso", "date": "04/02/2023", "adresse": "93 Quai du Président Wilson, 33130 Bègles, France", "coordinates": { "latitude": 44.815483870081046, "longitude": -0.5319821785986134 } },
+
+    { "nameAssociation": "ECO Asso", "date": "24/01/2023", "adresse": "14 Rue Surcouf, 33700 Mérignac, France", "coordinates": { "latitude": 44.81347479521144, "longitude": -0.6542044232900035 } },
+
+    { "nameAssociation": "ECO Asso", "date": "30/02/2023", "adresse": "44 Rue Permentade, 33000 Bordeaux, France", "coordinates": { "latitude": 44.83252132827287, "longitude": -0.5687735685822148 } },
+
+    { "nameAssociation": "ECO Asso", "date": "15/01/2023", "adresse": "25 Rue Auguste Mérillon, 33000 Bordeaux, France", "coordinates": { "latitude": 44.826799736498266, "longitude": -0.5881046378956434 } }
+]

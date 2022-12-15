@@ -1,104 +1,225 @@
-import { View, StyleSheet, Modal, TextInput, TouchableOpacity, Text, onPress } from 'react-native';
+import { View, StyleSheet, Modal, TextInput, TouchableOpacity, Text, onPress, SafeAreaView } from 'react-native';
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
 import { useEffect, useState } from 'react';
 import { Marker } from 'react-native-maps';
+import { getDistance, getPreciseDistance } from 'geolib';
+import dataEvent from '../data/dataEvent.json';
+import dataEntreprise from '../data/dataEntreprise.json';
+import dataAssociation from '../data/dataAssociation.json';
+import Checkbox from 'expo-checkbox';
+import Slider from '@react-native-community/slider';
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 
-const eventsData = [
-	{ "nameAssociation": "SDF Asso", "date": "30/01/2023", "adresse": "56 Rue Aldona, 33400 Talence, France", "coordinates": { "latitude": 44.79873636799764, "longitude": -0.5874810550146314 } },
-
-	{ "nameAssociation": "SPORT Asso", "date": "31/01/2023", "adresse": "146 Rue Stéhélin, 33200 Bordeaux, France", "coordinates": { "latitude": 44.856995219354715, "longitude": -0.6325868834126513 } },
-
-	{ "nameAssociation": "SPORT Asso", "date": "30/01/2023", "adresse": "60 Rue du Sablonat, 33800 Bordeaux, France", "coordinates": { "latitude": 44.817962861408155, "longitude": -0.5750093973930537 } },
-
-	{ "nameAssociation": "ECO Asso", "date": "04/02/2023", "adresse": "93 Quai du Président Wilson, 33130 Bègles, France", "coordinates": { "latitude": 44.815483870081046, "longitude": -0.5319821785986134 } },
-
-	{ "nameAssociation": "ECO Asso", "date": "24/01/2023", "adresse": "14 Rue Surcouf, 33700 Mérignac, France", "coordinates": { "latitude": 44.81347479521144, "longitude": -0.6542044232900035 } },
-
-	{ "nameAssociation": "ECO Asso", "date": "30/02/2023", "adresse": "44 Rue Permentade, 33000 Bordeaux, France", "coordinates": { "latitude": 44.83252132827287, "longitude": -0.5687735685822148 } },
-
-	{ "nameAssociation": "ECO Asso", "date": "15/01/2023", "adresse": "25 Rue Auguste Mérillon, 33000 Bordeaux, France", "coordinates": { "latitude": 44.826799736498266, "longitude": -0.5881046378956434 } },
-]
-
-const associationsData = [
-	{ "name": "ECO Asso", "adresse": "56 bis Rue Amédée Saint-Germain, 33800 Bordeaux, France", "coordinates": { "latitude": 44.83703554891115, "longitude": -0.5479874725464184 } },
-
-	{ "name": "SPORT Asso", "adresse": "47 Rue de Lorraine, 33400 Talence, France", "coordinates": { "latitude": 44.82213481905809, "longitude": -0.5913061628141958 } },
-
-	{ "name": "SDF Asso", "adresse": "69 Rue Frédéric Bentayoux, 33300 Bordeaux, France", "coordinates": { "latitude": 44.85727856040841, "longitude": -0.5788635625082716 } }
-]
-
-const entreprisesData = [
-	{ "name": "Boulangerie Bensmaini", "profession": "Boulanger", "adresse": "30 Rue Charles Tournemire, 33300 Bordeaux", "coordinates": { "latitude": 44.873600006103516, "longitude": -0.5714890360832214 } },
-
-	{ "name": "E.LECLERC", "profession": "Supermarché", "adresse": "155 Cr Saint-Louis, 33300 Bordeaux", "coordinates": { "latitude": 44.8404, "longitude": -0.5805 } },
-
-	{ "name": "La Comtesse", "profession": "Bar", "adresse": "25 Rue Parlement Saint-Pierre, 33000 Bordeaux", "coordinates": { "latitude": 44.8403895, "longitude": -0.5715296 } }
-]
 
 
 export default function MapScreen() {
 
 
+	const eventsData = dataEvent;
+	const associationsData = dataAssociation;
+	const entreprisesData = dataEntreprise;
+
+	const [sliderValue, setSliderValue] = useState()
+
+	const rayon = () => {
+		const result = Math.round(sliderValue * 1) / 1
+		if (sliderValue >= 101) {
+			return "+100km"
+		}
+		else {
+			return `${result} km`
+		}
+	}
+
+
+
+	const [showsUserLocation, setShowsUserLocation] = useState(false)
 	const [currentPosition, setCurrentPosition] = useState(null)
 	useEffect(() => {
 		(async () => {
 			const { status } = await Location.requestForegroundPermissionsAsync();
-
 			if (status === 'granted') {
 				Location.watchPositionAsync({ distanceInterval: 10 },
 					(location) => {
-						setCurrentPosition(location.coords);
+						setShowsUserLocation(true)
+						setCurrentPosition(location.coords)
 					});
 			}
 		})();
 	}, []);
 
-	//Calcul de la distance de l'individu avec tous les autres composants
-	const calculatePreciseDistance = () => {
-		var pdis = getPreciseDistance(
-			{ latitude: currentPosition.latitude, longitude: currentPosition.longitude },
-			{ latitude: data.coordinates.latitude, longitude: data.coordinates.longitude },
-		);
-		let total = Math.round(pdis / 1000)
-		return total.toString()
-	};
+
+	const [isAssociationSelected, setIsAssociationSelected] = useState(true);
 
 
 	//Markers des assos, events et entreprises
 	const associations = associationsData.map((data, i) => {
-		return (
-			<Marker key={i} coordinate={data.coordinates} pinColor="#292FFE" title={data.name} description={calculatePreciseDistance() + data.adresse} >
-			</Marker>
-		)
+
+		const calculatePreciseDistance = () => {
+			if (currentPosition) {
+				var pdis = getPreciseDistance(
+					{ latitude: currentPosition.latitude, longitude: currentPosition.longitude },
+					{ latitude: data.coordinates.latitude, longitude: data.coordinates.longitude },
+				);
+				let total = Math.round(pdis / 1000)
+				return total
+			}
+		};
+		const opacity = calculatePreciseDistance() > sliderValue ? 0 : 1
+		if (isAssociationSelected && opacity === 1) {
+			
+			return (
+				<Marker key={i} opacity={opacity} coordinate={data.coordinates} pinColor="red" title={data.name} >
+				</Marker>
+			)
+		}
 	})
 
+
+	const [isEventsSelected, setIsEventsSelected] = useState(true);
 	const events = eventsData.map((data, i) => {
-		return (
-			<Marker key={i} coordinate={data.coordinates} pinColor="#fecb2d" title={data.nameAssociation} description={calculatePreciseDistance() + data.adresse} >
-			</Marker>
-		)
+		const calculatePreciseDistance = () => {
+			if (currentPosition) {
+				var pdis = getPreciseDistance(
+					{ latitude: currentPosition.latitude, longitude: currentPosition.longitude },
+					{ latitude: data.coordinates.latitude, longitude: data.coordinates.longitude },
+				);
+				let total = Math.round(pdis / 1000)
+				return total
+			}
+		};
+		const opacity = calculatePreciseDistance() > sliderValue ? 0 : 1
+
+		if (isEventsSelected && opacity === 1) {
+			return (
+				<Marker key={i} coordinate={data.coordinates} pinColor="orange" title={data.nameAssociation}>
+				</Marker>
+			)
+		}
 	}
 	)
 
+	const [isEntreprisesSelected, setIsEntreprisesSelected] = useState(true);
 	const entreprises = entreprisesData.map((data, i) => {
-		return (
-			<Marker key={i} coordinate={data.coordinates} pinColor="#F7200F" title={data.name + data.profession} description={calculatePreciseDistance() + data.adresse} >
-			</Marker>
-		)
+		const calculatePreciseDistance = () => {
+			if (currentPosition) {
+				var pdis = getPreciseDistance(
+					{ latitude: currentPosition.latitude, longitude: currentPosition.longitude },
+					{ latitude: data.coordinates.latitude, longitude: data.coordinates.longitude },
+				);
+				let total = Math.round(pdis / 1000)
+				return total
+			}
+		};
+		const opacity = calculatePreciseDistance() > sliderValue ? 0 : 1
+
+		if (isEntreprisesSelected && opacity === 1) {
+			return (
+				<Marker key={i} coordinate={data.coordinates} pinColor="blue" title={data.name && data.profession}  >
+				</Marker>
+			)
+		}
 	})
 
-
-	const places = entreprises + events + associations
-
 	return (
-		<View style={{ flex: 1 }}>
+		<SafeAreaView style={{ flex: 1 }}>
 
-			<MapView mapType="hybrid" style={{ flex: 1 }}>
-				{currentPosition && places}
+			<View style={styles.filter}>
+				<View style={styles.checkboxContainer}>
+					<Checkbox
+						value={isAssociationSelected}
+						onValueChange={setIsAssociationSelected}
+						style={styles.checkbox}
+					/>
+					<Text style={styles.label}>Associations</Text>
 
+					<Checkbox
+						value={isEntreprisesSelected}
+						onValueChange={setIsEntreprisesSelected}
+						style={styles.checkbox}
+					/>
+					<Text style={styles.label}>Entreprises</Text>
+
+					<Checkbox
+						value={isEventsSelected}
+						onValueChange={setIsEventsSelected}
+						style={styles.checkbox}
+					/>
+					<Text style={styles.label}>Evénements</Text>
+				</View>
+
+				<View
+					style={styles.slider}
+				>
+					<Slider
+						style={{ width: 200, height: 40 }}
+						step={5}
+						minimumValue={5}
+						maximumValue={101}
+						minimumTrackTintColor="#FFFFFF"
+						maximumTrackTintColor="#000000"
+						value={sliderValue}
+						onValueChange={(value) => { setSliderValue(value) }}
+					/>
+					<Text style={styles.label}> RAYON: {rayon()} autour de moi </Text>
+				</View>
+				{/* 
+				<View style={styles.checkboxContainer}>
+					<Checkbox
+						value={isManualPosition}
+						onValueChange={setIsManualPosition}
+						style={styles.checkbox}
+					/>
+					<Text style={styles.label}>Définir ma position manuellement</Text>
+					{textPosition()}
+				</View> */}
+			</View>
+
+			<MapView mapType="terrain" style={{ flex: 1 }} showsUserLocation={showsUserLocation}>
+
+				{entreprises}
+				{associations}
+				{events}
 			</MapView>
-		</View>
+
+		</SafeAreaView >
 	);
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	filter: {
+		backgroundColor: "#0CA789",
+
+	},
+	checkboxContainer: {
+		flexDirection: "row",
+		marginBottom: 20,
+		alignItems: "center",
+	},
+	checkbox: {
+		alignSelf: "center",
+		color: '#ffffff',
+		backgroundColor: '#ffffff'
+	},
+	label: {
+		margin: 8,
+		color: '#ffffff',
+		fontWeight: 'bold',
+	},
+	slider: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	modalMarker: {
+		flex: 1,
+		backgroundColor:'#ffffff'
+	}
+});

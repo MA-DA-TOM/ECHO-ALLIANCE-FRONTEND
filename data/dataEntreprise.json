@@ -1,0 +1,7 @@
+[
+    { "name": "Boulangerie Bensmaini", "profession": "Boulanger", "adresse": "30 Rue Charles Tournemire, 33300 Bordeaux", "coordinates": { "latitude": 44.873600006103516, "longitude": -0.5714890360832214 } },
+
+    { "name": "E.LECLERC", "profession": "Supermarché", "adresse": "155 Cr Saint-Louis, 33300 Bordeaux", "coordinates": { "latitude": 44.8404, "longitude": -0.5805 } },
+
+    { "name": "La Comtesse", "profession": "Bar", "adresse": "25 Rue Parlement Saint-Pierre, 33000 Bordeaux", "coordinates": { "latitude": 44.8403895, "longitude": -0.5715296 } }
+]
