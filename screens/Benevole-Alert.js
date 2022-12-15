@@ -48,7 +48,7 @@ export default function BenevoleAlert({ navigation }) {
 				/>
 			</View>
 			<TouchableOpacity
-				onPress={() => navigation.navigate("TabNavigator")}
+				onPress={() => navigation.navigate("BenevoleProfil")}
 				style={styles.button}
 				activeOpacity={0.8}
 			>
