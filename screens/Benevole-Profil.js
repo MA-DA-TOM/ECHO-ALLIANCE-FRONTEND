@@ -17,9 +17,9 @@ export default function BenevoleProfil({ navigation }) {
 			behavior={Platform.OS === "ios" ? "padding" : "height"}
 		>
 			<View style={styles.container1}>
-				<Text style={styles.date}>Date:</Text>
+				<Text style={styles.txt}>Date:</Text>
 				<View style={styles.card1}>
-					<Text style={styles.profile}>Profil</Text>
+					<Text style={styles.txt}>Profil</Text>
 					<Image
 						style={styles.profileimage}
 						source={require("../assets/logo-profile.png")}
@@ -38,13 +38,13 @@ export default function BenevoleProfil({ navigation }) {
 				</View>
 			</View>
 			<View style={styles.container2}>
-				<Text style={styles.nom}>Nom:</Text>
-				<Text style={styles.prenom}>Prenom:</Text>
-				<Text style={styles.age}>Age:</Text>
+				<Text style={styles.txt}>Nom:</Text>
+				<Text style={styles.txt}>Prenom:</Text>
+				<Text style={styles.txt}>Age:</Text>
 			</View>
 			<View style={styles.container3}>
-				<Text style={styles.ID}>ID:</Text>
-				<Text style={styles.rang}>Rang:</Text>
+				<Text style={styles.txt}>ID:</Text>
+				<Text style={styles.txt}>Rang:</Text>
 			</View>
 			<View style={styles.container4}>
 				<Text style={styles.pmission}>Prochaines missions</Text>
@@ -112,9 +112,6 @@ const styles = StyleSheet.create({
 		flexWrap: "wrap",
 		marginLeft: "5%",
 	},
-	date: {
-		fontWeight: "bold",
-	},
 	profileimage: {
 		height: 60,
 		width: 60,
@@ -148,28 +145,16 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderRadius: 100,
 	},
-	profile: { fontWeight: "bold" },
-
-	nom: {
+	txt: {
 		fontWeight: "bold",
-	},
-	prenom: {
-		fontWeight: "bold",
-	},
-	age: {
-		fontWeight: "bold",
-	},
-	ID: {
-		fontWeight: "bold",
-	},
-	rang: {
-		fontWeight: "bold",
+		color: "#0CA789",
+		textDecorationLine: "underline",
 	},
 	pmission: {
 		fontWeight: "bold",
 		color: "#0CA789",
 		fontWeight: "bold",
 		textDecorationLine: "underline",
-		fontSize: 20,
+		fontSize: 25,
 	},
 });

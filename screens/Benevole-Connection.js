@@ -99,6 +99,9 @@ const styles = StyleSheet.create({
 		height: 30,
 		fontWeight: "600",
 		fontSize: 16,
+		textShadowColor: "#000000",
+		textShadowOffset: { width: 0, height: 2 },
+		textShadowRadius: 5,
 	},
 
 	email: {

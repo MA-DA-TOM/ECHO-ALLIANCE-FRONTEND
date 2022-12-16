@@ -54,7 +54,7 @@ export default function AssociationMenu({ navigation }) {
 			</View>
 
 			<TouchableOpacity
-				onPress={() => navigation.navigate("TabNavigator")}
+				onPress={() => navigation.navigate("Home")}
 				style={styles.button}
 				activeOpacity={0.8}
 			>

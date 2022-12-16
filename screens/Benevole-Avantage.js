@@ -114,7 +114,6 @@ const styles = StyleSheet.create({
 	txt: {
 		fontWeight: "bold",
 		color: "#0CA789",
-		fontWeight: "bold",
 		textDecorationLine: "underline",
 		fontSize: 15,
 	},

@@ -8,7 +8,7 @@ import {
 	View,
 } from "react-native";
 
-export default function EntrepriseMenu({ navigation }) {
+export default function AssociationMenu({ navigation }) {
 	return (
 		<KeyboardAvoidingView
 			style={styles.container}
@@ -21,16 +21,25 @@ export default function EntrepriseMenu({ navigation }) {
 				<View style={styles.card1}>
 					<TouchableOpacity
 						style={styles.buttonOpacity}
-						onPress={() => navigation.navigate("BenevoleProfil")}
+						onPress={() => navigation.navigate("EntrepriseProfil")}
 					>
-						<Text style={styles.profiletext}>Profile</Text>
+						<Text style={styles.entreprisetext}>Entreprise</Text>
 						<Image
-							style={styles.profileimage}
+							style={styles.entrepriseimage}
 							source={require("../assets/logo-profile.png")}
 						/>
 					</TouchableOpacity>
 				</View>
-				<View style={styles.card1}>
+
+				<View style={styles.card2}>
+					<TouchableOpacity
+						style={styles.buttonOpacity}
+						onPress={() => navigation.navigate("EntreprisePaliers")}
+					>
+						<Text style={styles.paliers}>Paliers</Text>
+					</TouchableOpacity>
+				</View>
+				<View style={styles.card3}>
 					<TouchableOpacity
 						style={styles.buttonOpacity}
 						onPress={() => navigation.navigate("BenevoleMap")}
@@ -42,26 +51,15 @@ export default function EntrepriseMenu({ navigation }) {
 						/>
 					</TouchableOpacity>
 				</View>
-
-				<View style={styles.card2}>
-					<TouchableOpacity
-						style={styles.buttonOpacity}
-						onPress={() => navigation.navigate("BenevoleSearch")}
-					>
-						<Text style={styles.evenements}>Evenements</Text>
-					</TouchableOpacity>
-				</View>
 			</View>
+
 			<TouchableOpacity
-				onPress={() => navigation.navigate("TabNavigator")}
+				onPress={() => navigation.navigate("Home")}
 				style={styles.button}
 				activeOpacity={0.8}
 			>
 				<Text style={styles.textButton}>Deconnexion</Text>
 			</TouchableOpacity>
-			<View style={styles.footer}>
-				<Text style={styles.privacy}>Privacy</Text>
-			</View>
 		</KeyboardAvoidingView>
 	);
 }
@@ -95,12 +93,24 @@ const styles = StyleSheet.create({
 		width: "80%",
 		backgroundColor: "#0CA789",
 		borderRadius: 10,
+		borderWidth: 1,
+		shadowOffset: {
+			width: -10,
+			height: 12,
+		},
+		shadowOpacity: 0.58,
+		shadowRadius: 16.0,
+
+		elevation: 25,
 	},
 	textButton: {
 		color: "#ffffff",
 		height: 30,
 		fontWeight: "600",
 		fontSize: 16,
+		textShadowColor: "#000000",
+		textShadowOffset: { width: 0, height: 2 },
+		textShadowRadius: 5,
 	},
 	subcontainer: {
 		justifyContent: "center",
@@ -109,7 +119,7 @@ const styles = StyleSheet.create({
 	},
 	card1: {
 		height: 160,
-		width: 160,
+		width: 330,
 		backgroundColor: "#ffffff",
 		margin: 5,
 		alignItems: "center",
@@ -120,17 +130,21 @@ const styles = StyleSheet.create({
 		width: 160,
 		backgroundColor: "#8BE38E",
 		margin: 5,
-		justifyContent: "center",
-		alignItems: "center",
 		borderWidth: 1,
 	},
-	profile: { fontWeight: "bold" },
-	profileimage: {
+	card3: {
+		height: 160,
+		width: 160,
+		backgroundColor: "#ffffff",
+		margin: 5,
+		borderWidth: 1,
+	},
+	entrepriseimage: {
 		height: 60,
 		width: 60,
 		marginTop: 30,
 	},
-	profiletext: {
+	entreprisetext: {
 		fontWeight: "bold",
 	},
 	map: { fontWeight: "bold" },
@@ -140,7 +154,5 @@ const styles = StyleSheet.create({
 		marginTop: 30,
 	},
 	avantages: { color: "#ffffff", fontWeight: "bold" },
-	evenements: { color: "#ffffff", fontWeight: "bold" },
-	footer: { marginRight: 300 },
-	privacy: { fontWeight: "bold", color: "#0CA789" },
+	paliers: { color: "#ffffff", fontWeight: "bold" },
 });
