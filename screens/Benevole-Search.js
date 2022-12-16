@@ -119,6 +119,7 @@ export default function BenevoleSearch({ navigation }) {
 				return total;
 			}
 		};
+
 		return (
 			<View style={styles.container2} key={i}>
 				<Text>
