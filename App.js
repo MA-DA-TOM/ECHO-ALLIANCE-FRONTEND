@@ -95,8 +95,9 @@ export default function App() {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator screenOptions={{ headerShown: true }}>
-				<Stack.Screen name="BenevoleMenu" component={BenevoleMenu} />
 				<Stack.Screen name="Home" component={Home} />
+				<Stack.Screen name="BenevoleMenu" component={BenevoleMenu} />
+
 				<Stack.Screen name="TabNavigator" component={TabNavigator} />
 				<Stack.Screen
 					name="BenevoleProfil"

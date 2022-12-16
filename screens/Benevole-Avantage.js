@@ -14,9 +14,6 @@ export default function BenevoleAvantage({ navigation }) {
 			style={styles.container}
 			behavior={Platform.OS === "ios" ? "padding" : "height"}
 		>
-			<View style={styles.container1}>
-				<Text style={styles.title}>Avantages</Text>
-			</View>
 			<View style={styles.container2}>
 				<FlatList
 					data={[
@@ -80,16 +77,6 @@ const styles = StyleSheet.create({
 		width: 30,
 	},
 
-	container1: {
-		alignItems: "center",
-	},
-	title: {
-		fontSize: 30,
-		fontWeight: "600",
-		color: "#0CA789",
-		fontWeight: "bold",
-		textDecorationLine: "underline",
-	},
 	container2: {
 		marginLeft: "5%",
 	},

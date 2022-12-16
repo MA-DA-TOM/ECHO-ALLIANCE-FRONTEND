@@ -13,9 +13,6 @@ export default function BenevoleMission({ navigation }) {
 			style={styles.container}
 			behavior={Platform.OS === "ios" ? "padding" : "height"}
 		>
-			<View style={styles.container0}>
-				<Text style={styles.association}>Association</Text>
-			</View>
 			<View style={styles.container1}>
 				<Text style={styles.nom}>Nom:</Text>
 			</View>
@@ -60,16 +57,7 @@ const styles = StyleSheet.create({
 		height: 30,
 		width: 30,
 	},
-	container0: {
-		alignItems: "center",
-	},
-	title: {
-		fontSize: 30,
-		fontWeight: "600",
-		color: "#0CA789",
-		fontWeight: "bold",
-		textDecorationLine: "underline",
-	},
+
 	container1: {
 		marginLeft: "5%",
 	},
@@ -79,25 +67,17 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		height: 160,
 		width: 160,
-		marginLeft: 105,
+		marginLeft: 120,
 	},
 	container3: {
 		alignItems: "center",
 		justifyContent: "center",
 		borderWidth: 1,
 		height: 160,
-		width: 365,
-		margin: 5,
+		width: 380,
+		marginLeft: 6,
 	},
 
-	button: {
-		alignItems: "center",
-		paddingTop: 8,
-		width: "80%",
-		backgroundColor: "#0CA789",
-		borderRadius: 10,
-		marginLeft: "10%",
-	},
 	textButton: {
 		color: "#ffffff",
 		height: 30,

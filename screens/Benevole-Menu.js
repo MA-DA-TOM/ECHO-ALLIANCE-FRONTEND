@@ -60,7 +60,7 @@ export default function BenevoleMenu({ navigation }) {
 				</View>
 			</View>
 			<TouchableOpacity
-				onPress={() => navigation.navigate("TabNavigator")}
+				onPress={() => navigation.navigate("Home")}
 				style={styles.button}
 				activeOpacity={0.8}
 			>
@@ -102,6 +102,15 @@ const styles = StyleSheet.create({
 		width: "80%",
 		backgroundColor: "#0CA789",
 		borderRadius: 10,
+		borderWidth: 1,
+		shadowOffset: {
+			width: -10,
+			height: 12,
+		},
+		shadowOpacity: 0.58,
+		shadowRadius: 16.0,
+
+		elevation: 25,
 	},
 	textButton: {
 		color: "#ffffff",

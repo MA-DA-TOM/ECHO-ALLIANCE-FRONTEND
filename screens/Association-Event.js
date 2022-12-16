@@ -28,9 +28,6 @@ export default function AssociationEvent({ navigation }) {
 			style={styles.container}
 			behavior={Platform.OS === "ios" ? "padding" : "height"}
 		>
-			<View style={styles.container1}>
-				<Text style={styles.title}>Evenement</Text>
-			</View>
 			<View style={styles.container2}>
 				<View style={styles.container21}>
 					<Text style={styles.txt}>Rajouter un event:</Text>
@@ -118,6 +115,19 @@ export default function AssociationEvent({ navigation }) {
 					</View>
 				</View>
 			</Modal>
+			<View style={styles.container4}>
+				<TouchableOpacity
+					style={styles.buttonOpacity}
+					onPress={() =>
+						navigation.navigate("AssociationEventSubscriptions")
+					}
+				>
+					<Image
+						style={styles.profile}
+						source={require("../assets/logo-profile.png")}
+					/>
+				</TouchableOpacity>
+			</View>
 		</KeyboardAvoidingView>
 	);
 }
@@ -140,16 +150,6 @@ const styles = StyleSheet.create({
 		width: 30,
 	},
 
-	container1: {
-		alignItems: "center",
-	},
-	title: {
-		fontSize: 30,
-		fontWeight: "600",
-		color: "#0CA789",
-		fontWeight: "bold",
-		textDecorationLine: "underline",
-	},
 	container2: {
 		flexDirection: "row",
 		flexWrap: "wrap",
@@ -204,4 +204,5 @@ const styles = StyleSheet.create({
 	add: { height: 20, width: 20, marginLeft: 10 },
 	newModal: { flex: 1, marginTop: 50 },
 	newModal2: { flex: 1, alignItems: "center", marginBottom: 150 },
+	profile: { height: 20, width: 20, marginLeft: 10 },
 });

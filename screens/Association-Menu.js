@@ -93,12 +93,24 @@ const styles = StyleSheet.create({
 		width: "80%",
 		backgroundColor: "#0CA789",
 		borderRadius: 10,
+		borderWidth: 1,
+		shadowOffset: {
+			width: -10,
+			height: 12,
+		},
+		shadowOpacity: 0.58,
+		shadowRadius: 16.0,
+
+		elevation: 25,
 	},
 	textButton: {
 		color: "#ffffff",
 		height: 30,
 		fontWeight: "600",
 		fontSize: 16,
+		textShadowColor: "#000000",
+		textShadowOffset: { width: 0, height: 2 },
+		textShadowRadius: 5,
 	},
 	subcontainer: {
 		justifyContent: "center",

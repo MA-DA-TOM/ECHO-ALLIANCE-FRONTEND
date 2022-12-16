@@ -8,27 +8,23 @@ import {
 	View,
 	FlatList,
 	ScrollView,
-	Modal
+	Modal,
 } from "react-native";
-import dataEvent from '../data/dataEvent.json';
-import { getDistance, getPreciseDistance } from 'geolib';
-import { useEffect, useState } from 'react';
-
-
+import dataEvent from "../data/dataEvent.json";
+import { getDistance, getPreciseDistance } from "geolib";
+import { useEffect, useState } from "react";
 
 export default function BenevoleSearch({ navigation }) {
-
-
 	const eventsData = dataEvent;
 
-	const [isFilterVisible, setIsFilterVisible] = useState(false)
+	const [isFilterVisible, setIsFilterVisible] = useState(false);
 	const handleFilterModal = () => {
-		setIsFilterVisible(!isFilterVisible)
+		setIsFilterVisible(!isFilterVisible);
 	};
 
-	const [isSearchAdvanceVisible, setIsSearchAdvanceVisible] = useState(false)
+	const [isSearchAdvanceVisible, setIsSearchAdvanceVisible] = useState(false);
 	const handleSearchAdvanceModal = () => {
-		setIsSearchAdvanceVisible(!isSearchAdvanceVisible)
+		setIsSearchAdvanceVisible(!isSearchAdvanceVisible);
 	};
 
 	const modalFunction = () => {
@@ -36,30 +32,35 @@ export default function BenevoleSearch({ navigation }) {
 			return (
 				<Modal visible={isFilterVisible}>
 					<View style={styles.container1}>
-						<TouchableOpacity
-							style={styles.buttonOpacity}
-							// onPress={() => navigation.navigate("BenevoleAdvanceSearch")}
-							onPress={() => handleFilterModal()}
-						>
-							<Image
-								style={styles.cross}
-								source={require("../assets/logo-cross.png")}
-							/>
-						</TouchableOpacity>
+						<View style={styles.container11}>
+							<View style={styles.container111}></View>
+							<TouchableOpacity
+								style={styles.buttonOpacity}
+								// onPress={() => navigation.navigate("BenevoleAdvanceSearch")}
+								onPress={() => handleFilterModal()}
+							>
+								<Image
+									style={styles.cross}
+									source={require("../assets/logo-cross.png")}
+								/>
+							</TouchableOpacity>
+						</View>
 
-						<TouchableOpacity style={styles.button}>
+						<TouchableOpacity style={styles.applyButton}>
 							<View>
-								<Text>Apply</Text>
+								<Text style={styles.textApply}>Apply</Text>
 							</View>
 						</TouchableOpacity>
 					</View>
 				</Modal>
-			)
+			);
 		}
-			if (isSearchAdvanceVisible) {
-				return (
-					<Modal visible={isSearchAdvanceVisible}>
-						<View style={styles.container1}>
+		if (isSearchAdvanceVisible) {
+			return (
+				<Modal visible={isSearchAdvanceVisible}>
+					<View style={styles.container1}>
+						<View style={styles.container11}>
+							<View style={styles.container111}></View>
 							<TouchableOpacity
 								style={styles.buttonOpacity}
 								// onPress={() => navigation.navigate("BenevoleAdvanceSearch")}
@@ -70,50 +71,60 @@ export default function BenevoleSearch({ navigation }) {
 									source={require("../assets/logo-cross.png")}
 								/>
 							</TouchableOpacity>
-
-							<TouchableOpacity style={styles.button}>
+						</View>
+						<TouchableOpacity style={styles.applyButton}>
 							<View>
-								<Text>Apply</Text>
+								<Text style={styles.textApply}>Apply</Text>
 							</View>
 						</TouchableOpacity>
-						</View>
-					</Modal>
-				)
-			};
-		};
-	
+					</View>
+				</Modal>
+			);
+		}
+	};
 
 	// const modal = modalFunction()
 
-	const [currentPosition, setCurrentPosition] = useState(null)
+	const [currentPosition, setCurrentPosition] = useState(null);
 	useEffect(() => {
 		(async () => {
-			const { status } = await Location.requestForegroundPermissionsAsync();
-			if (status === 'granted') {
-				Location.watchPositionAsync({ distanceInterval: 10 },
+			const { status } =
+				await Location.requestForegroundPermissionsAsync();
+			if (status === "granted") {
+				Location.watchPositionAsync(
+					{ distanceInterval: 10 },
 					(location) => {
-						setShowsUserLocation(true)
-						setCurrentPosition(location.coords)
-					});
+						setShowsUserLocation(true);
+						setCurrentPosition(location.coords);
+					}
+				);
 			}
 		})();
 	}, []);
-
 
 	const events = eventsData.map((data, i) => {
 		const calculatePreciseDistance = () => {
 			if (currentPosition) {
 				var pdis = getPreciseDistance(
-					{ latitude: currentPosition.latitude, longitude: currentPosition.longitude },
-					{ latitude: data.coordinates.latitude, longitude: data.coordinates.longitude },
+					{
+						latitude: currentPosition.latitude,
+						longitude: currentPosition.longitude,
+					},
+					{
+						latitude: data.coordinates.latitude,
+						longitude: data.coordinates.longitude,
+					}
 				);
-				let total = Math.round(pdis / 1000)
-				return total
+				let total = Math.round(pdis / 1000);
+				return total;
 			}
 		};
 		return (
 			<View style={styles.container2} key={i}>
-				<Text>{data.date} / {calculatePreciseDistance()} / {data.nameAssociation}</Text>
+				<Text>
+					{data.date} / {calculatePreciseDistance()} /{" "}
+					{data.nameAssociation}
+				</Text>
 				<TouchableOpacity
 					style={styles.buttonOpacity}
 					onPress={() => navigation.navigate("BenevoleMission")}
@@ -124,40 +135,33 @@ export default function BenevoleSearch({ navigation }) {
 					/>
 				</TouchableOpacity>
 			</View>
-		)
-	})
-
-
-
+		);
+	});
 
 	return (
 		<KeyboardAvoidingView
 			style={styles.container}
 			behavior={Platform.OS === "ios" ? "padding" : "height"}
 		>
-			<View style={styles.container0}>
-				<Text style={styles.title0}>Recherche</Text>
-			</View>
 			<View style={styles.search}>
 				<TouchableOpacity onPress={() => handleSearchAdvanceModal()}>
 					<View style={styles.searchButton}>
-						<Text> Recherche Avancée </Text>
+						<Text style={styles.searchText}>Recherche Avancée</Text>
 					</View>
 				</TouchableOpacity>
 				<TouchableOpacity onPress={() => handleFilterModal()}>
-					<View style={styles.searchButton}>
-						<Text>Filtre </Text>
+					<View style={styles.filterButton}>
+						<Text style={styles.filterText}>Filtre</Text>
 					</View>
 				</TouchableOpacity>
 			</View>
 
 			{modalFunction()}
 
-			<ScrollView style={styles.ScrollView}>
+			<ScrollView style={styles.scrollView}>
 				{events}
 				{events}
 				{events}
-
 			</ScrollView>
 
 			<TouchableOpacity
@@ -196,23 +200,12 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	container1: {
-		alignItems: "flex-end",
-		marginRight: "5%",
-	},
-	title0: {
-		fontSize: 30,
-		fontWeight: "600",
-		color: "#0CA789",
-		fontWeight: "bold",
-		textDecorationLine: "underline",
+		alignItems: "center",
+		margin: 100,
 	},
 	search: {
 		flexDirection: "row",
 		justifyContent: "space-between",
-	},
-	searchButton: {
-		borderColor: "#0CA789",
-		borderWidth: 1
 	},
 	title1: {
 		fontSize: 10,
@@ -222,30 +215,41 @@ const styles = StyleSheet.create({
 		textDecorationLine: "underline",
 	},
 	container2: {
-		marginTop: "1%",
-		marginRight: "5%",
-		marginLeft: "5%",
+		margin: "1%",
+		padding: "1%",
 		flexWrap: "wrap",
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "space-between",
-		backgroundColor: "#0CA789"
+		backgroundColor: "#ffffff",
+		borderWidth: 0.5,
 	},
 	tick: { height: 40, width: 40 },
 
 	button: {
 		alignItems: "center",
-		paddingTop: 8,
+		padding: 1,
+		margin: 5,
 		width: "80%",
 		backgroundColor: "#0CA789",
 		borderRadius: 10,
 		marginLeft: "10%",
+		borderWidth: 1,
+		shadowOffset: {
+			width: -10,
+			height: 12,
+		},
+		shadowOpacity: 0.58,
+		shadowRadius: 16.0,
+
+		elevation: 25,
 	},
 	textButton: {
 		color: "#ffffff",
 		height: 30,
 		fontWeight: "600",
 		fontSize: 16,
+		marginTop: 10,
 	},
 	card1: {
 		height: 160,
@@ -271,11 +275,80 @@ const styles = StyleSheet.create({
 	temps: {
 		fontWeight: "bold",
 	},
-	cross: {
+	cross: { height: 40, width: 40 },
+	searchButton: {
+		alignItems: "center",
 		height: 30,
-		width: 30,
-		alignItems: "flex-end",
-		justifyContent: "flex-end",
-		marginLeft: 300,
+		width: 180,
+		backgroundColor: "#0CA789",
+		borderRadius: 10,
+		padding: 5,
+		margin: 5,
+		borderWidth: 1,
+		shadowOffset: {
+			width: -10,
+			height: 12,
+		},
+		shadowOpacity: 0.58,
+		shadowRadius: 16.0,
+
+		elevation: 25,
+	},
+	searchText: {
+		color: "#ffffff",
+		fontWeight: "600",
+		fontSize: 16,
+	},
+	filterButton: {
+		alignItems: "center",
+		height: 30,
+		width: 180,
+		backgroundColor: "#0CA789",
+		borderRadius: 10,
+		padding: 5,
+		margin: 5,
+		borderWidth: 1,
+		shadowOffset: {
+			width: -10,
+			height: 12,
+		},
+		shadowOpacity: 0.58,
+		shadowRadius: 16.0,
+
+		elevation: 25,
+	},
+	filterText: {
+		color: "#ffffff",
+		fontWeight: "600",
+		fontSize: 16,
+	},
+	applyButton: {
+		alignItems: "center",
+		height: 30,
+		width: 180,
+		backgroundColor: "#0CA789",
+		borderRadius: 10,
+		padding: 5,
+		margin: 5,
+		borderWidth: 1,
+		shadowOffset: {
+			width: -10,
+			height: 12,
+		},
+		shadowOpacity: 0.58,
+		shadowRadius: 16.0,
+
+		elevation: 25,
+	},
+	textApply: { color: "#ffffff", fontWeight: "600", fontSize: 16 },
+	buttonOpacity: { backgroundColor: "#ffffff", width: 40, height: 40 },
+	container11: {
+		flexDirection: "row",
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	container111: {
+		backgroundColor: "#ffffff",
+		width: "280%",
 	},
 });

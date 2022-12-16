@@ -291,13 +291,15 @@ const styles = StyleSheet.create({
 		justifyContent: "space-around",
 	},
 	title: {
-		width: "100%",
 		fontSize: 30,
 		fontWeight: "600",
-		alignItems: "center",
+		fontWeight: "bold",
 	},
 	echo: {
+		fontSize: 30,
+		fontWeight: "600",
 		color: "#0CA789",
+		fontWeight: "bold",
 	},
 	button: {
 		alignItems: "center",
@@ -305,6 +307,15 @@ const styles = StyleSheet.create({
 		width: "80%",
 		backgroundColor: "#0CA789",
 		borderRadius: 10,
+		borderWidth: 1,
+		shadowOffset: {
+			width: -10,
+			height: 12,
+		},
+		shadowOpacity: 0.58,
+		shadowRadius: 16.0,
+
+		elevation: 25,
 	},
 	ICbutton: {
 		alignItems: "center",
@@ -313,12 +324,17 @@ const styles = StyleSheet.create({
 		backgroundColor: "#0CA789",
 		borderRadius: 10,
 		marginBottom: 30,
+		borderWidth: 1,
 	},
 	textButton: {
 		color: "#ffffff",
-		height: 30,
+		height: 40,
 		fontWeight: "600",
-		fontSize: 16,
+		fontSize: 20,
+
+		textShadowColor: "#000000",
+		textShadowOffset: { width: 0, height: 2 },
+		textShadowRadius: 5,
 	},
 
 	modalContainer: {
@@ -341,12 +357,14 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 		paddingTop: 15,
 		marginBottom: 5,
+		borderWidth: 1,
 	},
 	buttons: {
 		alignItems: "center",
 		paddingTop: 15,
 		backgroundColor: "#0CA789",
 		borderRadius: 10,
+		borderWidth: 1,
 	},
 	benevole: {
 		color: "#0CA789",

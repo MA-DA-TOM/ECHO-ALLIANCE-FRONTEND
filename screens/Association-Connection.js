@@ -16,11 +16,6 @@ export default function AssociationConnection({ navigation }) {
 			style={styles.container}
 			behavior={Platform.OS === "ios" ? "padding" : "height"}
 		>
-			<View style={styles.container1}>
-				<Text style={styles.title}>
-					Welcome to <Text style={styles.echo}>Echo Alliance</Text>
-				</Text>
-			</View>
 			<View style={styles.container2}>
 				<View style={styles.background}>
 					<Text style={styles.email}>Email</Text>
@@ -55,9 +50,6 @@ const styles = StyleSheet.create({
 		backgroundColor: "#ffffff",
 		justifyContent: "space-around",
 	},
-	container1: {
-		alignItems: "center",
-	},
 	container2: {
 		justifyContent: "space-between",
 		marginLeft: "5%",
@@ -73,18 +65,9 @@ const styles = StyleSheet.create({
 	background: {
 		backgroundColor: "#439798",
 		borderRadius: 10,
+		margin: "2%",
 	},
-	title: {
-		fontSize: 30,
-		fontWeight: "600",
-		fontWeight: "bold",
-	},
-	echo: {
-		fontSize: 30,
-		fontWeight: "600",
-		color: "#0CA789",
-		fontWeight: "bold",
-	},
+
 	input: {
 		height: 35,
 		margin: 15,
@@ -101,12 +84,24 @@ const styles = StyleSheet.create({
 		backgroundColor: "#0CA789",
 		borderRadius: 10,
 		marginLeft: "10%",
+		borderWidth: 1,
+		shadowOffset: {
+			width: -10,
+			height: 12,
+		},
+		shadowOpacity: 0.58,
+		shadowRadius: 16.0,
+
+		elevation: 25,
 	},
 	textButton: {
 		color: "#ffffff",
 		height: 30,
 		fontWeight: "600",
 		fontSize: 16,
+		textShadowColor: "#000000",
+		textShadowOffset: { width: 0, height: 2 },
+		textShadowRadius: 5,
 	},
 
 	email: {

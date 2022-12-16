@@ -15,10 +15,6 @@ export default function AssociationAddEvent({ navigation }) {
 			style={styles.container}
 			behavior={Platform.OS === "ios" ? "padding" : "height"}
 		>
-			<View style={styles.container1}>
-				<Text style={styles.title}>Ajouter un evenement</Text>
-			</View>
-
 			<View style={styles.container2}>
 				<View style={styles.container21}>
 					<View style={styles.container211}>
@@ -85,9 +81,6 @@ const styles = StyleSheet.create({
 		width: 30,
 	},
 
-	container1: {
-		alignItems: "center",
-	},
 	container2: {
 		flexDirection: "row",
 		flexWrap: "wrap",
@@ -95,13 +88,7 @@ const styles = StyleSheet.create({
 	container3: {
 		alignItems: "center",
 	},
-	title: {
-		fontSize: 30,
-		fontWeight: "600",
-		color: "#0CA789",
-		fontWeight: "bold",
-		textDecorationLine: "underline",
-	},
+
 	container21: {
 		flexDirection: "column",
 		flexWrap: "wrap",
