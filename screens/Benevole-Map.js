@@ -165,16 +165,7 @@ export default function MapScreen() {
 					/>
 					<Text style={styles.label}> RAYON: {rayon()} autour de moi </Text>
 				</View>
-				{/* 
-				<View style={styles.checkboxContainer}>
-					<Checkbox
-						value={isManualPosition}
-						onValueChange={setIsManualPosition}
-						style={styles.checkbox}
-					/>
-					<Text style={styles.label}>Définir ma position manuellement</Text>
-					{textPosition()}
-				</View> */}
+
 			</View>
 
 			<MapView mapType="terrain" style={{ flex: 1 }} showsUserLocation={showsUserLocation}>
@@ -214,7 +205,6 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 	},
 	slider: {
-		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center'
 	},

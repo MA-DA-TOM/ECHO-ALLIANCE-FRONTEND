@@ -7,9 +7,129 @@ import {
 	TouchableOpacity,
 	View,
 	FlatList,
+	ScrollView,
+	Modal
 } from "react-native";
+import dataEvent from '../data/dataEvent.json';
+import { getDistance, getPreciseDistance } from 'geolib';
+import { useEffect, useState } from 'react';
+
+
 
 export default function BenevoleSearch({ navigation }) {
+
+
+	const eventsData = dataEvent;
+
+	const [isFilterVisible, setIsFilterVisible] = useState(false)
+	const handleFilterModal = () => {
+		setIsFilterVisible(!isFilterVisible)
+	};
+
+	const [isSearchAdvanceVisible, setIsSearchAdvanceVisible] = useState(false)
+	const handleSearchAdvanceModal = () => {
+		setIsSearchAdvanceVisible(!isSearchAdvanceVisible)
+	};
+
+	const modalFunction = () => {
+		if (isFilterVisible) {
+			return (
+				<Modal visible={isFilterVisible}>
+					<View style={styles.container1}>
+						<TouchableOpacity
+							style={styles.buttonOpacity}
+							// onPress={() => navigation.navigate("BenevoleAdvanceSearch")}
+							onPress={() => handleFilterModal()}
+						>
+							<Image
+								style={styles.cross}
+								source={require("../assets/logo-cross.png")}
+							/>
+						</TouchableOpacity>
+
+						<TouchableOpacity style={styles.button}>
+							<View>
+								<Text>Apply</Text>
+							</View>
+						</TouchableOpacity>
+					</View>
+				</Modal>
+			)
+		}
+			if (isSearchAdvanceVisible) {
+				return (
+					<Modal visible={isSearchAdvanceVisible}>
+						<View style={styles.container1}>
+							<TouchableOpacity
+								style={styles.buttonOpacity}
+								// onPress={() => navigation.navigate("BenevoleAdvanceSearch")}
+								onPress={() => handleSearchAdvanceModal()}
+							>
+								<Image
+									style={styles.cross}
+									source={require("../assets/logo-cross.png")}
+								/>
+							</TouchableOpacity>
+
+							<TouchableOpacity style={styles.button}>
+							<View>
+								<Text>Apply</Text>
+							</View>
+						</TouchableOpacity>
+						</View>
+					</Modal>
+				)
+			};
+		};
+	
+
+	// const modal = modalFunction()
+
+	const [currentPosition, setCurrentPosition] = useState(null)
+	useEffect(() => {
+		(async () => {
+			const { status } = await Location.requestForegroundPermissionsAsync();
+			if (status === 'granted') {
+				Location.watchPositionAsync({ distanceInterval: 10 },
+					(location) => {
+						setShowsUserLocation(true)
+						setCurrentPosition(location.coords)
+					});
+			}
+		})();
+	}, []);
+
+
+	const events = eventsData.map((data, i) => {
+		const calculatePreciseDistance = () => {
+			if (currentPosition) {
+				var pdis = getPreciseDistance(
+					{ latitude: currentPosition.latitude, longitude: currentPosition.longitude },
+					{ latitude: data.coordinates.latitude, longitude: data.coordinates.longitude },
+				);
+				let total = Math.round(pdis / 1000)
+				return total
+			}
+		};
+		return (
+			<View style={styles.container2} key={i}>
+				<Text>{data.date} / {calculatePreciseDistance()} / {data.nameAssociation}</Text>
+				<TouchableOpacity
+					style={styles.buttonOpacity}
+					onPress={() => navigation.navigate("BenevoleMission")}
+				>
+					<Image
+						style={styles.tick}
+						source={require("../assets/logo-tick.png")}
+					/>
+				</TouchableOpacity>
+			</View>
+		)
+	})
+
+
+
+
 	return (
 		<KeyboardAvoidingView
 			style={styles.container}
@@ -18,36 +138,27 @@ export default function BenevoleSearch({ navigation }) {
 			<View style={styles.container0}>
 				<Text style={styles.title0}>Recherche</Text>
 			</View>
-			<View style={styles.container1}>
-				<TouchableOpacity
-					style={styles.buttonOpacity}
-					onPress={() => navigation.navigate("BenevoleAdvanceSearch")}
-				>
-					<Text style={styles.title1}>Recherche avancée</Text>
+			<View style={styles.search}>
+				<TouchableOpacity onPress={() => handleSearchAdvanceModal()}>
+					<View style={styles.searchButton}>
+						<Text> Recherche Avancée </Text>
+					</View>
+				</TouchableOpacity>
+				<TouchableOpacity onPress={() => handleFilterModal()}>
+					<View style={styles.searchButton}>
+						<Text>Filtre </Text>
+					</View>
 				</TouchableOpacity>
 			</View>
-			<View style={styles.container2}>
-				<FlatList
-					data={[{ key: "Date / Lieu / Association:" }]}
-					renderItem={({ item }) => (
-						<Text style={styles.item}>
-							{"\u2022" + " "}
-							{item.key}
-						</Text>
-					)}
-				/>
-				<View style={styles.container3}>
-					<TouchableOpacity
-						style={styles.buttonOpacity}
-						onPress={() => navigation.navigate("BenevoleMission")}
-					>
-						<Image
-							style={styles.tick}
-							source={require("../assets/logo-tick.png")}
-						/>
-					</TouchableOpacity>
-				</View>
-			</View>
+
+			{modalFunction()}
+
+			<ScrollView style={styles.ScrollView}>
+				{events}
+				{events}
+				{events}
+
+			</ScrollView>
 
 			<TouchableOpacity
 				onPress={() => navigation.navigate("TabNavigator")}
@@ -95,6 +206,14 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		textDecorationLine: "underline",
 	},
+	search: {
+		flexDirection: "row",
+		justifyContent: "space-between",
+	},
+	searchButton: {
+		borderColor: "#0CA789",
+		borderWidth: 1
+	},
 	title1: {
 		fontSize: 10,
 		fontWeight: "600",
@@ -103,11 +222,14 @@ const styles = StyleSheet.create({
 		textDecorationLine: "underline",
 	},
 	container2: {
+		marginTop: "1%",
 		marginRight: "5%",
 		marginLeft: "5%",
 		flexWrap: "wrap",
 		flexDirection: "row",
 		alignItems: "center",
+		justifyContent: "space-between",
+		backgroundColor: "#0CA789"
 	},
 	tick: { height: 40, width: 40 },
 
@@ -134,7 +256,6 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderRadius: 100,
 	},
-
 	lieu: {
 		fontWeight: "bold",
 	},
@@ -149,5 +270,12 @@ const styles = StyleSheet.create({
 	},
 	temps: {
 		fontWeight: "bold",
+	},
+	cross: {
+		height: 30,
+		width: 30,
+		alignItems: "flex-end",
+		justifyContent: "flex-end",
+		marginLeft: 300,
 	},
 });
