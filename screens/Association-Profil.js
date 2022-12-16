@@ -14,19 +14,19 @@ export default function BenevoleMission({ navigation }) {
 			behavior={Platform.OS === "ios" ? "padding" : "height"}
 		>
 			<View style={styles.container1}>
-				<Text style={styles.nom}>Nom:</Text>
+				<Text style={styles.txt}>Nom:</Text>
 			</View>
 			<View style={styles.container1}>
-				<Text style={styles.adresse}>Adresse:</Text>
+				<Text style={styles.txt}>Adresse:</Text>
 			</View>
 			<View style={styles.container1}>
-				<Text style={styles.horaires}>Horaires:</Text>
+				<Text style={styles.txt}>Horaires:</Text>
 			</View>
 			<View style={styles.container1}>
-				<Text style={styles.site}>Site internet:</Text>
+				<Text style={styles.txt}>Site internet:</Text>
 			</View>
 			<View style={styles.container1}>
-				<Text style={styles.numero}>Numéro de téléphone:</Text>
+				<Text style={styles.txt}>Numéro de téléphone:</Text>
 			</View>
 			<View style={styles.container2}>
 				<Image
@@ -35,7 +35,7 @@ export default function BenevoleMission({ navigation }) {
 				/>
 			</View>
 			<View style={styles.container1}>
-				<Text style={styles.numero}>Description:</Text>
+				<Text style={styles.txt}>Description:</Text>
 			</View>
 			<View style={styles.container3}></View>
 		</KeyboardAvoidingView>
@@ -95,19 +95,11 @@ const styles = StyleSheet.create({
 	},
 	association: { fontSize: 30, fontWeight: "600", color: "#0CA789" },
 
-	nom: {
+	txt: {
 		fontWeight: "bold",
+		color: "#0CA789",
+		textDecorationLine: "underline",
 	},
-	adresse: {
-		fontWeight: "bold",
-	},
-	horaires: {
-		fontWeight: "bold",
-	},
-	site: {
-		fontWeight: "bold",
-	},
-	numero: { fontWeight: "bold" },
 	logo: {
 		height: 70,
 		width: 70,

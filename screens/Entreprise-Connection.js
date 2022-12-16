@@ -86,6 +86,14 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 		marginLeft: "10%",
 		borderWidth: 1,
+		shadowOffset: {
+			width: -10,
+			height: 12,
+		},
+		shadowOpacity: 0.58,
+		shadowRadius: 16.0,
+
+		elevation: 25,
 	},
 	textButton: {
 		color: "#ffffff",
