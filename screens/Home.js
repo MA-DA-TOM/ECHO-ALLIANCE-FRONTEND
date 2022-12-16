@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-export default function Home() {
+export default function Home({ navigation }) {
 	const [modalBénévole, setModalBénévole] = useState(false);
 	const [modalAssociation, setModalAssociation] = useState(false);
 	const [modalEntreprise, setModalEntreprise] = useState(false);
@@ -85,12 +85,24 @@ export default function Home() {
 							<Text style={styles.textButton}>Charte</Text>
 						</TouchableOpacity>
 						<View style={styles.divboutons}>
-							<TouchableOpacity style={styles.ICbutton}>
+							<TouchableOpacity
+								style={styles.ICbutton}
+								onPress={() =>
+									navigation.navigate("BenevoleInscription") +
+									handleModalBénévol()
+								}
+							>
 								<Text style={styles.textButton}>
 									Inscription
 								</Text>
 							</TouchableOpacity>
-							<TouchableOpacity style={styles.ICbutton}>
+							<TouchableOpacity
+								style={styles.ICbutton}
+								onPress={() =>
+									navigation.navigate("BenevoleConnection") +
+									handleModalBénévol()
+								}
+							>
 								<Text style={styles.textButton}>Connexion</Text>
 							</TouchableOpacity>
 						</View>
@@ -144,12 +156,26 @@ export default function Home() {
 							<Text style={styles.textButton}>Charte</Text>
 						</TouchableOpacity>
 						<View style={styles.divboutons}>
-							<TouchableOpacity style={styles.ICbutton}>
+							<TouchableOpacity
+								style={styles.ICbutton}
+								onPress={() =>
+									navigation.navigate(
+										"AssociationInscription"
+									) + handleModalAssociation()
+								}
+							>
 								<Text style={styles.textButton}>
 									Inscription
 								</Text>
 							</TouchableOpacity>
-							<TouchableOpacity style={styles.ICbutton}>
+							<TouchableOpacity
+								style={styles.ICbutton}
+								onPress={() =>
+									navigation.navigate(
+										"AssociationConnection"
+									) + handleModalAssociation()
+								}
+							>
 								<Text style={styles.textButton}>Connexion</Text>
 							</TouchableOpacity>
 						</View>
@@ -203,12 +229,26 @@ export default function Home() {
 							<Text style={styles.textButton}>Charte</Text>
 						</TouchableOpacity>
 						<View style={styles.divboutons}>
-							<TouchableOpacity style={styles.ICbutton}>
+							<TouchableOpacity
+								style={styles.ICbutton}
+								onPress={() =>
+									navigation.navigate(
+										"EntrepriseInscription"
+									) + handleModalEntreprise()
+								}
+							>
 								<Text style={styles.textButton}>
 									Inscription
 								</Text>
 							</TouchableOpacity>
-							<TouchableOpacity style={styles.ICbutton}>
+							<TouchableOpacity
+								style={styles.ICbutton}
+								onPress={() =>
+									navigation.navigate(
+										"EntrepriseConnection"
+									) + handleModalEntreprise()
+								}
+							>
 								<Text style={styles.textButton}>Connexion</Text>
 							</TouchableOpacity>
 						</View>

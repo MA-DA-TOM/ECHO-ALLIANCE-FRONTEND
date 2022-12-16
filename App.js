@@ -4,6 +4,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./screens/Home";
+import AssociationConnection from "./screens/Association-Connection";
+import AssociationInscription from "./screens/Association-Inscription";
+import AssociationAddEvent from "./screens/Association-AddEvent";
+import AssociationEvent from "./screens/Association-Event";
+import AssociationEventSubscriptions from "./screens/Association-EventSubscriptions";
+import AssociationMaps from "./screens/Association-Maps";
+import AssociationMenu from "./screens/Association-Menu";
+import AssociationProfil from "./screens/Association-Profil";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import BenevoleMenu from "./screens/Benevole-Menu";
 import BenevoleMap from "./screens/Benevole-Map";
@@ -15,10 +23,12 @@ import BenevoleAlert from "./screens/Benevole-Alert";
 import BenevoleSearch from "./screens/Benevole-Search";
 import BenevoleConnection from "./screens/Benevole-Connection";
 import BenevoleInscription from "./screens/Benevole-Inscription";
-import AssociationConnection from "./screens/Association-Connection";
-import AssociationInscription from "./screens/Association-Inscription";
 import EntrepriseConnection from "./screens/Entreprise-Connection";
 import EntrepriseInscription from "./screens/Entreprise-Inscription";
+import EntrepriseMaps from "./screens/Entreprise-Maps";
+import EntrepriseMenu from "./screens/Entreprise-Menu";
+import EntreprisePaliers from "./screens/Entreprise-Paliers";
+import EntrepriseProfil from "./screens/Entreprise-Profil";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -133,6 +143,46 @@ export default function App() {
 				<Stack.Screen
 					name="EntrepriseInscription"
 					component={EntrepriseInscription}
+				/>
+				<Stack.Screen
+					name="AssociationAddEvent"
+					component={AssociationAddEvent}
+				/>
+				<Stack.Screen
+					name="AssociationEvent"
+					component={AssociationEvent}
+				/>
+				<Stack.Screen
+					name="AssociationEventSubscriptions"
+					component={AssociationEventSubscriptions}
+				/>
+				<Stack.Screen
+					name="AssociationMaps"
+					component={AssociationMaps}
+				/>
+				<Stack.Screen
+					name="AssociationMenu"
+					component={AssociationMenu}
+				/>
+				<Stack.Screen
+					name="AssociationProfil"
+					component={AssociationProfil}
+				/>
+				<Stack.Screen
+					name="EntrepriseMaps"
+					component={EntrepriseMaps}
+				/>
+				<Stack.Screen
+					name="EntrepriseMenu"
+					component={EntrepriseMenu}
+				/>
+				<Stack.Screen
+					name="EntreprisePaliers"
+					component={EntreprisePaliers}
+				/>
+				<Stack.Screen
+					name="EntrepriseProfil"
+					component={EntrepriseProfil}
 				/>
 			</Stack.Navigator>
 		</NavigationContainer>
