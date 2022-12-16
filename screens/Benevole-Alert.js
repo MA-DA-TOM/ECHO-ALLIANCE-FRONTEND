@@ -7,6 +7,7 @@ import {
 	TouchableOpacity,
 	View,
 	Modal,
+	TextInput,
 } from "react-native";
 import { useState, useEffect, useRef } from "react";
 
@@ -92,7 +93,7 @@ export default function BenevoleAlert({ navigation }) {
 
 						<View style={styles.snapContainer}>
 							<TouchableOpacity
-								onPress={() => cameraRef && takePicture()}
+								onPress={() => cameraRef && takePicture() && handlePhoto()}
 							>
 								<FontAwesome
 									name="circle-thin"
@@ -107,6 +108,15 @@ export default function BenevoleAlert({ navigation }) {
 		}
 	};
 
+	const photos = photo.map((data, i) => {
+		return (
+		  <View key={i} style={styles.photoContainer}>
+			<FontAwesome name='times' size={20} color='#000000' style={styles.deleteIcon} onPress={() =>  deletePhoto(data)}/>
+			<Image source={ data.uri} style={styles.photo} />
+		  </View>
+		);
+	  });
+
 	return (
 		<KeyboardAvoidingView
 			style={styles.container}
@@ -119,7 +129,7 @@ export default function BenevoleAlert({ navigation }) {
 				<Text style={styles.temoignage}>Témoignage:</Text>
 			</View>
 			<View style={styles.container3}>
-				<Text style={styles.txt}></Text>
+				<TextInput ></TextInput>
 			</View>
 			<View style={styles.container4}>
 				<TouchableOpacity onPress={() => handlePhoto()}>
@@ -130,22 +140,7 @@ export default function BenevoleAlert({ navigation }) {
 				</TouchableOpacity>
 			</View>
 			<View style={styles.container5}>
-				<Image
-					style={styles.paysage}
-					source={require("../assets/logo-paysage.png")}
-				/>
-				<Image
-					style={styles.paysage}
-					source={require("../assets/logo-paysage.png")}
-				/>
-				<Image
-					style={styles.paysage}
-					source={require("../assets/logo-paysage.png")}
-				/>
-				<Image
-					style={styles.paysage}
-					source={require("../assets/logo-paysage.png")}
-				/>
+				{photos}
 			</View>
 			{modalPhoto()}
 			<TouchableOpacity
