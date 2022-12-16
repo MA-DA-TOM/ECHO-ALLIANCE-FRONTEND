@@ -6,34 +6,38 @@ import {
 	Text,
 	TouchableOpacity,
 	View,
-	Modal
+	Modal,
 } from "react-native";
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from "react";
 
-import { Camera, CameraType, FlashMode } from 'expo-camera';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { Camera, CameraType, FlashMode } from "expo-camera";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function BenevoleAlert({ navigation }) {
-
 	const [hasPermission, setHasPermission] = useState(false);
 	const [type, setType] = useState(CameraType.back);
 	const [flashMode, setFlashMode] = useState(FlashMode.off);
+	const [takePhoto, setTakePhoto] = useState(false);
+	const [photo, setPhoto] = useState([]);
 
 	let cameraRef = useRef(null);
 
 	useEffect(() => {
 		(async () => {
 			const { status } = await Camera.requestCameraPermissionsAsync();
-			setHasPermission(status === 'granted');
+			setHasPermission(status === "granted");
 		})();
 	}, []);
 
-
-	const [takePhoto, setTakePhoto] = useState(false)
 	const handlePhoto = () => {
 		setTakePhoto(!takePhoto);
-	}
+	};
 
+	const takePicture = async () => {
+		const photoTest = await cameraRef.takePictureAsync({ quality: 0.3 });
+		setPhoto((photo) => [...photo, photoTest]);
+	};
+	console.log(photo);
 	const modalPhoto = () => {
 		// if (!hasPermission) {
 		// 	return <View />;
@@ -41,32 +45,67 @@ export default function BenevoleAlert({ navigation }) {
 
 		if (takePhoto) {
 			return (
-				<Modal visible={takePhoto} >
-					<Camera type={type} flashMode={flashMode} ref={(ref) => cameraRef = ref} style={styles.camera}>
+				<Modal visible={takePhoto}>
+					<Camera
+						type={type}
+						flashMode={flashMode}
+						ref={(ref) => (cameraRef = ref)}
+						style={styles.camera}
+					>
 						<View style={styles.buttonsContainer}>
 							<TouchableOpacity
-								onPress={() => setType(type === CameraType.back ? CameraType.front : CameraType.back)}
+								onPress={() =>
+									setType(
+										type === CameraType.back
+											? CameraType.front
+											: CameraType.back
+									)
+								}
 							>
-								<FontAwesome name='rotate-right' size={25} color='#ffffff' />
+								<FontAwesome
+									name="rotate-right"
+									size={25}
+									color="#ffffff"
+								/>
 							</TouchableOpacity>
 
 							<TouchableOpacity
-								onPress={() => setFlashMode(flashMode === FlashMode.off ? FlashMode.on : FlashMode.off)}
+								onPress={() =>
+									setFlashMode(
+										flashMode === FlashMode.off
+											? FlashMode.on
+											: FlashMode.off
+									)
+								}
 							>
-								<FontAwesome name='flash' size={25} color={flashMode === FlashMode.off ? '#ffffff' : '#e8be4b'} />
+								<FontAwesome
+									name="flash"
+									size={25}
+									color={
+										flashMode === FlashMode.off
+											? "#ffffff"
+											: "#e8be4b"
+									}
+								/>
 							</TouchableOpacity>
 						</View>
 
 						<View style={styles.snapContainer}>
-							<TouchableOpacity onPress={() => cameraRef && takePicture()}>
-								<FontAwesome name='circle-thin' size={95} color='#ffffff' />
+							<TouchableOpacity
+								onPress={() => cameraRef && takePicture()}
+							>
+								<FontAwesome
+									name="circle-thin"
+									size={95}
+									color="#ffffff"
+								/>
 							</TouchableOpacity>
 						</View>
 					</Camera>
 				</Modal>
-			)
+			);
 		}
-	}
+	};
 
 	return (
 		<KeyboardAvoidingView
@@ -123,7 +162,7 @@ export default function BenevoleAlert({ navigation }) {
 const styles = StyleSheet.create({
 	modal: {
 		flex: 1,
-		backgroundColor: "#000000"
+		backgroundColor: "#000000",
 	},
 	container: {
 		flex: 1,
@@ -197,21 +236,20 @@ const styles = StyleSheet.create({
 	},
 	camera: {
 		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'space-between',
-		flexDirection: 'column',
+		backgroundColor: "#fff",
+		alignItems: "center",
+		justifyContent: "space-between",
+		flexDirection: "column",
 	},
 	buttonsContainer: {
 		marginTop: 60,
 		marginLeft: 20,
 		marginRight: 20,
-		width: '90%',
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-
+		width: "90%",
+		flexDirection: "row",
+		justifyContent: "space-between",
 	},
 	snapContainer: {
-		justifyContent: 'center',
-	}
+		justifyContent: "center",
+	},
 });
