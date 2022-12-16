@@ -16,7 +16,6 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import BenevoleMenu from "./screens/Benevole-Menu";
 import BenevoleMap from "./screens/Benevole-Map";
 import BenevoleProfil from "./screens/Benevole-Profil";
-import BenevoleAdvanceSearch from "./screens/Benevole-AdvanceSearch";
 import BenevoleAvantage from "./screens/Benevole-Avantage";
 import BenevoleMission from "./screens/Benevole-Mission";
 import BenevoleAlert from "./screens/Benevole-Alert";
@@ -108,10 +107,7 @@ export default function App() {
 					component={BenevoleAvantage}
 				/>
 				<Stack.Screen name="BenevoleAlert" component={BenevoleAlert} />
-				<Stack.Screen
-					name="BenevoleAdvanceSearch"
-					component={BenevoleAdvanceSearch}
-				/>
+			
 				<Stack.Screen
 					name="BenevoleMission"
 					component={BenevoleMission}

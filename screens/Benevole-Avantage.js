@@ -6,9 +6,53 @@ import {
 	Text,
 	View,
 	FlatList,
+	TouchableOpacity,
 } from "react-native";
+import dataEntreprise from '../data/dataEntreprise.json';
+import { getDistance, getPreciseDistance } from 'geolib';
+import { useEffect, useState } from 'react';
 
 export default function BenevoleAvantage({ navigation }) {
+
+
+	const entrepriseData = dataEntreprise
+
+	const [currentPosition, setCurrentPosition] = useState(null)
+	useEffect(() => {
+		(async () => {
+			const { status } = await Location.requestForegroundPermissionsAsync();
+			if (status === 'granted') {
+				Location.watchPositionAsync({ distanceInterval: 10 },
+					(location) => {
+						setShowsUserLocation(true)
+						setCurrentPosition(location.coords)
+					});
+			}
+		})();
+	}, []);
+
+	const entreprises = entrepriseData.map((data, i) => {
+		const calculatePreciseDistance = () => {
+
+			if (currentPosition) {
+				var pdis = getPreciseDistance(
+					{ latitude: currentPosition.latitude, longitude: currentPosition.longitude },
+					{ latitude: data.coordinates.latitude, longitude: data.coordinates.longitude },
+				);
+				let total = Math.round(pdis / 1000)
+				return total
+			}
+
+		};
+
+		return (
+			<View style={styles.container2} key={i}>
+				<Text>{calculatePreciseDistance()} / {data.profession} / </Text>
+			</View>
+		)
+	})
+
+
 	return (
 		<KeyboardAvoidingView
 			style={styles.container}
@@ -17,46 +61,12 @@ export default function BenevoleAvantage({ navigation }) {
 			<View style={styles.container1}>
 				<Text style={styles.title}>Avantages</Text>
 			</View>
-			<View style={styles.container2}>
-				<FlatList
-					data={[
-						{ key: "Date:" },
-						{ key: "Rang:" },
-						{ key: "Statut:" },
-						{ key: "Prochain statut:" },
-					]}
-					renderItem={({ item }) => (
-						<Text style={styles.item}>
-							{"\u2022" + " "}
-							{item.key}
-						</Text>
-					)}
-				/>
-			</View>
+
 			<View style={styles.container3}>
 				<Text style={styles.txt}>
 					Distance / Entreprise / Avantages
 				</Text>
-				<FlatList
-					data={[
-						{ key: "Exemple 1" },
-						{ key: "Exemple 2" },
-						{ key: "Exemple 3" },
-						{ key: "Exemple 4" },
-						{ key: "Exemple 5" },
-						{ key: "Exemple 6" },
-						{ key: "Exemple 7" },
-						{ key: "Exemple 8" },
-						{ key: "Exemple 9" },
-						{ key: "Exemple 10" },
-					]}
-					renderItem={({ item }) => (
-						<Text style={styles.item}>
-							{"\u2022" + " "}
-							{item.key}
-						</Text>
-					)}
-				/>
+				{entreprises}
 			</View>
 		</KeyboardAvoidingView>
 	);

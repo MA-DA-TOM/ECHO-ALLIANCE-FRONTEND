@@ -15,9 +15,7 @@ import { getDistance, getPreciseDistance } from 'geolib';
 import { useEffect, useState } from 'react';
 
 
-
 export default function BenevoleSearch({ navigation }) {
-
 
 	const eventsData = dataEvent;
 
@@ -102,6 +100,7 @@ export default function BenevoleSearch({ navigation }) {
 
 	const events = eventsData.map((data, i) => {
 		const calculatePreciseDistance = () => {
+
 			if (currentPosition) {
 				var pdis = getPreciseDistance(
 					{ latitude: currentPosition.latitude, longitude: currentPosition.longitude },
@@ -110,7 +109,9 @@ export default function BenevoleSearch({ navigation }) {
 				let total = Math.round(pdis / 1000)
 				return total
 			}
+
 		};
+		
 		return (
 			<View style={styles.container2} key={i}>
 				<Text>{data.date} / {calculatePreciseDistance()} / {data.nameAssociation}</Text>
