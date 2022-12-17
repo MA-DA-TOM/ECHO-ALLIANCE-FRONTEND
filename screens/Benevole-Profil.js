@@ -11,13 +11,18 @@ import {
 } from "react-native";
 
 export default function BenevoleProfil({ navigation }) {
+	const now = new Date();
+
+	const annee = now.getFullYear();
+	const mois = ('0' + now.getMonth() + 1).slice(-2);
+	const jour = ('0' + now.getDate()).slice(-2);
 	return (
 		<KeyboardAvoidingView
 			style={styles.container}
 			behavior={Platform.OS === "ios" ? "padding" : "height"}
 		>
+			<Text style={styles.txt}>Date: {jour}/{mois}/{annee}</Text>
 			<View style={styles.container1}>
-				<Text style={styles.txt}>Date:</Text>
 				<View style={styles.card1}>
 					<Text style={styles.txt}>Profil</Text>
 					<Image
