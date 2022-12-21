@@ -19,26 +19,26 @@ export default function AssociationInscription({ navigation }) {
 			<View style={styles.container2}>
 				<View style={styles.background}>
 					<Text style={styles.nom}>Nom</Text>
-					<SafeAreaView>
+					<View>
 						<TextInput style={styles.input} />
-					</SafeAreaView>
+					</View>
 
 					<Text style={styles.adresse}>Adresse</Text>
-					<SafeAreaView>
+					<View>
 						<TextInput style={styles.input} />
-					</SafeAreaView>
+					</View>
 					<Text style={styles.rna}>RNA</Text>
-					<SafeAreaView>
+					<View>
 						<TextInput style={styles.input} />
-					</SafeAreaView>
+					</View>
 					<Text style={styles.email}>Email</Text>
-					<SafeAreaView>
+					<View>
 						<TextInput style={styles.input} />
-					</SafeAreaView>
+					</View>
 					<Text style={styles.mdp}>Mot de passe</Text>
-					<SafeAreaView>
+					<View>
 						<TextInput style={styles.input} />
-					</SafeAreaView>
+					</View>
 				</View>
 			</View>
 
@@ -60,16 +60,10 @@ const styles = StyleSheet.create({
 		justifyContent: "space-around",
 	},
 
-	container2: {
-		justifyContent: "space-around",
-
-		flexWrap: "wrap",
-		flexDirection: "column",
-	},
 	background: {
 		backgroundColor: "#439798",
 		borderRadius: 10,
-		margin: "2%",
+		margin: "6%",
 	},
 
 	input: {
@@ -81,8 +75,6 @@ const styles = StyleSheet.create({
 		padding: 5,
 	},
 	container2: {
-		justifyContent: "space-between",
-
 		marginLeft: "5%",
 		flexWrap: "wrap",
 		flexDirection: "column",

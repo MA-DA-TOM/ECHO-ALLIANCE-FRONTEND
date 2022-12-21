@@ -16,33 +16,21 @@ export default function BenevoleInscription({ navigation }) {
 			style={styles.container}
 			behavior={Platform.OS === "ios" ? "padding" : "height"}
 		>
-			<View style={styles.container2}>
-				<View style={styles.background}>
+			<View style={styles.background}>
+				<SafeAreaView>
 					<Text style={styles.nom}>Nom</Text>
-					<SafeAreaView>
-						<TextInput style={styles.input} />
-					</SafeAreaView>
+					<TextInput style={styles.input} />
+
 					<Text style={styles.prenom}>Prénom</Text>
-					<SafeAreaView>
-						<TextInput style={styles.input} />
-					</SafeAreaView>
-					<Text style={styles.geolocalisation}>Géolocalisation</Text>
-					<SafeAreaView>
-						<TextInput style={styles.input} />
-					</SafeAreaView>
-					<Text style={styles.date}>Date de naissance</Text>
-					<SafeAreaView>
-						<TextInput style={styles.input} />
-					</SafeAreaView>
+
+					<TextInput style={styles.input} />
+
 					<Text style={styles.email}>Email</Text>
-					<SafeAreaView>
-						<TextInput style={styles.input} />
-					</SafeAreaView>
+					<TextInput style={styles.input} />
 					<Text style={styles.mdp}>Mot de passe</Text>
-					<SafeAreaView>
-						<TextInput style={styles.input} />
-					</SafeAreaView>
-				</View>
+
+					<TextInput style={styles.input} />
+				</SafeAreaView>
 			</View>
 
 			<TouchableOpacity
@@ -63,29 +51,19 @@ const styles = StyleSheet.create({
 		justifyContent: "space-around",
 	},
 
-	container2: {
-		flexDirection: "row",
-		flexWrap: "wrap",
-		justifyContent: "flex-start",
-	},
 	background: {
 		backgroundColor: "#439798",
 		borderRadius: 10,
+		margin: "3%",
 	},
 
 	input: {
 		height: 35,
 		margin: 15,
 		borderWidth: 1,
-		width: 305,
+		width: "90%",
 		backgroundColor: "#ffffff",
 		padding: 5,
-	},
-	container2: {
-		justifyContent: "space-around",
-		margin: "7%",
-		flexWrap: "wrap",
-		flexDirection: "column",
 	},
 
 	button: {
@@ -117,7 +95,6 @@ const styles = StyleSheet.create({
 	nom: { color: "#ffffff", marginLeft: 5, marginTop: 5, fontWeight: "bold" },
 	prenom: { color: "#ffffff", marginLeft: 5, fontWeight: "bold" },
 	geolocalisation: { color: "#ffffff", marginLeft: 5, fontWeight: "bold" },
-	date: { color: "#ffffff", marginLeft: 5, fontWeight: "bold" },
 	email: { color: "#ffffff", marginLeft: 5, fontWeight: "bold" },
 	mdp: { color: "#ffffff", marginLeft: 5, fontWeight: "bold" },
 });
