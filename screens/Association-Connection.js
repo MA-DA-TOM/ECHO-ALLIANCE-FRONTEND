@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	KeyboardAvoidingView,
 	Platform,
@@ -8,71 +8,106 @@ import {
 	View,
 	SafeAreaView,
 	TextInput,
+	ImageBackground,
 } from "react-native";
+import { useDispatch } from 'react-redux';
+import {updateInfo} from '../reducers/example';
+import { useSelector } from 'react-redux';
+
 
 export default function AssociationConnection({ navigation }) {
+
+	const [email, setEmail] = useState(null);
+	const [password1, setPassword1] = useState(null);
+	const [accountError, set2accountError] = useState(false);
+
+	const dispatch = useDispatch();
+	const myData = useSelector((state) => state.example.value);
+
+
+	const handleInscription = () => {
+		{
+			fetch('http://10.33.211.185:3000/association/connexion', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ password: password1, email: email, }),
+			}).then((response) => response.json())
+				.then((data) => {
+					if (data.result === false) {
+						set2accountError(true);
+					}
+					if (data.result === true) {
+						console.log(data.data ,"data du BE");
+						dispatch(updateInfo(data.data));
+						navigation.navigate("AssociationMenu");
+					}
+				});
+		}
+	}
+	// console.log(myData)
 	return (
-		<KeyboardAvoidingView
-			style={styles.container}
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
+		<ImageBackground
+			source={require("../assets/associationconnection.jpeg")}
+			style={styles.background}
 		>
-			<View style={styles.container2}>
-				<View style={styles.background}>
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior={Platform.OS === "ios" ? "padding" : "height"}
+			>
+				<View style={styles.background1}>
 					<Text style={styles.email}>Email</Text>
 					<SafeAreaView>
-						<TextInput style={styles.input} />
+						<TextInput style={styles.input} onChangeText={(value) => setEmail(value)} value={email} />
 					</SafeAreaView>
 				</View>
-			</View>
-			<View style={styles.container3}>
-				<View style={styles.background}>
+
+				<View style={styles.background2}>
 					<Text style={styles.mdp}>Mot de passe</Text>
 					<SafeAreaView>
-						<TextInput style={styles.input} />
+						<TextInput style={styles.input} onChangeText={(value) => setPassword1(value)} value={password1} secureTextEntry={true}/>
 					</SafeAreaView>
 				</View>
-			</View>
 
-			<TouchableOpacity
-				onPress={() => navigation.navigate("BenevoleMenu")}
-				style={styles.button}
-				activeOpacity={0.8}
-			>
-				<Text style={styles.textButton}>Connexion</Text>
-			</TouchableOpacity>
-		</KeyboardAvoidingView>
+				<TouchableOpacity
+					onPress={() => navigation.navigate("AssociationMenu")}
+					style={styles.button}
+					activeOpacity={0.8}
+				>
+					<Text style={styles.textButton}>Connexion</Text>
+				</TouchableOpacity>
+			</KeyboardAvoidingView>
+		</ImageBackground>
 	);
 }
 
 const styles = StyleSheet.create({
+	background: {
+		width: "100%",
+		height: "100%",
+	},
 	container: {
 		flex: 1,
-		backgroundColor: "#ffffff",
-		justifyContent: "space-around",
+		backgroundColor: "rgba(52, 52, 52, 0.8)",
+		justifyContent: "space-evenly",
 	},
-	container2: {
-		justifyContent: "space-between",
-		marginLeft: "5%",
-		flexWrap: "wrap",
-		flexDirection: "column",
-	},
-	container3: {
-		justifyContent: "space-between",
-		marginLeft: "5%",
-		flexWrap: "wrap",
-		flexDirection: "column",
-	},
-	background: {
+
+	background1: {
 		backgroundColor: "#439798",
 		borderRadius: 10,
-		margin: "2%",
+		margin: "3%",
+		marginTop: 100,
+	},
+	background2: {
+		backgroundColor: "#439798",
+		borderRadius: 10,
+		margin: "3%",
 	},
 
 	input: {
 		height: 35,
 		margin: 15,
 		borderWidth: 1,
-		width: 305,
+		width: "90%",
 		backgroundColor: "#ffffff",
 		padding: 5,
 	},
@@ -110,5 +145,14 @@ const styles = StyleSheet.create({
 		marginTop: 5,
 		fontWeight: "bold",
 	},
-	mdp: { color: "#ffffff", marginLeft: 5, marginTop: 5, fontWeight: "bold" },
+	error: {
+		marginBottom: 10,
+		color: 'red',
+	  },
+	mdp: { 
+		color: "#ffffff", 
+		marginLeft: 5, 
+		marginTop: 5, 
+		fontWeight: "bold" 
+	},
 });

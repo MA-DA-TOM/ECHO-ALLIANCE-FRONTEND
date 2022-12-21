@@ -6,38 +6,53 @@ import {
 	Text,
 	View,
 } from "react-native";
+import { useDispatch } from 'react-redux';
+import { updateInfo } from '../reducers/example';
+import { useSelector } from 'react-redux'
 
 export default function BenevoleMission({ navigation }) {
+
+	const Nom = useSelector((state) => state.example.value[0].name);
+	const Adresse = useSelector((state) => state.example.value[0].Adresse);
+	const siteWeb = useSelector((state) => state.example.value[0].siteWeb);
+	const description = useSelector((state) => state.example.value[0].description);
+
+
+	
+
+
 	return (
 		<KeyboardAvoidingView
 			style={styles.container}
 			behavior={Platform.OS === "ios" ? "padding" : "height"}
 		>
+			<View style={styles.container0}>
+				<View style={styles.container2}></View>
+			</View>
 			<View style={styles.container1}>
 				<Text style={styles.txt}>Nom:</Text>
+				<Text>{Nom}</Text>
 			</View>
 			<View style={styles.container1}>
 				<Text style={styles.txt}>Adresse:</Text>
-			</View>
-			<View style={styles.container1}>
-				<Text style={styles.txt}>Horaires:</Text>
+				<Text>{Adresse}</Text>
 			</View>
 			<View style={styles.container1}>
 				<Text style={styles.txt}>Site internet:</Text>
+				<Text>{siteWeb}</Text>
 			</View>
-			<View style={styles.container1}>
-				<Text style={styles.txt}>Numéro de téléphone:</Text>
-			</View>
+			
+
 			<View style={styles.container2}>
 				<Image
 					style={styles.logo}
 					source={require("../assets/logo-map.png")}
 				/>
 			</View>
-			<View style={styles.container1}>
-				<Text style={styles.txt}>Description:</Text>
+			<Text style={styles.txt}>Description:</Text>
+			<View style={styles.container3}>
+				<Text>{description}</Text>
 			</View>
-			<View style={styles.container3}></View>
 		</KeyboardAvoidingView>
 	);
 }
@@ -57,25 +72,41 @@ const styles = StyleSheet.create({
 		height: 30,
 		width: 30,
 	},
-
+	container0: {
+		alignItems: "center",
+		justifyContent: "center",
+	},
 	container1: {
 		marginLeft: "5%",
 	},
 	container2: {
+		height: 160,
+		width: 160,
+		backgroundColor: "#ffffff",
+		alignItems: "center",
+		justifyContent: "center",
+		borderWidth: 1,
+		borderRadius: 100,
+	},
+	container2b: {
 		alignItems: "center",
 		justifyContent: "center",
 		borderWidth: 1,
 		height: 160,
 		width: 160,
-		marginLeft: 120,
 	},
-	container3: {
+	images: {
+		flexDirection: "row",
+		justifyContent: "space-around",
+	},
+	container3: { marginLeft: "5%" },
+	container4: {
 		alignItems: "center",
 		justifyContent: "center",
 		borderWidth: 1,
-		height: 160,
-		width: 380,
-		marginLeft: 6,
+		height: 200,
+		marginLeft: 5,
+		marginRight: 5,
 	},
 
 	textButton: {
@@ -98,7 +129,6 @@ const styles = StyleSheet.create({
 	txt: {
 		fontWeight: "bold",
 		color: "#0CA789",
-		textDecorationLine: "underline",
 	},
 	logo: {
 		height: 70,

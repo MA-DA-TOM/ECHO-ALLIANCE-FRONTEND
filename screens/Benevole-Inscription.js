@@ -115,20 +115,20 @@ const styles = StyleSheet.create({
         justifyContent: "space-around",
     },
 
-background: {
-    backgroundColor: "#439798",
-    borderRadius: 10,
-    margin: "3%",
-},
+	background: {
+		backgroundColor: "#439798",
+		borderRadius: 10,
+		margin: "3%",
+	},
 
-input: {
-    height: 35,
-    margin: 15,
-    borderWidth: 1,
-    width: 320,
-    backgroundColor: "#ffffff",
-    padding: 5,
-},
+	input: {
+		height: 35,
+		margin: 15,
+		borderWidth: 1,
+		width: "90%",
+		backgroundColor: "#ffffff",
+		padding: 5,
+	},
 
 button: {
     alignItems: "center",
@@ -145,21 +145,20 @@ button: {
     shadowOpacity: 0.58,
     shadowRadius: 16.0,
 
-    elevation: 25,
-},
-textButton: {
-    color: "#ffffff",
-    height: 30,
-    fontWeight: "600",
-    fontSize: 16,
-    textShadowColor: "#000000",
-    textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 5,
-},
-nom: { color: "#ffffff", marginLeft: 5, marginTop: 5, fontWeight: "bold" },
-prenom: { color: "#ffffff", marginLeft: 5, fontWeight: "bold" },
-geolocalisation: { color: "#ffffff", marginLeft: 5, fontWeight: "bold" },
-date: { color: "#ffffff", marginLeft: 5, fontWeight: "bold" },
-email: { color: "#ffffff", marginLeft: 5, fontWeight: "bold" },
-mdp: { color: "#ffffff", marginLeft: 5, fontWeight: "bold" },
+		elevation: 25,
+	},
+	textButton: {
+		color: "#ffffff",
+		height: 30,
+		fontWeight: "600",
+		fontSize: 16,
+		textShadowColor: "#000000",
+		textShadowOffset: { width: 0, height: 2 },
+		textShadowRadius: 5,
+	},
+	nom: { color: "#ffffff", marginLeft: 5, marginTop: 5, fontWeight: "bold" },
+	prenom: { color: "#ffffff", marginLeft: 5, fontWeight: "bold" },
+	geolocalisation: { color: "#ffffff", marginLeft: 5, fontWeight: "bold" },
+	email: { color: "#ffffff", marginLeft: 5, fontWeight: "bold" },
+	mdp: { color: "#ffffff", marginLeft: 5, fontWeight: "bold" },
 });

@@ -366,6 +366,6 @@ const styles = StyleSheet.create({
 	},
 	container111: {
 		backgroundColor: "#ffffff",
-		width: "280%",
+		width: "250%",
 	},
 });

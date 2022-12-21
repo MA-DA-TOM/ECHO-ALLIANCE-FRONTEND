@@ -12,6 +12,7 @@ import {
 	View,
 	SafeAreaView,
 	TextInput,
+	ImageBackground,
 } from "react-native";
 
 import {updateEmail} from '../reducers/user';
@@ -79,71 +80,72 @@ export default function Connexion({navigation}) {
 
 
 	return (
-		<KeyboardAvoidingView
-			style={styles.container}
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
+		<ImageBackground
+			source={require("../assets/benevoleconnection.jpeg")}
+			style={styles.background}
 		>
-			<View style={styles.container2}>
-				<View style={styles.background}>
-					<Text style={styles.email}>Email</Text>
-					<SafeAreaView>
-						<TextInput style={styles.input} />
-					</SafeAreaView>
-				</View>
-			</View>
-			<View style={styles.container3}>
-				<View style={styles.background}>
-					<Text style={styles.mdp}>Mot de passe</Text>
-					<SafeAreaView>
-						<TextInput style={styles.input} />
-					</SafeAreaView>
-				</View>
-			</View>
-
-			<TouchableOpacity
-				onPress={() => handleRegister() }
-				style={styles.button}
-				activeOpacity={0.8}
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior={Platform.OS === "ios" ? "padding" : "height"}
 			>
-				<Text style={styles.textButton}>Connexion</Text>
-			</TouchableOpacity>
-		</KeyboardAvoidingView>
+				<View style={styles.background1}>
+					<SafeAreaView>
+						<Text style={styles.email}>Email</Text>
+
+						<TextInput style={styles.input} />
+					</SafeAreaView>
+				</View>
+
+				<View style={styles.background2}>
+					<SafeAreaView>
+						<Text style={styles.mdp}>Mot de passe</Text>
+
+						<TextInput style={styles.input} />
+					</SafeAreaView>
+				</View>
+
+				<TouchableOpacity
+					onPress={() => navigation.navigate("BenevoleMenu")}
+					style={styles.button}
+					activeOpacity={0.8}
+				>
+					<Text style={styles.textButton}>Connexion</Text>
+				</TouchableOpacity>
+			</KeyboardAvoidingView>
+		</ImageBackground>
 	);
 }
 
 const styles = StyleSheet.create({
+	background: {
+		width: "100%",
+		height: "100%",
+	},
 	container: {
 		flex: 1,
-		backgroundColor: "#ffffff",
-		justifyContent: "space-around",
+		justifyContent: "space-evenly",
+		backgroundColor: "rgba(52, 52, 52, 0.8)",
 	},
 
-	container2: {
-		justifyContent: "space-between",
-		margin: "7%",
-		flexWrap: "wrap",
-		flexDirection: "column",
-	},
-	container3: {
-		justifyContent: "space-between",
-		margin: "7%",
-		flexWrap: "wrap",
-		flexDirection: "column",
-	},
-	background: {
+	background1: {
 		backgroundColor: "#439798",
 		borderRadius: 10,
+		margin: "3%",
+		marginTop: 100,
+	},
+	background2: {
+		backgroundColor: "#439798",
+		borderRadius: 10,
+		margin: "3%",
 	},
 
 	input: {
 		height: 35,
 		margin: 15,
 		borderWidth: 1,
-		width: 305,
+		width: "90%",
 		backgroundColor: "#ffffff",
-		padding: 5,
 	},
-
 	button: {
 		alignItems: "center",
 		paddingTop: 8,
