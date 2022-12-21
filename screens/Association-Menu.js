@@ -6,7 +6,13 @@ import {
 	Text,
 	TouchableOpacity,
 	View,
+	ImageBackground,
 } from "react-native";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import {
+	faPowerOff,
+	faMagnifyingGlassLocation,
+} from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from 'react-redux';
 import {updateInfo} from '../reducers/example';
 import { useSelector } from 'react-redux';
@@ -15,149 +21,155 @@ export default function AssociationMenu({ navigation }) {
 	const myData = useSelector((state) => state.example.value);
 
 	return (
-		<KeyboardAvoidingView
-			style={styles.container}
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
+		<ImageBackground
+			source={require("../assets/backgrounda.jpg")}
+			style={styles.background}
 		>
-			<View style={styles.header}>
-				<Text style={styles.title}>Echo-Alliance</Text>
-			</View>
-			<View style={styles.subcontainer}>
-				<View style={styles.card1}>
-					<TouchableOpacity
-						style={styles.buttonOpacity}
-						onPress={() => navigation.navigate("AssociationProfil")}
-					>
-						<Text style={styles.associationtext}>Association</Text>
-						<Image
-							style={styles.associationimage}
-							source={require("../assets/logo-profile.png")}
-						/>
-					</TouchableOpacity>
-				</View>
-
-				<View style={styles.card2}>
-					<TouchableOpacity
-						style={styles.buttonOpacity}
-						onPress={() => navigation.navigate("AssociationEvent")}
-					>
-						<Text style={styles.evenements}>Evenements</Text>
-					</TouchableOpacity>
-				</View>
-				<View style={styles.card3}>
-					<TouchableOpacity
-						style={styles.buttonOpacity}
-						onPress={() => navigation.navigate("BenevoleMap")}
-					>
-						<Text style={styles.map}>Map</Text>
-						<Image
-							style={styles.mapimage}
-							source={require("../assets/logo-map.png")}
-						/>
-					</TouchableOpacity>
-				</View>
-			</View>
-
-			<TouchableOpacity
-				onPress={() => navigation.navigate("Home")}
-				style={styles.button}
-				activeOpacity={0.8}
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior={Platform.OS === "ios" ? "padding" : "height"}
 			>
-				<Text style={styles.textButton}>Deconnexion</Text>
-			</TouchableOpacity>
-		</KeyboardAvoidingView>
+				<View style={styles.off}>
+					<TouchableOpacity
+						onPress={() => navigation.navigate("Home")}
+					>
+						<FontAwesomeIcon
+							icon={faPowerOff}
+							style={styles.button}
+							activeOpacity={0.8}
+							size={30}
+						/>
+					</TouchableOpacity>
+				</View>
+				<View style={styles.header}>
+					<Text style={styles.title}>Echo-Alliance</Text>
+				</View>
+				<View style={styles.subcontainer}>
+					<View style={styles.card1}>
+						<TouchableOpacity
+							style={styles.buttonOpacity}
+							onPress={() =>
+								navigation.navigate("AssociationProfil")
+							}
+						>
+							<Text style={styles.associationtext}>
+								Association
+							</Text>
+							<Image
+								style={styles.associationimage}
+								source={require("../assets/logo-profile.png")}
+							/>
+						</TouchableOpacity>
+					</View>
+
+					<View style={styles.card2}>
+						<TouchableOpacity
+							style={styles.buttonOpacity}
+							onPress={() =>
+								navigation.navigate("AssociationEvent")
+							}
+						>
+							<Text style={styles.evenements}>Evenements</Text>
+							<FontAwesomeIcon
+								icon={faMagnifyingGlassLocation}
+								style={styles.glass}
+								size={80}
+								activeOpacity={0.8}
+							/>
+						</TouchableOpacity>
+					</View>
+					<View style={styles.card3}>
+						<TouchableOpacity
+							style={styles.buttonOpacity}
+							onPress={() => navigation.navigate("BenevoleMap")}
+						>
+							<Text style={styles.map}>Map</Text>
+							<Image
+								style={styles.mapimage}
+								source={require("../assets/logo-map.png")}
+							/>
+						</TouchableOpacity>
+					</View>
+				</View>
+			</KeyboardAvoidingView>
+		</ImageBackground>
 	);
 }
 
 const styles = StyleSheet.create({
+	background: {
+		width: "100%",
+		height: "100%",
+	},
 	container: {
 		flex: 1,
 		backgroundColor: "#ffffff",
 		justifyContent: "space-around",
-		alignItems: "center",
+		backgroundColor: "rgba(52, 52, 52, 0.8)",
 	},
+	header: { alignItems: "center" },
+	off: {
+		alignItems: "flex-end",
+	},
+	glass: { color: "#ffffff", marginTop: 80 },
 	title: {
 		fontSize: 30,
 		fontWeight: "600",
-		color: "#0CA789",
+		color: "#ffffff",
+		marginBottom: 30,
 	},
-	home: {
-		height: 30,
-		width: 30,
-		marginLeft: 35,
-		marginTop: 5,
-	},
+
 	buttonOpacity: {
 		alignItems: "center",
 		height: "100%",
 		width: "100%",
 	},
 	button: {
-		alignItems: "center",
-		paddingTop: 8,
-		width: "80%",
-		backgroundColor: "#0CA789",
-		borderRadius: 10,
-		borderWidth: 1,
-		shadowOffset: {
-			width: -10,
-			height: 12,
-		},
-		shadowOpacity: 0.58,
-		shadowRadius: 16.0,
-
-		elevation: 25,
-	},
-	textButton: {
 		color: "#ffffff",
-		height: 30,
-		fontWeight: "600",
-		fontSize: 16,
-		textShadowColor: "#000000",
-		textShadowOffset: { width: 0, height: 2 },
-		textShadowRadius: 5,
 	},
+
 	subcontainer: {
 		justifyContent: "center",
 		flexDirection: "row",
 		flexWrap: "wrap",
 	},
 	card1: {
-		height: 160,
-		width: 330,
+		height: 280,
+		width: 380,
 		backgroundColor: "#ffffff",
 		margin: 5,
 		alignItems: "center",
 		borderWidth: 1,
 	},
 	card2: {
-		height: 160,
-		width: 160,
-		backgroundColor: "#8BE38E",
+		height: 280,
+		width: 185,
+		backgroundColor: "#0CA789",
 		margin: 5,
 		borderWidth: 1,
+		marginBottom: 50,
 	},
 	card3: {
-		height: 160,
-		width: 160,
+		height: 280,
+		width: 185,
 		backgroundColor: "#ffffff",
 		margin: 5,
 		borderWidth: 1,
 	},
 	associationimage: {
-		height: 60,
-		width: 60,
-		marginTop: 30,
+		height: 80,
+		width: 80,
+		marginTop: 80,
 	},
 	associationtext: {
 		fontWeight: "bold",
+		fontSize: 20,
 	},
-	map: { fontWeight: "bold" },
+	map: { fontWeight: "bold", fontSize: 20 },
 	mapimage: {
-		height: 60,
-		width: 60,
-		marginTop: 30,
+		height: 80,
+		width: 80,
+		marginTop: 80,
 	},
-	avantages: { color: "#ffffff", fontWeight: "bold" },
-	evenements: { color: "#ffffff", fontWeight: "bold" },
+	evenements: { color: "#ffffff", fontWeight: "bold", fontSize: 20 },
 });

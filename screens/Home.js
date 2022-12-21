@@ -8,6 +8,7 @@ import {
 	TouchableOpacity,
 	View,
 	Modal,
+	ImageBackground,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
@@ -30,270 +31,267 @@ export default function Home({ navigation }) {
 	};
 
 	return (
-		<KeyboardAvoidingView
-			style={styles.container}
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
+		<ImageBackground
+			source={require("../assets/background.jpg")}
+			style={styles.background}
 		>
-			<View style={styles.subcontainer}>
-				<Text style={styles.title}>
-					Welcome to <Text style={styles.echo}>Echo Alliance</Text>
-				</Text>
-			</View>
-			<Modal visible={modalBénévole} animationType="fade" transparent>
-				<View style={styles.modalContainer}>
-					<FontAwesome
-						name="rotate-right"
-						size={25}
-						color="#ffffff"
-						onPress={() => handleModalBénévol()}
-					/>
-					<TouchableOpacity
-						style={styles.crossContainer}
-						onPress={() => handleModalBénévol()}
-					>
-						<Image
-							style={styles.cross}
-							source={require("../assets/logo-cross.png")}
-						/>
-					</TouchableOpacity>
-					<Text style={styles.title2}>
-						<Text style={styles.benevole}>Bénévoles</Text>
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior={Platform.OS === "ios" ? "padding" : "height"}
+			>
+				<View style={styles.subcontainer}>
+					<Text style={styles.title}>
+						Welcome to{" "}
+						<Text style={styles.echo}>Echo Alliance</Text>
 					</Text>
-					<View style={styles.texte}>
-						<Text>
-							Lorem ipsum dolor sit amet, consectetur adipiscing
-							elit. Sed non risus. Suspendisse lectus tortor,
-							dignissim sit amet, adipiscing nec, ultricies sed,
-							dolor. Cras elementum ultrices diam. Maecenas ligula
-							massa, varius a, semper congue, euismod non, mi.
-							Proin porttitor, orci nec nonummy molestie, enim est
-							eleifend mi, non fermentum diam nisl sit amet erat.
-							Duis semper. Duis arcu massa, scelerisque vitae,
-							consequat in, pretium a, enim. Pellentesque congue.
-							Ut in risus volutpat libero pharetra tempor. Cras
-							vestibulum bibendum augue. Praesent egestas leo in
-							pede. Praesent blandit odio eu enim. Pellentesque
-							sed dui ut augue blandit sodales. Vestibulum ante
-							ipsum primis in faucibus orci luctus et ultrices
-							posuere cubilia Curae; Aliquam nibh. Mauris ac
-							mauris sed pede pellentesque fermentum. Maecenas
-							adipiscing ante non diam sodales hendrerit.
-						</Text>
-					</View>
-					<View style={styles.boutons3}>
-						<TouchableOpacity style={styles.buttonC}>
-							<Text style={styles.textButton}>Charte</Text>
+				</View>
+				<Modal visible={modalBénévole} animationType="fade" transparent>
+					<View style={styles.modalContainer}>
+						<FontAwesome
+							name="rotate-right"
+							size={25}
+							color="#ffffff"
+							onPress={() => handleModalBénévol()}
+						/>
+						<TouchableOpacity
+							style={styles.crossContainer}
+							onPress={() => handleModalBénévol()}
+						>
+							<Image
+								style={styles.cross}
+								source={require("../assets/logo-cross.png")}
+							/>
 						</TouchableOpacity>
-						<View style={styles.divboutons}>
-							<TouchableOpacity
-								style={styles.ICbutton}
-								onPress={() =>
-									navigation.navigate("BenevoleInscription") +
-									handleModalBénévol()
-								}
-							>
-								<Text style={styles.textButton}>
-									Inscription
-								</Text>
+						<Text style={styles.title2}>
+							<Text style={styles.benevole}>Bénévoles</Text>
+						</Text>
+						<View style={styles.texte}>
+							<Text style={styles.txt}>
+								Le bénévole donne de son temps en accomplissant
+								les missions proposées par le pôle associations.
+								Au delà d'un certain niveau d'engagement, son
+								don de temps est valorisé par les entreprises
+								partenaires via l'octroi de réductions et de
+								cadeaux. Son engagement lui permet également de
+								développer son réseau, de faire des rencontres
+								et de vivre de nouvelles expériences.
+							</Text>
+						</View>
+						<View style={styles.boutons3}>
+							<TouchableOpacity style={styles.buttonC}>
+								<Text style={styles.textButton}>Charte</Text>
 							</TouchableOpacity>
-							<TouchableOpacity
-								style={styles.ICbutton}
-								onPress={() =>
-									navigation.navigate("BenevoleConnection") +
-									handleModalBénévol()
-								}
-							>
-								<Text style={styles.textButton}>Connexion</Text>
-							</TouchableOpacity>
+							<View style={styles.divboutons}>
+								<TouchableOpacity
+									style={styles.ICbutton}
+									onPress={() =>
+										navigation.navigate(
+											"BenevoleInscription"
+										) + handleModalBénévol()
+									}
+								>
+									<Text style={styles.textButton}>
+										Inscription
+									</Text>
+								</TouchableOpacity>
+								<TouchableOpacity
+									style={styles.ICbutton}
+									onPress={() =>
+										navigation.navigate(
+											"BenevoleConnection"
+										) + handleModalBénévol()
+									}
+								>
+									<Text style={styles.textButton}>
+										Connexion
+									</Text>
+								</TouchableOpacity>
+							</View>
 						</View>
 					</View>
-				</View>
-			</Modal>
+				</Modal>
 
-			<Modal visible={modalAssociation} animationType="fade" transparent>
-				<View style={styles.modalContainer}>
-					<FontAwesome
-						name="rotate-right"
-						size={25}
-						color="#ffffff"
-						onPress={() => handleModalAssociation()}
-					/>
-					<TouchableOpacity
-						style={styles.crossContainer}
-						onPress={() => handleModalAssociation()}
-					>
-						<Image
-							style={styles.cross}
-							source={require("../assets/logo-cross.png")}
+				<Modal
+					visible={modalAssociation}
+					animationType="fade"
+					transparent
+				>
+					<View style={styles.modalContainer}>
+						<FontAwesome
+							name="rotate-right"
+							size={25}
+							color="#ffffff"
+							onPress={() => handleModalAssociation()}
 						/>
-					</TouchableOpacity>
-					<Text style={styles.title2}>
-						<Text style={styles.benevole}>Associations</Text>
-					</Text>
-					<View style={styles.texte}>
-						<Text>
-							Lorem ipsum dolor sit amet, consectetur adipiscing
-							elit. Sed non risus. Suspendisse lectus tortor,
-							dignissim sit amet, adipiscing nec, ultricies sed,
-							dolor. Cras elementum ultrices diam. Maecenas ligula
-							massa, varius a, semper congue, euismod non, mi.
-							Proin porttitor, orci nec nonummy molestie, enim est
-							eleifend mi, non fermentum diam nisl sit amet erat.
-							Duis semper. Duis arcu massa, scelerisque vitae,
-							consequat in, pretium a, enim. Pellentesque congue.
-							Ut in risus volutpat libero pharetra tempor. Cras
-							vestibulum bibendum augue. Praesent egestas leo in
-							pede. Praesent blandit odio eu enim. Pellentesque
-							sed dui ut augue blandit sodales. Vestibulum ante
-							ipsum primis in faucibus orci luctus et ultrices
-							posuere cubilia Curae; Aliquam nibh. Mauris ac
-							mauris sed pede pellentesque fermentum. Maecenas
-							adipiscing ante non diam sodales hendrerit.
-						</Text>
-					</View>
-					<View style={styles.boutons3}>
-						<TouchableOpacity style={styles.buttonC}>
-							<Text style={styles.textButton}>Charte</Text>
+						<TouchableOpacity
+							style={styles.crossContainer}
+							onPress={() => handleModalAssociation()}
+						>
+							<Image
+								style={styles.cross}
+								source={require("../assets/logo-cross.png")}
+							/>
 						</TouchableOpacity>
-						<View style={styles.divboutons}>
-							<TouchableOpacity
-								style={styles.ICbutton}
-								onPress={() =>
-									navigation.navigate(
-										"AssociationInscription"
-									) + handleModalAssociation()
-								}
-							>
-								<Text style={styles.textButton}>
-									Inscription
-								</Text>
+						<Text style={styles.title2}>
+							<Text style={styles.benevole}>Associations</Text>
+						</Text>
+						<View style={styles.texte}>
+							<Text style={styles.txt}>
+								Les associations s'engagent et militent
+								activement en faveur de la cause
+								environnementale. Grâce à Echo Alliance, elles
+								bénéficient d'une mobilisation accrue de
+								bénévoles qui partagent les mêmes valeurs et
+								s'attachent à un même but.
+							</Text>
+						</View>
+						<View style={styles.boutons3}>
+							<TouchableOpacity style={styles.buttonC}>
+								<Text style={styles.textButton}>Charte</Text>
 							</TouchableOpacity>
-							<TouchableOpacity
-								style={styles.ICbutton}
-								onPress={() =>
-									navigation.navigate(
-										"AssociationConnection"
-									) + handleModalAssociation()
-								}
-							>
-								<Text style={styles.textButton}>Connexion</Text>
-							</TouchableOpacity>
+							<View style={styles.divboutons}>
+								<TouchableOpacity
+									style={styles.ICbutton}
+									onPress={() =>
+										navigation.navigate(
+											"AssociationInscription"
+										) + handleModalAssociation()
+									}
+								>
+									<Text style={styles.textButton}>
+										Inscription
+									</Text>
+								</TouchableOpacity>
+								<TouchableOpacity
+									style={styles.ICbutton}
+									onPress={() =>
+										navigation.navigate(
+											"AssociationConnection"
+										) + handleModalAssociation()
+									}
+								>
+									<Text style={styles.textButton}>
+										Connexion
+									</Text>
+								</TouchableOpacity>
+							</View>
 						</View>
 					</View>
-				</View>
-			</Modal>
+				</Modal>
 
-			<Modal visible={modalEntreprise} animationType="fade" transparent>
-				<View style={styles.modalContainer}>
-					<FontAwesome
-						name="rotate-right"
-						size={25}
-						color="#ffffff"
-						onPress={() => handleModalEntreprise()}
-					/>
-					<TouchableOpacity
-						style={styles.crossContainer}
-						onPress={() => handleModalEntreprise()}
-					>
-						<Image
-							style={styles.cross}
-							source={require("../assets/logo-cross.png")}
+				<Modal
+					visible={modalEntreprise}
+					animationType="fade"
+					transparent
+				>
+					<View style={styles.modalContainer}>
+						<FontAwesome
+							name="rotate-right"
+							size={25}
+							color="#ffffff"
+							onPress={() => handleModalEntreprise()}
 						/>
-					</TouchableOpacity>
-					<Text style={styles.title2}>
-						<Text style={styles.benevole}>Entreprises</Text>
-					</Text>
-					<View style={styles.texte}>
-						<Text>
-							Lorem ipsum dolor sit amet, consectetur adipiscing
-							elit. Sed non risus. Suspendisse lectus tortor,
-							dignissim sit amet, adipiscing nec, ultricies sed,
-							dolor. Cras elementum ultrices diam. Maecenas ligula
-							massa, varius a, semper congue, euismod non, mi.
-							Proin porttitor, orci nec nonummy molestie, enim est
-							eleifend mi, non fermentum diam nisl sit amet erat.
-							Duis semper. Duis arcu massa, scelerisque vitae,
-							consequat in, pretium a, enim. Pellentesque congue.
-							Ut in risus volutpat libero pharetra tempor. Cras
-							vestibulum bibendum augue. Praesent egestas leo in
-							pede. Praesent blandit odio eu enim. Pellentesque
-							sed dui ut augue blandit sodales. Vestibulum ante
-							ipsum primis in faucibus orci luctus et ultrices
-							posuere cubilia Curae; Aliquam nibh. Mauris ac
-							mauris sed pede pellentesque fermentum. Maecenas
-							adipiscing ante non diam sodales hendrerit.
-						</Text>
-					</View>
-					<View style={styles.boutons3}>
-						<TouchableOpacity style={styles.buttonC}>
-							<Text style={styles.textButton}>Charte</Text>
+						<TouchableOpacity
+							style={styles.crossContainer}
+							onPress={() => handleModalEntreprise()}
+						>
+							<Image
+								style={styles.cross}
+								source={require("../assets/logo-cross.png")}
+							/>
 						</TouchableOpacity>
-						<View style={styles.divboutons}>
-							<TouchableOpacity
-								style={styles.ICbutton}
-								onPress={() =>
-									navigation.navigate(
-										"EntrepriseInscription"
-									) + handleModalEntreprise()
-								}
-							>
-								<Text style={styles.textButton}>
-									Inscription
-								</Text>
+						<Text style={styles.title2}>
+							<Text style={styles.benevole}>Entreprises</Text>
+						</Text>
+						<View style={styles.texte}>
+							<Text style={styles.txt}>
+								Les entreprises adhérentes aux valeurs d'Echo
+								Alliance offrent des cadeaux et des réductions
+								aux bénévoles participant aux évènements
+								associatifs. De part leur engagement, elles
+								recoivent une meilleure visibilité et une
+								reconnaisance sur le marché, tout en prenant
+								part en faveur de la cause verte.
+							</Text>
+						</View>
+						<View style={styles.boutons3}>
+							<TouchableOpacity style={styles.buttonC}>
+								<Text style={styles.textButton}>Charte</Text>
 							</TouchableOpacity>
-							<TouchableOpacity
-								style={styles.ICbutton}
-								onPress={() =>
-									navigation.navigate(
-										"EntrepriseConnection"
-									) + handleModalEntreprise()
-								}
-							>
-								<Text style={styles.textButton}>Connexion</Text>
-							</TouchableOpacity>
+							<View style={styles.divboutons}>
+								<TouchableOpacity
+									style={styles.ICbutton}
+									onPress={() =>
+										navigation.navigate(
+											"EntrepriseInscription"
+										) + handleModalEntreprise()
+									}
+								>
+									<Text style={styles.textButton}>
+										Inscription
+									</Text>
+								</TouchableOpacity>
+								<TouchableOpacity
+									style={styles.ICbutton}
+									onPress={() =>
+										navigation.navigate(
+											"EntrepriseConnection"
+										) + handleModalEntreprise()
+									}
+								>
+									<Text style={styles.textButton}>
+										Connexion
+									</Text>
+								</TouchableOpacity>
+							</View>
 						</View>
 					</View>
-				</View>
-			</Modal>
+				</Modal>
 
-			<TouchableOpacity
-				onPress={() => handleModalBénévol()}
-				style={styles.button}
-				activeOpacity={0.8}
-			>
-				<Text style={styles.textButton}>Bénévoles</Text>
-			</TouchableOpacity>
+				<TouchableOpacity
+					onPress={() => handleModalBénévol()}
+					style={styles.button}
+					activeOpacity={0.8}
+				>
+					<Text style={styles.textButton}>Bénévoles</Text>
+				</TouchableOpacity>
 
-			<TouchableOpacity
-				onPress={() => handleModalAssociation()}
-				style={styles.button}
-				activeOpacity={0.8}
-			>
-				<Text style={styles.textButton}>Associations</Text>
-			</TouchableOpacity>
+				<TouchableOpacity
+					onPress={() => handleModalAssociation()}
+					style={styles.button}
+					activeOpacity={0.8}
+				>
+					<Text style={styles.textButton}>Associations</Text>
+				</TouchableOpacity>
 
-			<TouchableOpacity
-				onPress={() => handleModalEntreprise()}
-				style={styles.button}
-				activeOpacity={0.8}
-			>
-				<Text style={styles.textButton}>Entreprises</Text>
-			</TouchableOpacity>
-		</KeyboardAvoidingView>
+				<TouchableOpacity
+					onPress={() => handleModalEntreprise()}
+					style={styles.button}
+					activeOpacity={0.8}
+				>
+					<Text style={styles.textButton}>Entreprises</Text>
+				</TouchableOpacity>
+			</KeyboardAvoidingView>
+		</ImageBackground>
 	);
 }
 
 const styles = StyleSheet.create({
+	background: {
+		width: "100%",
+		height: "100%",
+	},
 	container: {
 		flex: 1,
-		backgroundColor: "#ffffff",
 		alignItems: "center",
 		justifyContent: "space-around",
+		backgroundColor: "rgba(52, 52, 52, 0.8)",
 	},
 	title: {
 		fontSize: 30,
 		fontWeight: "600",
 		fontWeight: "bold",
+		color: "#ffffff",
 	},
 	echo: {
 		fontSize: 30,
@@ -368,12 +366,12 @@ const styles = StyleSheet.create({
 	},
 	benevole: {
 		color: "#0CA789",
-		width: "100%",
 		fontSize: 30,
 		fontWeight: "600",
 		alignItems: "center",
 	},
 	texte: { margin: 5 },
+	txt: { fontSize: 20, textAlign: "center" },
 	cross: {
 		height: 30,
 		width: 30,

@@ -93,7 +93,9 @@ export default function BenevoleAlert({ navigation }) {
 
 						<View style={styles.snapContainer}>
 							<TouchableOpacity
-								onPress={() => cameraRef && takePicture() && handlePhoto()}
+								onPress={() =>
+									cameraRef && takePicture() && handlePhoto()
+								}
 							>
 								<FontAwesome
 									name="circle-thin"
@@ -111,7 +113,13 @@ export default function BenevoleAlert({ navigation }) {
 	const photos = photo.map((data, i) => {
 		return (
 			<View key={i} style={styles.photoContainer}>
-				<FontAwesome name='times' size={20} color='#000000' style={styles.deleteIcon} onPress={() => deletePhoto(data)} />
+				<FontAwesome
+					name="times"
+					size={20}
+					color="#000000"
+					style={styles.deleteIcon}
+					onPress={() => deletePhoto(data)}
+				/>
 				<Image source={data.uri} style={styles.photo} />
 			</View>
 		);
@@ -129,7 +137,7 @@ export default function BenevoleAlert({ navigation }) {
 				<Text style={styles.temoignage}>Témoignage:</Text>
 			</View>
 			<View style={styles.container3}>
-				<TextInput autoCorrect={true} ></TextInput>
+				<TextInputautoCorrect={true} ></TextInput>
 			</View>
 			<View style={styles.container4}>
 				<TouchableOpacity onPress={() => handlePhoto()}>
@@ -139,9 +147,7 @@ export default function BenevoleAlert({ navigation }) {
 					/>
 				</TouchableOpacity>
 			</View>
-			<View style={styles.container5}>
-				{photos}
-			</View>
+			<View style={styles.container5}>{photos}</View>
 			{modalPhoto()}
 			<TouchableOpacity
 				onPress={() => navigation.navigate("BenevoleProfil")}
@@ -205,7 +211,7 @@ const styles = StyleSheet.create({
 		borderRadius: 100,
 		alignItems: "center",
 		justifyContent: "center",
-		marginLeft: 135,
+		marginLeft: "37%",
 	},
 	container5: {
 		marginRight: "5%",
@@ -235,17 +241,12 @@ const styles = StyleSheet.create({
 	camera: {
 		flex: 1,
 		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "space-between",
-		flexDirection: "column",
 	},
 	buttonsContainer: {
 		marginTop: 60,
 		marginLeft: 20,
 		marginRight: 20,
 		width: "90%",
-		flexDirection: "row",
-		justifyContent: "space-between",
 	},
 	snapContainer: {
 		justifyContent: "center",

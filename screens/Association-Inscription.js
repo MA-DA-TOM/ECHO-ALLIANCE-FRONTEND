@@ -218,8 +218,6 @@ const styles = StyleSheet.create({
 		padding: 5,
 	},
 	container2: {
-		justifyContent: "space-between",
-
 		marginLeft: "5%",
 		flexWrap: "wrap",
 		flexDirection: "column",
