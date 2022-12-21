@@ -13,8 +13,13 @@ import {
 	faPowerOff,
 	faMagnifyingGlassLocation,
 } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from 'react-redux';
+import {updateInfo} from '../reducers/example';
+import { useSelector } from 'react-redux';
 
 export default function AssociationMenu({ navigation }) {
+	const myData = useSelector((state) => state.example.value);
+
 	return (
 		<ImageBackground
 			source={require("../assets/backgrounda.jpg")}

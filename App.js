@@ -29,6 +29,18 @@ import EntrepriseMenu from "./screens/Entreprise-Menu";
 import EntreprisePaliers from "./screens/Entreprise-Paliers";
 import EntrepriseProfil from "./screens/Entreprise-Profil";
 
+
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import user from "./reducers/user";
+import association from "./reducers/association";
+import event from "./reducers/event";
+import entreprise from "./reducers/entreprise";
+
+const store = configureStore({
+	reducer: { user, association, event, entreprise },
+});
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -92,96 +104,98 @@ const TabNavigator = () => {
 
 export default function App() {
 	return (
-		<NavigationContainer>
-			<Stack.Navigator screenOptions={{ headerShown: true }}>
-				<Stack.Screen name="Home" component={Home} />
-				<Stack.Screen name="BenevoleMenu" component={BenevoleMenu} />
+		<Provider store={store}>
+			<NavigationContainer>
+				<Stack.Navigator screenOptions={{ headerShown: true }}>
+					<Stack.Screen name="Home" component={Home} />
+					<Stack.Screen name="BenevoleMenu" component={BenevoleMenu} />
 
-				<Stack.Screen name="TabNavigator" component={TabNavigator} />
-				<Stack.Screen
-					name="BenevoleProfil"
-					component={BenevoleProfil}
-				/>
-				<Stack.Screen name="BenevoleMap" component={BenevoleMap} />
-				<Stack.Screen
-					name="BenevoleAvantage"
-					component={BenevoleAvantage}
-				/>
-				<Stack.Screen name="BenevoleAlert" component={BenevoleAlert} />
-			
-				<Stack.Screen
-					name="BenevoleMission"
-					component={BenevoleMission}
-				/>
-				<Stack.Screen
-					name="BenevoleSearch"
-					component={BenevoleSearch}
-				/>
-				<Stack.Screen
-					name="BenevoleConnection"
-					component={BenevoleConnection}
-				/>
-				<Stack.Screen
-					name="BenevoleInscription"
-					component={BenevoleInscription}
-				/>
-				<Stack.Screen
-					name="AssociationConnection"
-					component={AssociationConnection}
-				/>
-				<Stack.Screen
-					name="AssociationInscription"
-					component={AssociationInscription}
-				/>
-				<Stack.Screen
-					name="EntrepriseConnection"
-					component={EntrepriseConnection}
-				/>
-				<Stack.Screen
-					name="EntrepriseInscription"
-					component={EntrepriseInscription}
-				/>
-				<Stack.Screen
-					name="AssociationAddEvent"
-					component={AssociationAddEvent}
-				/>
-				<Stack.Screen
-					name="AssociationEvent"
-					component={AssociationEvent}
-				/>
-				<Stack.Screen
-					name="AssociationEventSubscriptions"
-					component={AssociationEventSubscriptions}
-				/>
-				<Stack.Screen
-					name="AssociationMaps"
-					component={AssociationMaps}
-				/>
-				<Stack.Screen
-					name="AssociationMenu"
-					component={AssociationMenu}
-				/>
-				<Stack.Screen
-					name="AssociationProfil"
-					component={AssociationProfil}
-				/>
-				<Stack.Screen
-					name="EntrepriseMaps"
-					component={EntrepriseMaps}
-				/>
-				<Stack.Screen
-					name="EntrepriseMenu"
-					component={EntrepriseMenu}
-				/>
-				<Stack.Screen
-					name="EntreprisePaliers"
-					component={EntreprisePaliers}
-				/>
-				<Stack.Screen
-					name="EntrepriseProfil"
-					component={EntrepriseProfil}
-				/>
-			</Stack.Navigator>
-		</NavigationContainer>
+					<Stack.Screen name="TabNavigator" component={TabNavigator} />
+					<Stack.Screen
+						name="BenevoleProfil"
+						component={BenevoleProfil}
+					/>
+					<Stack.Screen name="BenevoleMap" component={BenevoleMap} />
+					<Stack.Screen
+						name="BenevoleAvantage"
+						component={BenevoleAvantage}
+					/>
+					<Stack.Screen name="BenevoleAlert" component={BenevoleAlert} />
+
+					<Stack.Screen
+						name="BenevoleMission"
+						component={BenevoleMission}
+					/>
+					<Stack.Screen
+						name="BenevoleSearch"
+						component={BenevoleSearch}
+					/>
+					<Stack.Screen
+						name="BenevoleConnection"
+						component={BenevoleConnection}
+					/>
+					<Stack.Screen
+						name="BenevoleInscription"
+						component={BenevoleInscription}
+					/>
+					<Stack.Screen
+						name="AssociationConnection"
+						component={AssociationConnection}
+					/>
+					<Stack.Screen
+						name="AssociationInscription"
+						component={AssociationInscription}
+					/>
+					<Stack.Screen
+						name="EntrepriseConnection"
+						component={EntrepriseConnection}
+					/>
+					<Stack.Screen
+						name="EntrepriseInscription"
+						component={EntrepriseInscription}
+					/>
+					<Stack.Screen
+						name="AssociationAddEvent"
+						component={AssociationAddEvent}
+					/>
+					<Stack.Screen
+						name="AssociationEvent"
+						component={AssociationEvent}
+					/>
+					<Stack.Screen
+						name="AssociationEventSubscriptions"
+						component={AssociationEventSubscriptions}
+					/>
+					<Stack.Screen
+						name="AssociationMaps"
+						component={AssociationMaps}
+					/>
+					<Stack.Screen
+						name="AssociationMenu"
+						component={AssociationMenu}
+					/>
+					<Stack.Screen
+						name="AssociationProfil"
+						component={AssociationProfil}
+					/>
+					<Stack.Screen
+						name="EntrepriseMaps"
+						component={EntrepriseMaps}
+					/>
+					<Stack.Screen
+						name="EntrepriseMenu"
+						component={EntrepriseMenu}
+					/>
+					<Stack.Screen
+						name="EntreprisePaliers"
+						component={EntreprisePaliers}
+					/>
+					<Stack.Screen
+						name="EntrepriseProfil"
+						component={EntrepriseProfil}
+					/>
+				</Stack.Navigator>
+			</NavigationContainer>
+		</Provider>
 	);
 }

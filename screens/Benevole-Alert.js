@@ -178,7 +178,10 @@ const styles = StyleSheet.create({
 		height: 70,
 		width: 70,
 	},
-	paysage: { height: 50, width: 50 },
+	paysage: {
+		height: 50,
+		width: 50
+	},
 	container1: {
 		alignItems: "center",
 	},
