@@ -12,6 +12,11 @@ import {
 } from "react-native";
 
 export default function BenevoleProfil({ navigation }) {
+	const now = new Date();
+
+	const annee = now.getFullYear();
+	const mois = ("0" + now.getMonth() + 1).slice(-2);
+	const jour = ("0" + now.getDate()).slice(-2);
 	return (
 		<ImageBackground
 			source={require("../assets/fondecran.jpeg")}

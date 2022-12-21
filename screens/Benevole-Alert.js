@@ -38,7 +38,7 @@ export default function BenevoleAlert({ navigation }) {
 		const photoTest = await cameraRef.takePictureAsync({ quality: 0.3 });
 		setPhoto((photo) => [...photo, photoTest]);
 	};
-	console.log(photo);
+
 	const modalPhoto = () => {
 		// if (!hasPermission) {
 		// 	return <View />;
@@ -137,7 +137,7 @@ export default function BenevoleAlert({ navigation }) {
 				<Text style={styles.temoignage}>Témoignage:</Text>
 			</View>
 			<View style={styles.container3}>
-				<TextInput></TextInput>
+				<TextInputautoCorrect={true} ></TextInput>
 			</View>
 			<View style={styles.container4}>
 				<TouchableOpacity onPress={() => handlePhoto()}>
