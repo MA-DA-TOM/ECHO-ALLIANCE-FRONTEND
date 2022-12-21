@@ -6,8 +6,21 @@ import {
 	Text,
 	View,
 } from "react-native";
+import { useDispatch } from 'react-redux';
+import { updateInfo } from '../reducers/example';
+import { useSelector } from 'react-redux'
 
 export default function BenevoleMission({ navigation }) {
+
+	const Nom = useSelector((state) => state.example.value[0].name);
+	const Adresse = useSelector((state) => state.example.value[0].Adresse);
+	const siteWeb = useSelector((state) => state.example.value[0].siteWeb);
+	const description = useSelector((state) => state.example.value[0].description);
+
+
+	
+
+
 	return (
 		<KeyboardAvoidingView
 			style={styles.container}
@@ -15,29 +28,28 @@ export default function BenevoleMission({ navigation }) {
 		>
 			<View style={styles.container1}>
 				<Text style={styles.txt}>Nom:</Text>
+				<Text>{Nom}</Text>
 			</View>
 			<View style={styles.container1}>
 				<Text style={styles.txt}>Adresse:</Text>
-			</View>
-			<View style={styles.container1}>
-				<Text style={styles.txt}>Horaires:</Text>
+				<Text>{Adresse}</Text>
 			</View>
 			<View style={styles.container1}>
 				<Text style={styles.txt}>Site internet:</Text>
+				<Text>{siteWeb}</Text>
 			</View>
-			<View style={styles.container1}>
-				<Text style={styles.txt}>Numéro de téléphone:</Text>
-			</View>
+			
+
 			<View style={styles.container2}>
 				<Image
 					style={styles.logo}
 					source={require("../assets/logo-map.png")}
 				/>
 			</View>
-			<View style={styles.container1}>
-				<Text style={styles.txt}>Description:</Text>
+			<Text style={styles.txt}>Description:</Text>
+			<View style={styles.container3}>
+				<Text>{description}</Text>
 			</View>
-			<View style={styles.container3}></View>
 		</KeyboardAvoidingView>
 	);
 }

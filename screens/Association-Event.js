@@ -11,63 +11,21 @@ import {
 } from "react-native";
 import { useState } from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { useDispatch } from 'react-redux';
+import { updateInfo } from '../reducers/example';
+import { useSelector } from 'react-redux';
 
 export default function AssociationEvent({ navigation }) {
-	const dataToBecomeDynamic = [
-		{ key: "Event 1 - Nombre d'inscrits - Annuler" },
-	];
 
+	const EventData = [null];
 	const [modalCurrentEvent, setModalCurrentEvent] = useState(false);
 
 	const handleModalCurrentEvent = () => {
 		setModalCurrentEvent(!modalCurrentEvent);
 	};
 
-	return (
-		<KeyboardAvoidingView
-			style={styles.container}
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
-		>
-			<View style={styles.container2}>
-				<View style={styles.container21}>
-					<Text style={styles.txt}>Rajouter un event:</Text>
-				</View>
-				<View style={styles.container22}>
-					<TouchableOpacity
-						style={styles.buttonOpacity}
-						onPress={() =>
-							navigation.navigate("AssociationAddEvent")
-						}
-					>
-						<Image
-							style={styles.add}
-							source={require("../assets/logo-add.png")}
-						/>
-					</TouchableOpacity>
-				</View>
-			</View>
-			<View style={styles.container3}>
-				<Text style={styles.txt}>Evenements en cours:</Text>
-
-				<FlatList
-					data={dataToBecomeDynamic}
-					renderItem={({ item }) => (
-						<View style={styles.modalContainer}>
-							<Text style={styles.item}>
-								{"\u2022" + " "}
-								{item.key}
-							</Text>
-							<FontAwesome
-								name="arrow-right"
-								size={25}
-								color="#0CA789"
-								onPress={() => handleModalCurrentEvent()}
-							/>
-						</View>
-					)}
-				/>
-			</View>
-
+	const Arrow = () => {
+		return (
 			<Modal visible={modalCurrentEvent} animationType="fade">
 				<View style={styles.newModal}>
 					<FontAwesome
@@ -115,6 +73,67 @@ export default function AssociationEvent({ navigation }) {
 					</View>
 				</View>
 			</Modal>
+		)
+	}
+
+
+	// AssoEvent = EventData.map((data,i) => {
+	// 	const name= data.name;
+	// 	const date = data.dateDebut;
+	// 	const participants = data.benevoles.length;
+	// return (
+	// 	<View>
+	// 		<Text>{name} le {date}, nb participants : {participants}</Text>
+	// 	</View>
+	// )
+	// })
+
+	return (
+		<KeyboardAvoidingView
+			style={styles.container}
+			behavior={Platform.OS === "ios" ? "padding" : "height"}
+		>
+			<View style={styles.container2}>
+				<View style={styles.container21}>
+					<Text style={styles.txt}>Rajouter un event:</Text>
+				</View>
+				<View style={styles.container22}>
+					<TouchableOpacity
+						style={styles.buttonOpacity}
+						onPress={() =>
+							navigation.navigate("AssociationAddEvent")
+						}
+					>
+						<Image
+							style={styles.add}
+							source={require("../assets/logo-add.png")}
+						/>
+					</TouchableOpacity>
+				</View>
+			</View>
+			<View style={styles.container3}>
+				<Text style={styles.txt}>Evenements en cours:</Text>
+
+				{/* <FlatList
+					data={AssoEvent}
+					renderItem={({ item }) => (
+						<View style={styles.modalContainer}>
+							<Text style={styles.item}>
+								{"\u2022" + " "}
+								{item.key}
+							</Text>
+							<FontAwesome
+								name="arrow-right"
+								size={25}
+								color="#0CA789"
+								onPress={() => handleModalCurrentEvent()}
+							/>
+						</View>
+					)}
+				/> */}
+			</View>
+			{Arrow}
+
 			<View style={styles.container4}>
 				<TouchableOpacity
 					style={styles.buttonOpacity}

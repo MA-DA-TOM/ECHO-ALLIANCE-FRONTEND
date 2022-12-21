@@ -7,8 +7,13 @@ import {
 	TouchableOpacity,
 	View,
 } from "react-native";
+import { useDispatch } from 'react-redux';
+import {updateInfo} from '../reducers/example';
+import { useSelector } from 'react-redux';
 
 export default function AssociationMenu({ navigation }) {
+	const myData = useSelector((state) => state.example.value);
+
 	return (
 		<KeyboardAvoidingView
 			style={styles.container}

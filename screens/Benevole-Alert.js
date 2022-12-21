@@ -110,12 +110,12 @@ export default function BenevoleAlert({ navigation }) {
 
 	const photos = photo.map((data, i) => {
 		return (
-		  <View key={i} style={styles.photoContainer}>
-			<FontAwesome name='times' size={20} color='#000000' style={styles.deleteIcon} onPress={() =>  deletePhoto(data)}/>
-			<Image source={ data.uri} style={styles.photo} />
-		  </View>
+			<View key={i} style={styles.photoContainer}>
+				<FontAwesome name='times' size={20} color='#000000' style={styles.deleteIcon} onPress={() => deletePhoto(data)} />
+				<Image source={data.uri} style={styles.photo} />
+			</View>
 		);
-	  });
+	});
 
 	return (
 		<KeyboardAvoidingView
@@ -172,7 +172,10 @@ const styles = StyleSheet.create({
 		height: 70,
 		width: 70,
 	},
-	paysage: { height: 50, width: 50 },
+	paysage: {
+		height: 50,
+		width: 50
+	},
 	container1: {
 		alignItems: "center",
 	},

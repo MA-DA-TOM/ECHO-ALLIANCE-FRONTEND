@@ -4,8 +4,8 @@ const initialState = {
     value: []
 };
 
-export const userSlice = createSlice({
-    name: 'user',
+export const eventSlice = createSlice({
+    name: 'event',
     initialState,
     reducers: {
         updateInfoUser: (state,action) => {
@@ -14,8 +14,11 @@ export const userSlice = createSlice({
         deleteInfoUser: (state) => {
             state.value = []
         },
+        filterInfo: (state, action) => {
+            state.value = state.value.filter((data) => data === action.payload)
+        }
     },
 });
 
-export const { updateInfoUser, deleteInfoUser } = userSlice.actions;
-export default userSlice.reducer;
+export const { updateInfoEvent, deleteInfoEvent, filterInfo } = eventSlice.actions;
+export default eventSlice.reducer;

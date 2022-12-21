@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	KeyboardAvoidingView,
 	Platform,
@@ -9,18 +9,52 @@ import {
 	SafeAreaView,
 	TextInput,
 } from "react-native";
+import { useDispatch } from 'react-redux';
+import {updateInfo} from '../reducers/example';
+import { useSelector } from 'react-redux';
+
 
 export default function AssociationConnection({ navigation }) {
+
+	const [email, setEmail] = useState(null);
+	const [password1, setPassword1] = useState(null);
+	const [accountError, set2accountError] = useState(false);
+
+	const dispatch = useDispatch();
+	const myData = useSelector((state) => state.example.value);
+
+
+	const handleInscription = () => {
+		{
+			fetch('http://10.33.211.185:3000/association/connexion', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ password: password1, email: email, }),
+			}).then((response) => response.json())
+				.then((data) => {
+					if (data.result === false) {
+						set2accountError(true);
+					}
+					if (data.result === true) {
+						console.log(data.data ,"data du BE");
+						dispatch(updateInfo(data.data));
+						navigation.navigate("AssociationMenu");
+					}
+				});
+		}
+	}
+	// console.log(myData)
 	return (
 		<KeyboardAvoidingView
 			style={styles.container}
 			behavior={Platform.OS === "ios" ? "padding" : "height"}
 		>
+			{accountError && <Text style={styles.error}>Erreur dans la saisie</Text>}
 			<View style={styles.container2}>
 				<View style={styles.background}>
 					<Text style={styles.email}>Email</Text>
 					<SafeAreaView>
-						<TextInput style={styles.input} />
+						<TextInput style={styles.input} onChangeText={(value) => setEmail(value)} value={email} />
 					</SafeAreaView>
 				</View>
 			</View>
@@ -28,13 +62,13 @@ export default function AssociationConnection({ navigation }) {
 				<View style={styles.background}>
 					<Text style={styles.mdp}>Mot de passe</Text>
 					<SafeAreaView>
-						<TextInput style={styles.input} />
+						<TextInput style={styles.input} onChangeText={(value) => setPassword1(value)} value={password1} secureTextEntry={true}/>
 					</SafeAreaView>
 				</View>
 			</View>
 
 			<TouchableOpacity
-				onPress={() => navigation.navigate("BenevoleMenu")}
+				onPress={() => handleInscription()}
 				style={styles.button}
 				activeOpacity={0.8}
 			>
@@ -110,5 +144,14 @@ const styles = StyleSheet.create({
 		marginTop: 5,
 		fontWeight: "bold",
 	},
-	mdp: { color: "#ffffff", marginLeft: 5, marginTop: 5, fontWeight: "bold" },
+	error: {
+		marginBottom: 10,
+		color: 'red',
+	  },
+	mdp: { 
+		color: "#ffffff", 
+		marginLeft: 5, 
+		marginTop: 5, 
+		fontWeight: "bold" 
+	},
 });
