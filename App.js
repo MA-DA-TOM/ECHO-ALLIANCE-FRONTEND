@@ -28,6 +28,13 @@ import EntrepriseMaps from "./screens/Entreprise-Maps";
 import EntrepriseMenu from "./screens/Entreprise-Menu";
 import EntreprisePaliers from "./screens/Entreprise-Paliers";
 import EntrepriseProfil from "./screens/Entreprise-Profil";
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import user from './reducers/user';
+
+const store = configureStore({
+	reducer: {user},
+   });
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -92,6 +99,7 @@ const TabNavigator = () => {
 
 export default function App() {
 	return (
+		<Provider store={store}>
 		<NavigationContainer>
 			<Stack.Navigator screenOptions={{ headerShown: true }}>
 				<Stack.Screen name="Home" component={Home} />
@@ -183,5 +191,6 @@ export default function App() {
 				/>
 			</Stack.Navigator>
 		</NavigationContainer>
+		</Provider>
 	);
 }

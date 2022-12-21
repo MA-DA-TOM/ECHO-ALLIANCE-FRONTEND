@@ -11,7 +11,7 @@ import Checkbox from 'expo-checkbox';
 import Slider from '@react-native-community/slider';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-
+const BACKEND_ADRESS = '10.33.210.252:3000';
 
 
 export default function MapScreen() {
@@ -48,6 +48,11 @@ export default function MapScreen() {
 					});
 			}
 		})();
+		fetch(`http://${BACKEND_ADRESS}/places/${user.name}`)
+		.then((response) => response.json())
+		.then((data) => {
+		  data.result && dispatch(importPlace(data.places));
+		 });
 	}, []);
 
 
