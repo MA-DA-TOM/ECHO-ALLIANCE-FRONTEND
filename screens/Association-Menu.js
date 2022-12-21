@@ -129,8 +129,8 @@ const styles = StyleSheet.create({
 		flexWrap: "wrap",
 	},
 	card1: {
-		height: 280,
-		width: 380,
+		height: "40%",
+		width: "90%",
 		backgroundColor: "#ffffff",
 		margin: 5,
 		alignItems: "center",

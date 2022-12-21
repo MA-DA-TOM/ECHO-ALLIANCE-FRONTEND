@@ -63,14 +63,14 @@ const styles = StyleSheet.create({
 	background: {
 		backgroundColor: "#439798",
 		borderRadius: 10,
-		margin: "6%",
+		width: "95%",
 	},
 
 	input: {
 		height: 35,
 		margin: 15,
 		borderWidth: 1,
-		width: 305,
+		width: 325,
 		backgroundColor: "#ffffff",
 		padding: 5,
 	},

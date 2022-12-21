@@ -137,7 +137,7 @@ export default function BenevoleAlert({ navigation }) {
 				<Text style={styles.temoignage}>Témoignage:</Text>
 			</View>
 			<View style={styles.container3}>
-				<TextInputautoCorrect={true} ></TextInput>
+				<TextInput autoCorrect={true}></TextInput>
 			</View>
 			<View style={styles.container4}>
 				<TouchableOpacity onPress={() => handlePhoto()}>
