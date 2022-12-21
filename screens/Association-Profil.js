@@ -7,19 +7,15 @@ import {
 	View,
 } from "react-native";
 import { useDispatch } from 'react-redux';
-import { updateInfo } from '../reducers/example';
+import { updateInfoAsso } from '../reducers/association';
 import { useSelector } from 'react-redux'
 
 export default function BenevoleMission({ navigation }) {
 
-	const Nom = useSelector((state) => state.example.value[0].name);
-	const Adresse = useSelector((state) => state.example.value[0].Adresse);
-	const siteWeb = useSelector((state) => state.example.value[0].siteWeb);
-	const description = useSelector((state) => state.example.value[0].description);
-
-
-	
-
+	const Nom = useSelector((state) => state.user.value[0].name);
+	const Adresse = useSelector((state) => state.user.value[0].Adresse);
+	const siteWeb = useSelector((state) => state.user.value[0].siteWeb);
+	const description = useSelector((state) => state.user.value[0].description);
 
 	return (
 		<KeyboardAvoidingView
@@ -41,7 +37,6 @@ export default function BenevoleMission({ navigation }) {
 				<Text style={styles.txt}>Site internet:</Text>
 				<Text>{siteWeb}</Text>
 			</View>
-			
 
 			<View style={styles.container2}>
 				<Image
@@ -56,6 +51,7 @@ export default function BenevoleMission({ navigation }) {
 		</KeyboardAvoidingView>
 	);
 }
+
 
 const styles = StyleSheet.create({
 	container: {

@@ -11,7 +11,11 @@ import {
 	ImageBackground,
 } from "react-native";
 import { useDispatch } from 'react-redux';
-import {updateInfo} from '../reducers/example';
+import { updateInfoAsso } from '../reducers/association';
+import { updateInfoEvent } from '../reducers/event';
+import { updateInfoEntreprise } from '../reducers/entreprise';
+import { updateInfoUser } from '../reducers/user';
+
 import { useSelector } from 'react-redux';
 
 
@@ -22,11 +26,11 @@ export default function AssociationConnection({ navigation }) {
 	const [accountError, set2accountError] = useState(false);
 
 	const dispatch = useDispatch();
-	const myData = useSelector((state) => state.example.value);
+	const myData = useSelector((state) => state.association.value);
 
 
 	const handleInscription = () => {
-		{
+		
 			fetch('http://10.33.211.185:3000/association/connexion', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
@@ -37,48 +41,79 @@ export default function AssociationConnection({ navigation }) {
 						set2accountError(true);
 					}
 					if (data.result === true) {
-						console.log(data.data ,"data du BE");
-						dispatch(updateInfo(data.data));
+						console.log(data.data, "my asso bdd")
+						dispatch(updateInfoUser(data.data));
+						// navigation.navigate("AssociationMenu");
+					}
+				}
+				);
+
+			fetch('http://10.33.211.185:3000/evenement/allEvent')
+				.then((response) => response.json())
+				.then((data) => {
+					if (data.result === true) {
+						console.log(data.data, 'event bdd')
+						dispatch(updateInfoEvent(data.data));
+						// navigation.navigate("AssociationMenu");
+					}
+				}
+				);
+				fetch('http://10.33.211.185:3000/association/assoData')
+				.then((response) => response.json())
+				.then((data) => {
+					if (data.result === true) {
+						console.log(data.data, 'asso bdd')
+						dispatch(updateInfoAsso(data.data));
+					}
+				}
+				);
+				fetch('http://10.33.211.185:3000/entreprise/all')
+				.then((response) => response.json())
+				.then((data) => {
+					if (data.result === true) {
+						console.log(data.data, 'entreprise bdd')
+						dispatch(updateInfoEntreprise(data.data));
 						navigation.navigate("AssociationMenu");
 					}
-				});
-		}
-	}
-	// console.log(myData)
-	return (
-		<ImageBackground
-			source={require("../assets/associationconnection.jpeg")}
-			style={styles.background}
+				}
+				);
+			}
+	
+
+return (
+	<ImageBackground
+		source={require("../assets/associationconnection.jpeg")}
+		style={styles.background}
+	>
+		<KeyboardAvoidingView
+			style={styles.container}
+			behavior={Platform.OS === "ios" ? "padding" : "height"}
 		>
-			<KeyboardAvoidingView
-				style={styles.container}
-				behavior={Platform.OS === "ios" ? "padding" : "height"}
+			<View style={styles.background1}>
+				<Text style={styles.email}>Email</Text>
+				<SafeAreaView>
+					<TextInput style={styles.input} onChangeText={(value) => setEmail(value)} value={email} />
+				</SafeAreaView>
+			</View>
+
+			<View style={styles.background2}>
+				<Text style={styles.mdp}>Mot de passe</Text>
+				<SafeAreaView>
+					<TextInput style={styles.input} onChangeText={(value) => setPassword1(value)} value={password1} secureTextEntry={true} />
+				</SafeAreaView>
+			</View>
+
+			<TouchableOpacity
+				onPress={() => handleInscription()}
+				style={styles.button}
+				activeOpacity={0.8}
 			>
-				<View style={styles.background1}>
-					<Text style={styles.email}>Email</Text>
-					<SafeAreaView>
-						<TextInput style={styles.input} onChangeText={(value) => setEmail(value)} value={email} />
-					</SafeAreaView>
-				</View>
-
-				<View style={styles.background2}>
-					<Text style={styles.mdp}>Mot de passe</Text>
-					<SafeAreaView>
-						<TextInput style={styles.input} onChangeText={(value) => setPassword1(value)} value={password1} secureTextEntry={true}/>
-					</SafeAreaView>
-				</View>
-
-				<TouchableOpacity
-					onPress={() => navigation.navigate("AssociationMenu")}
-					style={styles.button}
-					activeOpacity={0.8}
-				>
-					<Text style={styles.textButton}>Connexion</Text>
-				</TouchableOpacity>
-			</KeyboardAvoidingView>
-		</ImageBackground>
-	);
-}
+				<Text style={styles.textButton}>Connexion</Text>
+			</TouchableOpacity>
+		</KeyboardAvoidingView>
+	</ImageBackground>
+);
+	}
 
 const styles = StyleSheet.create({
 	background: {
@@ -148,11 +183,11 @@ const styles = StyleSheet.create({
 	error: {
 		marginBottom: 10,
 		color: 'red',
-	  },
-	mdp: { 
-		color: "#ffffff", 
-		marginLeft: 5, 
-		marginTop: 5, 
-		fontWeight: "bold" 
+	},
+	mdp: {
+		color: "#ffffff",
+		marginLeft: 5,
+		marginTop: 5,
+		fontWeight: "bold"
 	},
 });

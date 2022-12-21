@@ -8,13 +8,13 @@ export const eventSlice = createSlice({
     name: 'event',
     initialState,
     reducers: {
-        updateInfoUser: (state,action) => {
+        updateInfoEvent: (state,action) => {
             state.value.push(action.payload);
         },
-        deleteInfoUser: (state) => {
+        deleteInfoEvent: (state) => {
             state.value = []
         },
-        filterInfo: (state, action) => {
+        filterInfoEvent: (state, action) => {
             state.value = state.value.filter((data) => data === action.payload)
         }
     },

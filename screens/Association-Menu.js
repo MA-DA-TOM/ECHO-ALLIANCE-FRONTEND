@@ -9,16 +9,26 @@ import {
 	ImageBackground,
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import {
-	faPowerOff,
-	faMagnifyingGlassLocation,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPowerOff, faMagnifyingGlassLocation, } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from 'react-redux';
-import {updateInfo} from '../reducers/example';
+import { deleteInfoAsso } from '../reducers/association';
+import { deleteInfoEvent } from '../reducers/event';
+import { deleteInfoEntreprise } from '../reducers/entreprise';
+
 import { useSelector } from 'react-redux';
 
+
 export default function AssociationMenu({ navigation }) {
-	const myData = useSelector((state) => state.example.value);
+
+	const dispatch = useDispatch();
+
+	const handleDisconnect = () => {
+		dispatch(deleteInfoAsso());
+		dispatch(deleteInfoEvent());
+		dispatch(deleteInfoEntreprise());
+		navigation.navigate("Home")
+	}
+
 
 	return (
 		<ImageBackground
@@ -31,7 +41,7 @@ export default function AssociationMenu({ navigation }) {
 			>
 				<View style={styles.off}>
 					<TouchableOpacity
-						onPress={() => navigation.navigate("Home")}
+						onPress={() => handleDisconnect()}
 					>
 						<FontAwesomeIcon
 							icon={faPowerOff}

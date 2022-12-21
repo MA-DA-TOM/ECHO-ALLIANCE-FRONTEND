@@ -9,15 +9,15 @@ import {
 	TouchableOpacity,
 	Modal,
 } from "react-native";
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useDispatch } from 'react-redux';
-import { updateInfo } from '../reducers/example';
+import { updateInfoUser } from '../reducers/user';
 import { useSelector } from 'react-redux';
 
 export default function AssociationEvent({ navigation }) {
 
-	const EventData = [null];
+	// const EventData = [null];
 	const [modalCurrentEvent, setModalCurrentEvent] = useState(false);
 
 	const handleModalCurrentEvent = () => {

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+
 import {
 	KeyboardAvoidingView,
 	Platform,
@@ -10,8 +11,74 @@ import {
 	TextInput,
 	ImageBackground,
 } from "react-native";
+import { useDispatch } from 'react-redux';
+import { updateInfoAsso } from '../reducers/association';
+import { updateInfoEvent } from '../reducers/event';
+import { updateInfoEntreprise } from '../reducers/entreprise';
+import { updateInfoUser } from '../reducers/user';
+
+import { useSelector } from 'react-redux';
+
+
+
 
 export default function EntrepriseConnection({ navigation }) {
+	const [email, setEmail] = useState(null);
+	const [password1, setPassword1] = useState(null);
+	const dispatch = useDispatch();
+
+
+	const handleConnection = () => {
+
+		fetch('http://10.33.211.185:3000/entreprise/connexion', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ password: password1, email: email, }),
+		}).then((response) => response.json())
+			.then((data) => {
+				if (data.result === false) {
+					set2accountError(true);
+				}
+				if (data.result === true) {
+					console.log(data.data, "use bdd")
+					dispatch(updateInfoUser(data.data));
+					// navigation.navigate("AssociationMenu");
+				}
+			}
+			);
+
+		fetch('http://10.33.211.185:3000/evenement/allEvent')
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.result === true) {
+					console.log(data.data, 'event bdd')
+					dispatch(updateInfoEvent(data.data));
+					// navigation.navigate("AssociationMenu");
+				}
+			}
+			);
+		fetch('http://10.33.211.185:3000/association/assoData')
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.result === true) {
+					console.log(data.data, 'asso bdd')
+					dispatch(updateInfoAsso(data.data));
+				}
+			}
+			);
+		fetch('http://10.33.211.185:3000/entreprise/all')
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.result === true) {
+					console.log(data.data, 'entreprise bdd')
+					dispatch(updateInfoEntreprise(data.data));
+					navigation.navigate("EntrepriseMenu");
+				}
+			}
+			);
+	}
+
+
 	return (
 		<ImageBackground
 			source={require("../assets/entrepriseconnection.jpeg")}
@@ -24,18 +91,18 @@ export default function EntrepriseConnection({ navigation }) {
 				<View style={styles.background1}>
 					<Text style={styles.email}>Email</Text>
 					<SafeAreaView>
-						<TextInput style={styles.input} />
+						<TextInput style={styles.input} onChangeText={(value) => setEmail(value)} value={email}/>
 					</SafeAreaView>
 				</View>
 				<View style={styles.background2}>
 					<Text style={styles.mdp}>Mot de passe</Text>
 					<SafeAreaView>
-						<TextInput style={styles.input} />
+						<TextInput style={styles.input} onChangeText={(value) => setPassword1(value)} value={password1} secureTextEntry={true} />
 					</SafeAreaView>
 				</View>
 
 				<TouchableOpacity
-					onPress={() => navigation.navigate("EntrepriseMenu")}
+					onPress={() => handleConnection()}
 					style={styles.button}
 					activeOpacity={0.8}
 				>

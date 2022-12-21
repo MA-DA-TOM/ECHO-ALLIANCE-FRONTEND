@@ -128,8 +128,7 @@ export default function BenevoleAlert({ navigation }) {
 	return (
 		<KeyboardAvoidingView
 			style={styles.container}
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
-		>
+			behavior={Platform.OS === "ios" ? "padding" : "height"}>
 			<View style={styles.container1}>
 				<Text style={styles.title}>Problème</Text>
 			</View>
@@ -137,7 +136,7 @@ export default function BenevoleAlert({ navigation }) {
 				<Text style={styles.temoignage}>Témoignage:</Text>
 			</View>
 			<View style={styles.container3}>
-				<TextInputautoCorrect={true} ></TextInput>
+				<TextInput autoCorrect={true} > </TextInput>
 			</View>
 			<View style={styles.container4}>
 				<TouchableOpacity onPress={() => handlePhoto()}>
@@ -147,8 +146,10 @@ export default function BenevoleAlert({ navigation }) {
 					/>
 				</TouchableOpacity>
 			</View>
-			<View style={styles.container5}>{photos}</View>
-			{modalPhoto()}
+			<View style={styles.container5}>
+				{photos}
+			</View>
+			 {modalPhoto()}
 			<TouchableOpacity
 				onPress={() => navigation.navigate("BenevoleProfil")}
 				style={styles.button}
@@ -156,7 +157,7 @@ export default function BenevoleAlert({ navigation }) {
 			>
 				<Text style={styles.textButton}>Envoyer</Text>
 			</TouchableOpacity>
-		</KeyboardAvoidingView>
+		</KeyboardAvoidingView >
 	);
 }
 

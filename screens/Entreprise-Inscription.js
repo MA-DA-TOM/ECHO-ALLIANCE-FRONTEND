@@ -71,7 +71,7 @@ export default function AssociationInscription({ navigation }) {
 
 	const handleInscription = () => {
 
-		if (password1 === password2 && EMAIL_REGEX.test(email) && WEB_REGEX.test(webSite) && TEL_REGEX.test(telephone) && SIRET_REGEX.test(siret)) {
+		if (password1 === password2 && EMAIL_REGEX.test(email) && WEB_REGEX.test(webSite) /*&& TEL_REGEX.test(telephone) && SIRET_REGEX.test(siret)*/) {
 			fetch('http://10.33.211.185:3000/entreprise/inscription', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
@@ -95,15 +95,15 @@ export default function AssociationInscription({ navigation }) {
 		if (!WEB_REGEX.test(webSite)) {
 			setWebSiteError(!webSiteError)
 		}
-		if (!SIRET_REGEX.test(siret)) {
-			setSiretError(!siretError)
-		}
+		// if (!SIRET_REGEX.test(siret)) {
+		// 	setSiretError(!siretError)
+		// }
 		if (webSite !== null && !WEB_REGEX.test(webSite)) {
 			setWebSiteError(!webSiteError)
 		}
-		if (!TEL_REGEX.test(telephone)) {
-			setTelError(!telError)
-		}
+		// if (!TEL_REGEX.test(telephone)) {
+		// 	setTelError(!telError)
+		// }
 	}
 
 
@@ -146,7 +146,7 @@ export default function AssociationInscription({ navigation }) {
 								{siretError && <Text style={styles.error}>Invalid siret number</Text>}
 							</View>
 							<View>
-								<Text style={styles.mdp}>Description de votre association (raison d'être)</Text>
+								<Text style={styles.mdp}>Description de votre entreprise ,dsk </Text>
 								<TextInput style={styles.input} onChangeText={(value) => setDescription(value)} value={description} />
 							</View>
 							<View>
