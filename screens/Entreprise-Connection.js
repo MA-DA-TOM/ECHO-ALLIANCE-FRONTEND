@@ -14,7 +14,7 @@ import {
 export default function EntrepriseConnection({ navigation }) {
 	return (
 		<ImageBackground
-			source={require("../assets/entrepriseconnection.jpeg")}
+			source={require("../assets/organic.jpg")}
 			style={styles.background}
 		>
 			<KeyboardAvoidingView
@@ -57,23 +57,11 @@ const styles = StyleSheet.create({
 		justifyContent: "space-evenly",
 	},
 
-	background1: {
-		backgroundColor: "#439798",
-		borderRadius: 10,
-		margin: "3%",
-		marginTop: 100,
-	},
-	background2: {
-		backgroundColor: "#439798",
-		borderRadius: 10,
-		margin: "3%",
-	},
-
 	input: {
 		height: 35,
 		margin: 15,
 		borderWidth: 1,
-		width: 325,
+		width: "90%",
 		backgroundColor: "#ffffff",
 		padding: 5,
 	},

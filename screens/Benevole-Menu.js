@@ -18,7 +18,7 @@ import {
 export default function BenevoleMenu({ navigation }) {
 	return (
 		<ImageBackground
-			source={require("../assets/fondecran.jpeg")}
+			source={require("../assets/plante.jpg")}
 			style={styles.background}
 		>
 			<KeyboardAvoidingView
@@ -48,7 +48,7 @@ export default function BenevoleMenu({ navigation }) {
 								navigation.navigate("BenevoleProfil")
 							}
 						>
-							<Text style={styles.profiletext}>Profile</Text>
+							<Text style={styles.profiletext}>Profil</Text>
 							<Image
 								style={styles.profileimage}
 								source={require("../assets/logo-profile.png")}
@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "#ffffff",
 		justifyContent: "space-around",
 		backgroundColor: "rgba(52, 52, 52, 0.8)",
+		opacity: 0.95,
 	},
 	header: { alignItems: "center" },
 	off: {
@@ -124,7 +125,6 @@ const styles = StyleSheet.create({
 		fontSize: 30,
 		fontWeight: "600",
 		color: "#ffffff",
-		marginBottom: 30,
 	},
 
 	buttonOpacity: {
@@ -152,19 +152,19 @@ const styles = StyleSheet.create({
 		flexWrap: "wrap",
 	},
 	card1: {
-		height: 280,
-		width: 190,
+		marginTop: "10%",
+		height: "40%",
+		width: "45%",
 		backgroundColor: "#ffffff",
 		alignItems: "center",
 		borderWidth: 1,
 	},
 	card2: {
-		height: 280,
-		width: 190,
+		height: "40%",
+		width: "45%",
 		backgroundColor: "#0CA789",
 		alignItems: "center",
 		borderWidth: 1,
-		marginBottom: 50,
 	},
 	profile: { fontWeight: "bold" },
 	profileimage: {

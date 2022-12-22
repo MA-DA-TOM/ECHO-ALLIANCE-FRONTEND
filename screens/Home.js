@@ -32,7 +32,7 @@ export default function Home({ navigation }) {
 
 	return (
 		<ImageBackground
-			source={require("../assets/background.jpg")}
+			source={require("../assets/noplanetb.jpg")}
 			style={styles.background}
 		>
 			<KeyboardAvoidingView

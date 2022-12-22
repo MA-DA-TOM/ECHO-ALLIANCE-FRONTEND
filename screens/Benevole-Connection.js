@@ -14,7 +14,7 @@ import {
 export default function BenevoleConnection({ navigation }) {
 	return (
 		<ImageBackground
-			source={require("../assets/benevoleconnection.jpeg")}
+			source={require("../assets/volunteer.jpg")}
 			style={styles.background}
 		>
 			<KeyboardAvoidingView
@@ -58,18 +58,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: "space-evenly",
 		backgroundColor: "rgba(52, 52, 52, 0.8)",
-	},
-
-	background1: {
-		backgroundColor: "#439798",
-		borderRadius: 10,
-		margin: "3%",
-		marginTop: 100,
-	},
-	background2: {
-		backgroundColor: "#439798",
-		borderRadius: 10,
-		margin: "3%",
 	},
 
 	input: {

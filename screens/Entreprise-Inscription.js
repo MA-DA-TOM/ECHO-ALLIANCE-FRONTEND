@@ -10,7 +10,7 @@ import {
 	TextInput,
 	ScrollView,
 	Modal,
-	Image,
+	ImageBackground,
 } from "react-native";
 import { Marker } from "react-native-maps";
 import MapView from "react-native-maps";
@@ -128,259 +128,267 @@ export default function AssociationInscription({ navigation }) {
 	};
 
 	return (
-		<KeyboardAvoidingView
-			style={styles.container}
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
+		<ImageBackground
+			source={require("../assets/trefle.jpg")}
+			style={styles.background}
 		>
-			<SafeAreaView>
-				<View style={styles.container2}>
-					<ScrollView>
-						<View style={styles.background}>
-							<View>
-								<Text style={styles.nom}>
-									Nom de l'entreprise
-								</Text>
-								<TextInput
-									style={styles.input}
-									onChangeText={(value) => setName(value)}
-									value={name}
-								/>
-							</View>
-							<View>
-								<Text style={styles.adresse}>Email</Text>
-								<TextInput
-									style={styles.input}
-									onChangeText={(value) => setEmail(value)}
-									value={email}
-								/>
-								{emailError && (
-									<Text style={styles.error}>
-										email error
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior={Platform.OS === "ios" ? "padding" : "height"}
+			>
+				<SafeAreaView>
+					<View style={styles.container2}>
+						<ScrollView>
+							<View style={styles.background}>
+								<View>
+									<Text style={styles.nom}>
+										Nom de l'entreprise
 									</Text>
-								)}
-							</View>
-							<View>
-								<Text style={styles.rna}>Password</Text>
-								<TextInput
-									style={styles.input}
-									onChangeText={(value) =>
-										setPassword1(value)
-									}
-									value={password1}
-									secureTextEntry={true}
-								/>
-							</View>
-							<View>
-								<Text style={styles.rna}>Password</Text>
-								<TextInput
-									style={styles.input}
-									onChangeText={(value) =>
-										setPassword2(value)
-									}
-									value={password2}
-									secureTextEntry={true}
-								/>
-								{passwordError && (
-									<Text style={styles.error}>
-										password error
-									</Text>
-								)}
-							</View>
-							<View>
-								<Text style={styles.email}>
-									Site Web (optionel)
-								</Text>
-								<TextInput
-									style={styles.input}
-									onChangeText={(value) => setWebSite(value)}
-									value={webSite}
-								/>
-								{webSiteError && (
-									<Text style={styles.error}>
-										website error
-									</Text>
-								)}
-							</View>
-							<View>
-								<Text style={styles.mdp}>Numéro siret</Text>
-								<TextInput
-									style={styles.input}
-									onChangeText={(value) => setSiret(value)}
-									value={siret}
-								/>
-								{siretError && (
-									<Text style={styles.error}>
-										Invalid siret number
-									</Text>
-								)}
-							</View>
-							<View>
-								<Text style={styles.mdp}>
-									Description de votre association (raison
-									d'être)
-								</Text>
-								<TextInput
-									style={styles.input}
-									onChangeText={(value) =>
-										setDescription(value)
-									}
-									value={description}
-								/>
-							</View>
-							<View>
-								<Text style={styles.mdp}>
-									Nom du dirigeant (cette information ne sera
-									pas visible par les autres utilisateurs,
-									elle nous sert à vous contacter en cas de
-									problème)
-								</Text>
-								<TextInput
-									style={styles.input}
-									onChangeText={(value) =>
-										setNomDirigeant(value)
-									}
-									value={nomDirigeant}
-								/>
-
-								<Text style={styles.mdp}>
-									Prenom du dirigeant (cette information ne
-									sera pas visible par les autres
-									utilisateurs, elle nous sert à vous
-									contacter en cas de problème)
-								</Text>
-								<TextInput
-									style={styles.input}
-									onChangeText={(value) =>
-										setPrenomDirigeant(value)
-									}
-									value={prenomDirigeant}
-								/>
-
-								<Text style={styles.mdp}>
-									Telephone (cette information ne sera pas
-									visible par les autres utilisateurs, elle
-									nous sert à vous contacter en cas de
-									problème)
-								</Text>
-								<TextInput
-									style={styles.input}
-									onChangeText={(value) =>
-										setTelephone(value)
-									}
-									value={telephone}
-								/>
-								{telError && (
-									<Text style={styles.error}>
-										Invalid telephone number
-									</Text>
-								)}
-							</View>
-
-							<View style={styles.space}>
-								<Text style={styles.mdp}>
-									{" "}
-									Rester appuyer pour selectionner votre
-									localisation. Cette localisation sera
-									visible par tous les membres.{" "}
-								</Text>
-								<MapView
-									mapType="hybrid"
-									style={{ height: 400, width: 353 }}
-									onLongPress={(e) => handleLongPress(e)}
-								>
-									{coordinates && (
-										<Marker
-											coordinate={coordinates}
-											pinColor="red"
-											title="Ma Position"
-										/>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) => setName(value)}
+										value={name}
+									/>
+								</View>
+								<View>
+									<Text style={styles.adresse}>Email</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setEmail(value)
+										}
+										value={email}
+									/>
+									{emailError && (
+										<Text style={styles.error}>
+											email error
+										</Text>
 									)}
-								</MapView>
-							</View>
+								</View>
+								<View>
+									<Text style={styles.rna}>Password</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setPassword1(value)
+										}
+										value={password1}
+										secureTextEntry={true}
+									/>
+								</View>
+								<View>
+									<Text style={styles.rna}>Password</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setPassword2(value)
+										}
+										value={password2}
+										secureTextEntry={true}
+									/>
+									{passwordError && (
+										<Text style={styles.error}>
+											password error
+										</Text>
+									)}
+								</View>
+								<View>
+									<Text style={styles.email}>
+										Site Web (optionel)
+									</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setWebSite(value)
+										}
+										value={webSite}
+									/>
+									{webSiteError && (
+										<Text style={styles.error}>
+											website error
+										</Text>
+									)}
+								</View>
+								<View>
+									<Text style={styles.mdp}>Numéro siret</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setSiret(value)
+										}
+										value={siret}
+									/>
+									{siretError && (
+										<Text style={styles.error}>
+											Invalid siret number
+										</Text>
+									)}
+								</View>
+								<View>
+									<Text style={styles.mdp}>
+										Description de votre association (raison
+										d'être)
+									</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setDescription(value)
+										}
+										value={description}
+									/>
+								</View>
+								<View>
+									<Text style={styles.mdp}>
+										Nom du dirigeant (cette information ne
+										sera pas visible par les autres
+										utilisateurs, elle nous sert à vous
+										contacter en cas de problème)
+									</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setNomDirigeant(value)
+										}
+										value={nomDirigeant}
+									/>
 
+									<Text style={styles.mdp}>
+										Prenom du dirigeant (cette information
+										ne sera pas visible par les autres
+										utilisateurs, elle nous sert à vous
+										contacter en cas de problème)
+									</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setPrenomDirigeant(value)
+										}
+										value={prenomDirigeant}
+									/>
+
+									<Text style={styles.mdp}>
+										Telephone (cette information ne sera pas
+										visible par les autres utilisateurs,
+										elle nous sert à vous contacter en cas
+										de problème)
+									</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setTelephone(value)
+										}
+										value={telephone}
+									/>
+									{telError && (
+										<Text style={styles.error}>
+											Invalid telephone number
+										</Text>
+									)}
+								</View>
+
+								<View style={styles.space}>
+									<Text style={styles.mdp}>
+										{" "}
+										Restez appuyé pour selectionner votre
+										localisation. Cette localisation sera
+										visible par tous les membres.{" "}
+									</Text>
+									<MapView
+										mapType="hybrid"
+										style={{ height: 400, width: "95%" }}
+										onLongPress={(e) => handleLongPress(e)}
+									>
+										{coordinates && (
+											<Marker
+												coordinate={coordinates}
+												pinColor="red"
+												title="Ma Position"
+											/>
+										)}
+									</MapView>
+								</View>
+
+								<View>
+									<Text style={styles.mdp}>Code Postal</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setCodePostal(value)
+										}
+										value={codePostal}
+									/>
+
+									<Text style={styles.mdp}>Ville</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) => setCity(value)}
+										value={city}
+									/>
+
+									<Text style={styles.mdp}>Rue</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) => setRue(value)}
+										value={rue}
+									/>
+
+									<Text style={styles.mdp}>Numéro</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setNumero(value)
+										}
+										value={numero}
+									/>
+								</View>
+							</View>
+						</ScrollView>
+						<TouchableOpacity
+							onPress={() => navigation.navigate("Home")}
+							style={styles.button}
+							activeOpacity={0.8}
+						>
 							<View>
-								<Text style={styles.mdp}>Code Postal</Text>
-								<TextInput
-									style={styles.input}
-									onChangeText={(value) =>
-										setCodePostal(value)
-									}
-									value={codePostal}
-								/>
-
-								<Text style={styles.mdp}>Ville</Text>
-								<TextInput
-									style={styles.input}
-									onChangeText={(value) => setCity(value)}
-									value={city}
-								/>
-
-								<Text style={styles.mdp}>Rue</Text>
-								<TextInput
-									style={styles.input}
-									onChangeText={(value) => setRue(value)}
-									value={rue}
-								/>
-
-								<Text style={styles.mdp}>Numéro</Text>
-								<TextInput
-									style={styles.input}
-									onChangeText={(value) => setNumero(value)}
-									value={numero}
-								/>
+								<Text style={styles.textButton}>
+									Inscription
+								</Text>
 							</View>
-						</View>
-					</ScrollView>
-					<TouchableOpacity
-						onPress={() => handleInscription()}
-						style={styles.button}
-						activeOpacity={0.8}
-					>
-						<View>
-							<Text style={styles.textButton}>Inscription</Text>
-						</View>
-					</TouchableOpacity>
-				</View>
-			</SafeAreaView>
-		</KeyboardAvoidingView>
+						</TouchableOpacity>
+					</View>
+				</SafeAreaView>
+			</KeyboardAvoidingView>
+		</ImageBackground>
 	);
 }
 
 const styles = StyleSheet.create({
+	background: {
+		width: "100%",
+		height: "100%",
+	},
 	modal: {
 		flex: 1,
 	},
 	container: {
-		flex: 1,
-		backgroundColor: "#ffffff",
+		backgroundColor: "rgba(52, 52, 52, 0.8)",
 		justifyContent: "space-around",
 	},
 
 	container2: {
-		justifyContent: "space-around",
 		marginBottom: "5%",
 		flexWrap: "wrap",
 		flexDirection: "column",
-	},
-	background: {
-		flexDirection: "column",
-		backgroundColor: "#439798",
-		borderRadius: 10,
-
-		width: "95%",
 	},
 
 	input: {
 		height: 35,
 		margin: 15,
 		borderWidth: 1,
-		width: 325,
+		width: "85%",
 		backgroundColor: "#ffffff",
 		padding: 5,
 	},
 	container2: {
-		justifyContent: "space-between",
-
 		marginLeft: "5%",
 		flexWrap: "wrap",
 		flexDirection: "column",

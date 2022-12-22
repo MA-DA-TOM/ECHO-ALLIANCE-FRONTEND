@@ -9,6 +9,7 @@ import {
 	View,
 	TouchableOpacity,
 	ImageBackground,
+	ScrollView,
 } from "react-native";
 
 export default function BenevoleProfil({ navigation }) {
@@ -22,66 +23,70 @@ export default function BenevoleProfil({ navigation }) {
 			source={require("../assets/fondecran.jpeg")}
 			style={styles.background}
 		>
-			<KeyboardAvoidingView
-				style={styles.container}
-				behavior={Platform.OS === "ios" ? "padding" : "height"}
-			>
-				<View style={styles.container1}>
-					<Text style={styles.txtdate}>Date:</Text>
-					<View style={styles.card2}>
-						<TouchableOpacity
-							style={styles.buttonOpacity}
-							onPress={() => navigation.navigate("BenevoleAlert")}
-						>
-							<Image
-								style={styles.cloche}
-								source={require("../assets/logo-cloche.png")}
-							/>
-						</TouchableOpacity>
-						<View style={styles.textecloche}>
-							<Text style={styles.txtcloche}>Un problème ?</Text>
+			<ScrollView>
+				<KeyboardAvoidingView
+					style={styles.container}
+					behavior={Platform.OS === "ios" ? "padding" : "height"}
+				>
+					<View style={styles.container1}>
+						<Text style={styles.txtdate}>Date:</Text>
+						<View style={styles.card2}>
+							<TouchableOpacity
+								style={styles.buttonOpacity}
+								onPress={() =>
+									navigation.navigate("BenevoleAlert")
+								}
+							>
+								<Image
+									style={styles.cloche}
+									source={require("../assets/logo-cloche.png")}
+								/>
+							</TouchableOpacity>
+							<View style={styles.textecloche}>
+								<Text style={styles.txtcloche}>
+									Un problème ?
+								</Text>
+							</View>
 						</View>
 					</View>
-				</View>
 
-				<View style={styles.container2}>
-					<View style={styles.card1}>
-						<Image
-							style={styles.profileimage}
-							source={require("../assets/logo-profile.png")}
+					<View style={styles.container2}>
+						<View style={styles.card1}>
+							<Image
+								style={styles.profileimage}
+								source={require("../assets/logo-profile.png")}
+							/>
+						</View>
+					</View>
+					<View style={styles.container3}>
+						<Text style={styles.txt}>Nom:</Text>
+						<Text style={styles.txt}>Prenom:</Text>
+						<Text></Text>
+						<Text style={styles.txt}>ID:</Text>
+						<Text style={styles.txt}>Rang:</Text>
+					</View>
+					<View style={styles.container5}>
+						<Text style={styles.pmission}>Prochaines missions</Text>
+					</View>
+					<View style={styles.container6}>
+						<FlatList
+							data={[
+								{ key: "Mission 1" },
+								{ key: "Mission 2" },
+								{ key: "Mission 3" },
+								{ key: "Mission 4" },
+								{ key: "Mission 5" },
+							]}
+							renderItem={({ item }) => (
+								<Text style={styles.item}>
+									{"\u2022" + " "}
+									{item.key}
+								</Text>
+							)}
 						/>
 					</View>
-				</View>
-				<View style={styles.container3}>
-					<Text style={styles.txt}>Nom:</Text>
-					<Text style={styles.txt}>Prenom:</Text>
-					<Text style={styles.txt}>Age:</Text>
-					<Text></Text>
-					<Text style={styles.txt}>ID:</Text>
-					<Text style={styles.txt}>Rang:</Text>
-				</View>
-				<View style={styles.container5}>
-					<Text style={styles.pmission}>Prochaines missions</Text>
-				</View>
-				<View style={styles.container6}>
-					<FlatList
-						data={[
-							{ key: "Mission 1" },
-							{ key: "Mission 2" },
-							{ key: "Mission 3" },
-							{ key: "Mission 4" },
-							{ key: "Mission 5" },
-							{ key: "Mission 6" },
-						]}
-						renderItem={({ item }) => (
-							<Text style={styles.item}>
-								{"\u2022" + " "}
-								{item.key}
-							</Text>
-						)}
-					/>
-				</View>
-			</KeyboardAvoidingView>
+				</KeyboardAvoidingView>
+			</ScrollView>
 		</ImageBackground>
 	);
 }
@@ -94,8 +99,8 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: "#ffffff",
-		justifyContent: "space-around",
-		backgroundColor: "rgba(52, 52, 52, 0.8)",
+		justifyContent: "flex-start",
+		backgroundColor: "rgba(52, 52, 52, 0.5)",
 	},
 	header: { alignItems: "flex-end", marginRight: "5%" },
 	home: {
@@ -107,10 +112,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		flexDirection: "row",
 		flexWrap: "wrap",
-		marginBottom: -120,
-		marginTop: -80,
-		backgroundColor: "#ffffff",
-		opacity: 0.7,
+		paddingLeft: "1%",
 	},
 	container2: {
 		flexDirection: "row",
@@ -118,37 +120,35 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		height: 200,
+		marginBottom: "20%",
 	},
 	container3: {
 		justifyContent: "space-around",
 		flexDirection: "column",
 		flexWrap: "wrap",
 		paddingLeft: "1%",
-		height: 150,
-		marginBottom: -140,
-		marginTop: -100,
-		backgroundColor: "#ffffff",
-		opacity: 0.7,
+		height: 200,
+		borderWidth: 1,
+		borderColor: "#ffffff",
+
+		marginBottom: "10%",
 	},
 
 	container5: {
 		alignItems: "center",
-		marginBottom: -140,
-		backgroundColor: "#ffffff",
-		opacity: 0.7,
 	},
 	container6: {
 		alignItems: "center",
 		flexWrap: "wrap",
-		padding: "1%",
-		backgroundColor: "#ffffff",
+
 		height: 150,
-		opacity: 0.7,
+		marginTop: "10%",
+		paddingLeft: "1%",
 	},
 	profileimage: {
 		height: 60,
 		width: 60,
-		marginTop: 40,
+		marginTop: "30%",
 	},
 	cloche: {
 		height: 30,
@@ -156,20 +156,6 @@ const styles = StyleSheet.create({
 		marginLeft: 20,
 	},
 
-	button: {
-		alignItems: "center",
-		paddingTop: 8,
-		width: "80%",
-		backgroundColor: "#0CA789",
-		borderRadius: 10,
-		marginLeft: "10%",
-	},
-	textButton: {
-		color: "#ffffff",
-		height: 30,
-		fontWeight: "600",
-		fontSize: 16,
-	},
 	card1: {
 		height: 160,
 		width: 160,
@@ -178,27 +164,31 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		borderWidth: 1,
 		borderRadius: 100,
+		marginTop: "20%",
 	},
 	txt: {
 		fontWeight: "bold",
-		color: "#0CA789",
+		color: "#ffffff",
+		textDecorationLine: "underline",
 	},
 	txtcloche: {
 		fontSize: 10,
 		textAlign: "center",
-		color: "#0CA789",
+		color: "#ffffff",
 	},
 	textecloche: { width: 70 },
 	txtdate: {
 		fontWeight: "bold",
-		color: "#0CA789",
+		color: "#ffffff",
 		marginBottom: 10,
+		textDecorationLine: "underline",
 	},
 	pmission: {
 		fontWeight: "bold",
-		color: "#0CA789",
+		color: "#ffffff",
 		fontWeight: "bold",
 		fontSize: 25,
+		textDecorationLine: "underline",
 	},
-	item: { color: "#0CA789", fontSize: 15 },
+	item: { color: "#ffffff", fontSize: 15 },
 });

@@ -8,53 +8,58 @@ import {
 	View,
 	SafeAreaView,
 	TextInput,
+	ImageBackground,
 } from "react-native";
 
 export default function BenevoleInscription({ navigation }) {
 	return (
-		<KeyboardAvoidingView
-			style={styles.container}
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
+		<ImageBackground
+			source={require("../assets/paysage.jpg")}
+			style={styles.background}
 		>
-			<View style={styles.background}>
-				<SafeAreaView>
-					<Text style={styles.nom}>Nom</Text>
-					<TextInput style={styles.input} />
-
-					<Text style={styles.prenom}>Prénom</Text>
-
-					<TextInput style={styles.input} />
-
-					<Text style={styles.email}>Email</Text>
-					<TextInput style={styles.input} />
-					<Text style={styles.mdp}>Mot de passe</Text>
-
-					<TextInput style={styles.input} />
-				</SafeAreaView>
-			</View>
-
-			<TouchableOpacity
-				onPress={() => navigation.navigate("BenevoleMenu")}
-				style={styles.button}
-				activeOpacity={0.8}
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior={Platform.OS === "ios" ? "padding" : "height"}
 			>
-				<Text style={styles.textButton}>Inscription</Text>
-			</TouchableOpacity>
-		</KeyboardAvoidingView>
+				<View style={styles.background1}>
+					<SafeAreaView>
+						<Text style={styles.nom}>Nom</Text>
+						<TextInput style={styles.input} />
+
+						<Text style={styles.prenom}>Prénom</Text>
+
+						<TextInput style={styles.input} />
+
+						<Text style={styles.email}>Email</Text>
+						<TextInput style={styles.input} />
+						<Text style={styles.mdp}>Mot de passe</Text>
+
+						<TextInput style={styles.input} />
+					</SafeAreaView>
+				</View>
+
+				<TouchableOpacity
+					onPress={() => navigation.navigate("BenevoleMenu")}
+					style={styles.button}
+					activeOpacity={0.8}
+				>
+					<Text style={styles.textButton}>Inscription</Text>
+				</TouchableOpacity>
+			</KeyboardAvoidingView>
+		</ImageBackground>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "#ffffff",
-		justifyContent: "space-around",
-	},
 
+		justifyContent: "space-around",
+		backgroundColor: "rgba(52, 52, 52, 0.8)",
+	},
 	background: {
-		backgroundColor: "#439798",
-		borderRadius: 10,
-		margin: "3%",
+		width: "100%",
+		height: "100%",
 	},
 
 	input: {
