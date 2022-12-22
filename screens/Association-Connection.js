@@ -10,40 +10,38 @@ import {
 	TextInput,
 	ImageBackground,
 } from "react-native";
-import { useDispatch } from 'react-redux';
-import {updateInfo} from '../reducers/example';
-import { useSelector } from 'react-redux';
-
+import { useDispatch } from "react-redux";
+import { updateInfo } from "../reducers/association";
+import { useSelector } from "react-redux";
 
 export default function AssociationConnection({ navigation }) {
-
 	const [email, setEmail] = useState(null);
 	const [password1, setPassword1] = useState(null);
 	const [accountError, set2accountError] = useState(false);
 
 	const dispatch = useDispatch();
-	const myData = useSelector((state) => state.example.value);
-
+	const myData = useSelector((state) => state.association.value);
 
 	const handleInscription = () => {
 		{
-			fetch('http://10.33.211.185:3000/association/connexion', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ password: password1, email: email, }),
-			}).then((response) => response.json())
+			fetch("http://10.33.211.185:3000/association/connexion", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ password: password1, email: email }),
+			})
+				.then((response) => response.json())
 				.then((data) => {
 					if (data.result === false) {
 						set2accountError(true);
 					}
 					if (data.result === true) {
-						console.log(data.data ,"data du BE");
+						console.log(data.data, "data du BE");
 						dispatch(updateInfo(data.data));
 						navigation.navigate("AssociationMenu");
 					}
 				});
 		}
-	}
+	};
 	// console.log(myData)
 	return (
 		<ImageBackground
@@ -57,14 +55,23 @@ export default function AssociationConnection({ navigation }) {
 				<View style={styles.background1}>
 					<Text style={styles.email}>Email</Text>
 					<SafeAreaView>
-						<TextInput style={styles.input} onChangeText={(value) => setEmail(value)} value={email} />
+						<TextInput
+							style={styles.input}
+							onChangeText={(value) => setEmail(value)}
+							value={email}
+						/>
 					</SafeAreaView>
 				</View>
 
 				<View style={styles.background2}>
 					<Text style={styles.mdp}>Mot de passe</Text>
 					<SafeAreaView>
-						<TextInput style={styles.input} onChangeText={(value) => setPassword1(value)} value={password1} secureTextEntry={true}/>
+						<TextInput
+							style={styles.input}
+							onChangeText={(value) => setPassword1(value)}
+							value={password1}
+							secureTextEntry={true}
+						/>
 					</SafeAreaView>
 				</View>
 
@@ -89,18 +96,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: "rgba(52, 52, 52, 0.8)",
 		justifyContent: "space-evenly",
-	},
-
-	background1: {
-		backgroundColor: "#439798",
-		borderRadius: 10,
-		margin: "3%",
-		marginTop: 100,
-	},
-	background2: {
-		backgroundColor: "#439798",
-		borderRadius: 10,
-		margin: "3%",
 	},
 
 	input: {
@@ -147,12 +142,12 @@ const styles = StyleSheet.create({
 	},
 	error: {
 		marginBottom: 10,
-		color: 'red',
-	  },
-	mdp: { 
-		color: "#ffffff", 
-		marginLeft: 5, 
-		marginTop: 5, 
-		fontWeight: "bold" 
+		color: "red",
+	},
+	mdp: {
+		color: "#ffffff",
+		marginLeft: 5,
+		marginTop: 5,
+		fontWeight: "bold",
 	},
 });

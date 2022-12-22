@@ -7,6 +7,7 @@ import {
 	View,
 	FlatList,
 	TouchableOpacity,
+	ImageBackground,
 } from "react-native";
 import dataEntreprise from "../data/dataEntreprise.json";
 import { getDistance, getPreciseDistance } from "geolib";
@@ -60,24 +61,33 @@ export default function BenevoleAvantage({ navigation }) {
 	});
 
 	return (
-		<KeyboardAvoidingView
-			style={styles.container}
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
+		<ImageBackground
+			source={require("../assets/avantage.jpg")}
+			style={styles.background}
 		>
-			<View style={styles.container3}>
-				<Text style={styles.txt}>
-					Distance / Entreprise / Avantages
-				</Text>
-				{entreprises}
-			</View>
-		</KeyboardAvoidingView>
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior={Platform.OS === "ios" ? "padding" : "height"}
+			>
+				<View style={styles.container3}>
+					<Text style={styles.txt}>
+						Distance / Entreprise / Avantages
+					</Text>
+					{entreprises}
+				</View>
+			</KeyboardAvoidingView>
+		</ImageBackground>
 	);
 }
 
 const styles = StyleSheet.create({
+	background: {
+		width: "100%",
+		height: "100%",
+	},
 	container: {
 		flex: 1,
-		backgroundColor: "#ffffff",
+		backgroundColor: "rgba(52, 52, 52, 0.8)",
 		justifyContent: "space-around",
 	},
 	header: {

@@ -1,7 +1,7 @@
 import React from "react";
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateInfoUser } from '../reducers/user';
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateInfoUser } from "../reducers/user";
 
 import {
 	KeyboardAvoidingView,
@@ -12,6 +12,7 @@ import {
 	View,
 	SafeAreaView,
 	TextInput,
+	ImageBackground,
 } from "react-native";
 
 const BACKEND_ADRESS = '192.168.0.19:3000';
@@ -30,7 +31,6 @@ export default function BenevoleInscription({navigation}) {
 
 	
 	const handleRegister = () => {
-	
 		fetch(`http://${BACKEND_ADRESS}/benevole/inscription`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
@@ -57,61 +57,84 @@ export default function BenevoleInscription({navigation}) {
 			// 	setSignUpDateNaissance('');
             // }
 
-            if (data.result === true){
-               navigation.navigate('Home');
-            }
-
+				if (data.result === true) {
+					navigation.navigate("Home");
+				}
 			});
 	};
 
 	return (
-		<KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-        <View style={styles.background}>
-            <SafeAreaView>
-                <Text style={styles.nom}>Nom</Text>
-                <TextInput style={styles.input} onChangeText={(value) => setSignUpNom(value)} value={signUpNom}/>
+		<ImageBackground
+			source={require("../assets/paysage.jpg")}
+			style={styles.background}
+		>
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior={Platform.OS === "ios" ? "padding" : "height"}
+			>
+				<View style={styles.background1}>
+					<SafeAreaView>
+						<Text style={styles.nom}>Nom</Text>
+						<TextInput style={styles.input} />
 
-                <Text style={styles.prenom}>Prénom</Text>
+						<Text style={styles.prenom}>Prénom</Text>
+						<Text style={styles.prenom}>Prénom</Text>
 
-                <TextInput style={styles.input} onChangeText={(value) => setSingUpPrenom(value)} value={signUpPrenom} />
+						<TextInput style={styles.input} />
+						<TextInput
+							style={styles.input}
+							onChangeText={(value) => setSingUpPrenom(value)}
+							value={signUpPrenom}
+						/>
 
-                <Text style={styles.date}>Date de naissance</Text>
-				<TextInput style={styles.input} onChangeText={(value) => setSignUpDateNaissance(value)} value={signUpDateNaissance}/>
+						<Text style={styles.date}>Date de naissance</Text>
+						<TextInput
+							style={styles.input}
+							onChangeText={(value) =>
+								setSignUpDateNaissance(value)
+							}
+							value={signUpDateNaissance}
+						/>
 
-                <Text style={styles.email}>Email</Text>
-                <TextInput style={styles.input} onChangeText={(value) => setSignUpEmail(value)} value={signUpEmail}/>
+						<Text style={styles.email}>Email</Text>
+						<TextInput
+							style={styles.input}
+							onChangeText={(value) => setSignUpEmail(value)}
+							value={signUpEmail}
+						/>
 
-                <Text style={styles.mdp}>Mot de passe</Text>
+						<Text style={styles.mdp}>Mot de passe</Text>
 
-                <TextInput style={styles.input} onChangeText={(value) => setSignUpPassword(value)} value={signUpPassword}/>
-            </SafeAreaView>
-        </View>
+						<TextInput
+							style={styles.input}
+							onChangeText={(value) => setSignUpPassword(value)}
+							value={signUpPassword}
+						/>
+					</SafeAreaView>
+				</View>
 
-        <TouchableOpacity
-            onPress={() => handleRegister()}
-            style={styles.button}
-            activeOpacity={0.8}
-        >
-            <Text style={styles.textButton}>Inscription</Text>
-        </TouchableOpacity>
-    </KeyboardAvoidingView>
-);
+				<TouchableOpacity
+					onPress={() => handleRegister()}
+					style={styles.button}
+					activeOpacity={0.8}
+				>
+					<Text style={styles.textButton}>Inscription</Text>
+				</TouchableOpacity>
+			</KeyboardAvoidingView>
+		</ImageBackground>
+	);
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#ffffff",
-        justifyContent: "space-around",
-    },
+	container: {
+		flex: 1,
 
+		justifyContent: "space-around",
+		backgroundColor: "rgba(52, 52, 52, 0.8)",
+	},
 	background: {
-		backgroundColor: "#439798",
-		borderRadius: 10,
-		margin: "3%",
+		width: "100%",
+		height: "100%",
 	},
 
 	input: {
@@ -123,20 +146,20 @@ const styles = StyleSheet.create({
 		padding: 5,
 	},
 
-button: {
-    alignItems: "center",
-    paddingTop: 8,
-    width: "80%",
-    backgroundColor: "#0CA789",
-    borderRadius: 10,
-    marginLeft: "10%",
-    borderWidth: 1,
-    shadowOffset: {
-        width: -10,
-        height: 12,
-    },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.0,
+	button: {
+		alignItems: "center",
+		paddingTop: 8,
+		width: "80%",
+		backgroundColor: "#0CA789",
+		borderRadius: 10,
+		marginLeft: "10%",
+		borderWidth: 1,
+		shadowOffset: {
+			width: -10,
+			height: 12,
+		},
+		shadowOpacity: 0.58,
+		shadowRadius: 16.0,
 
 		elevation: 25,
 	},

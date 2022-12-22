@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
 	},
 	paysage: {
 		height: 50,
-		width: 50
+		width: 50,
 	},
 	container1: {
 		alignItems: "center",
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
 		borderRadius: 100,
 		alignItems: "center",
 		justifyContent: "center",
-		marginLeft: "37%",
+		marginLeft: "36%",
 	},
 	container5: {
 		marginRight: "5%",
@@ -236,7 +236,8 @@ const styles = StyleSheet.create({
 	},
 	temoignage: {
 		fontWeight: "bold",
-		fontSize: 20,
+		fontSize: 15,
+		textDecorationLine: "underline",
 	},
 	camera: {
 		flex: 1,
