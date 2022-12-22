@@ -1,4 +1,8 @@
 import React from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addBenevole } from "../reducers/user";
+
 import {
 	KeyboardAvoidingView,
 	Platform,
@@ -11,7 +15,57 @@ import {
 	ImageBackground,
 } from "react-native";
 
+import { updateEmail } from "../reducers/user";
+
+const BACKEND_ADRESS = "10.33.210.64:3000";
+
 export default function BenevoleInscription({ navigation }) {
+	const dispatch = useDispatch();
+	const user = useSelector((state) => state.user.value);
+
+	const [signUpNom, setSignUpNom] = useState(null);
+	const [signUpPrenom, setSingUpPrenom] = useState(null);
+	const [signUpEmail, setSignUpEmail] = useState(null);
+	const [signUpPassword, setSignUpPassword] = useState(null);
+	const [signUpDateNaissance, setSignUpDateNaissance] = useState(null);
+
+	// const handleSubmit = () => {
+	// 	dispatch(updateEmail(email));
+	// 	navigation.navigate('Home');
+	//   };
+
+	const handleRegister = () => {
+		fetch(`http://${BACKEND_ADRESS}/benevole/inscription`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				prenom: signUpPrenom,
+				nom: signUpNom,
+				email: signUpEmail,
+				password: signUpPassword,
+				dateNaissance: signUpDateNaissance,
+			}),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+
+				// if (data.result) {
+				// 	console.log(data);
+				// 	dispatch(addBenevole(data));
+				// 	setSignUpNom('');
+				// 	setSingUpPrenom('');
+				// 	setSignUpEmail('');
+				// 	setSignUpPassword('');
+				// 	setSignUpDateNaissance('');
+				// }
+
+				if (data.result === true) {
+					navigation.navigate("Home");
+				}
+			});
+	};
+
 	return (
 		<ImageBackground
 			source={require("../assets/paysage.jpg")}
@@ -27,19 +81,43 @@ export default function BenevoleInscription({ navigation }) {
 						<TextInput style={styles.input} />
 
 						<Text style={styles.prenom}>Prénom</Text>
+						<Text style={styles.prenom}>Prénom</Text>
 
 						<TextInput style={styles.input} />
+						<TextInput
+							style={styles.input}
+							onChangeText={(value) => setSingUpPrenom(value)}
+							value={signUpPrenom}
+						/>
+
+						<Text style={styles.date}>Date de naissance</Text>
+						<TextInput
+							style={styles.input}
+							onChangeText={(value) =>
+								setSignUpDateNaissance(value)
+							}
+							value={signUpDateNaissance}
+						/>
 
 						<Text style={styles.email}>Email</Text>
-						<TextInput style={styles.input} />
+						<TextInput
+							style={styles.input}
+							onChangeText={(value) => setSignUpEmail(value)}
+							value={signUpEmail}
+						/>
+
 						<Text style={styles.mdp}>Mot de passe</Text>
 
-						<TextInput style={styles.input} />
+						<TextInput
+							style={styles.input}
+							onChangeText={(value) => setSignUpPassword(value)}
+							value={signUpPassword}
+						/>
 					</SafeAreaView>
 				</View>
 
 				<TouchableOpacity
-					onPress={() => navigation.navigate("BenevoleMenu")}
+					onPress={() => handleRegister()}
 					style={styles.button}
 					activeOpacity={0.8}
 				>

@@ -1,4 +1,8 @@
 import React from "react";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, logout } from '../reducers/user';
+
 import {
 	KeyboardAvoidingView,
 	Platform,
@@ -11,7 +15,70 @@ import {
 	ImageBackground,
 } from "react-native";
 
-export default function BenevoleConnection({ navigation }) {
+import {updateEmail} from '../reducers/user';
+
+const BACKEND_ADRESS = '10.33.210.252:3000';
+
+
+export default function Connexion({navigation}) {
+
+	const dispatch = useDispatch();
+	const user = useSelector((state) => state.user.value);
+
+	const [signUpEmail, setSignUpEmail] = useState('');
+	const [signUpPassword, setSignUpPassword] = useState('');
+
+	const handleSubmit = () => {
+		dispatch(updateEmail(email));
+		navigation.navigate('BenevoleMenu');
+	  };
+
+	
+	const handleRegister = () => {
+
+		if (signUpEmail.length === 0 || signUpPassword === 0) {
+			return;
+		  }
+
+		fetch(`http://${BACKEND_ADRESS}/benevole/${user.name}`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ email: user.signUpEmail, password: signUpPassword }),
+		}).then(response => response.json())
+		.then(data => {
+
+			if (data.result) {
+				dispatch(login({email: signUpEmail, token: data.token}));
+				setSignUpEmail('');
+				setSignUpPassword('');
+				
+				handleSubmit();
+
+				}
+			});
+	};
+
+
+	// const handleConnection = () => {
+	// 	fetch('http://localhost:3000/users/signin', {
+	// 		method: 'POST',
+	// 		headers: { 'Content-Type': 'application/json' },
+	// 		body: JSON.stringify({ email: signInEmail, password: signInPassword }),
+	// 	}).then(response => response.json())
+	// 		.then(data => {
+	// 			if (data.result) {
+	// 				dispatch(login({email: signInEmail, token: data.token}));
+	// 				setSignInEmail('');
+	// 				setSignInPassword('');
+	// 			}
+	// 		});
+	// };
+
+// 	const handleLogout = () => {
+// 		dispatch(logout());
+// 	};
+
+
 	return (
 		<ImageBackground
 			source={require("../assets/volunteer.jpg")}
