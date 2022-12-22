@@ -28,7 +28,7 @@ export default function BenevoleProfil({ navigation }) {
 			>
 				<View style={styles.container1}>
 					<Text style={styles.txtdate}>Date:</Text>
-					<View style={styles.card2}>
+					<View style={styles.card1}>
 						<TouchableOpacity
 							style={styles.buttonOpacity}
 							onPress={() => navigation.navigate("BenevoleAlert")}
@@ -53,12 +53,12 @@ export default function BenevoleProfil({ navigation }) {
 					</View>
 				</View>
 				<View style={styles.container3}>
-					<Text style={styles.txt}>Nom:</Text>
-					<Text style={styles.txt}>Prenom:</Text>
-					<Text style={styles.txt}>Age:</Text>
+					<Text style={styles.txt}>Nom: Hart</Text>
+					<Text style={styles.txt}>Prenom: Ruben</Text>
+					{/* <Text style={styles.txt}>Age: </Text> */}
 					<Text></Text>
-					<Text style={styles.txt}>ID:</Text>
-					<Text style={styles.txt}>Rang:</Text>
+					<Text style={styles.txt}>ID: 1</Text>
+					<Text style={styles.txt}>Rang: 0</Text>
 				</View>
 				<View style={styles.container5}>
 					<Text style={styles.pmission}>Prochaines missions</Text>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addBenevole } from '../reducers/user';
+import { updateInfoUser } from '../reducers/user';
 
 import {
 	KeyboardAvoidingView,
@@ -14,14 +14,12 @@ import {
 	TextInput,
 } from "react-native";
 
-import {updateEmail} from '../reducers/user';
-
-const BACKEND_ADRESS = '10.33.210.64:3000';
+const BACKEND_ADRESS = '192.168.0.19:3000';
 
 
 export default function BenevoleInscription({navigation}) {
 
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 	const user = useSelector((state) => state.user.value);
 
 	const [signUpNom, setSignUpNom] = useState(null);
@@ -30,11 +28,6 @@ export default function BenevoleInscription({navigation}) {
 	const [signUpPassword, setSignUpPassword] = useState(null);
 	const [signUpDateNaissance, setSignUpDateNaissance] = useState(null);
 
-	// const handleSubmit = () => {
-	// 	dispatch(updateEmail(email));
-	// 	navigation.navigate('Home');
-	//   };
-
 	
 	const handleRegister = () => {
 	
@@ -42,8 +35,8 @@ export default function BenevoleInscription({navigation}) {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ 
-                prenom: signUpPrenom, 
-                nom: signUpNom, 
+                name: signUpPrenom, 
+                lastName: signUpNom, 
                 email: signUpEmail, 
                 password: signUpPassword,
                 dateNaissance: signUpDateNaissance,

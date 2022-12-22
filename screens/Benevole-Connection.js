@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, logout } from '../reducers/user';
+import { updateInfoUser } from '../reducers/user';
 
 import {
 	KeyboardAvoidingView,
@@ -15,64 +15,47 @@ import {
 	ImageBackground,
 } from "react-native";
 
-import {updateEmail} from '../reducers/user';
-
-const BACKEND_ADRESS = '10.33.210.252:3000';
+const BACKEND_ADRESS = '192.168.0.19:3000';
 
 
 export default function Connexion({navigation}) {
 
 	const dispatch = useDispatch();
-	const user = useSelector((state) => state.user.value);
+	// const user = useSelector((state) => state.user.value);
 
-	const [signUpEmail, setSignUpEmail] = useState('');
-	const [signUpPassword, setSignUpPassword] = useState('');
+	const [signInEmail, setSignInEmail] = useState('');
+	const [signInPassword, setSignInPassword] = useState('');
 
-	const handleSubmit = () => {
-		dispatch(updateEmail(email));
-		navigation.navigate('BenevoleMenu');
-	  };
+	// const handleSubmit = () => {
+	// 	dispatch(updateEmail(email));
+	// 	navigation.navigate('BenevoleMenu');
+	//   };
 
 	
-	const handleRegister = () => {
+	const handleConnection = () => {
 
-		if (signUpEmail.length === 0 || signUpPassword === 0) {
+		if (signInEmail.length === 0 || signInPassword === 0) {
 			return;
 		  }
 
-		fetch(`http://${BACKEND_ADRESS}/benevole/${user.name}`, {
+		fetch(`http://${BACKEND_ADRESS}/benevole/connexion`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ email: user.signUpEmail, password: signUpPassword }),
+			body: JSON.stringify({ email: signInEmail, password: signInPassword }),
 		}).then(response => response.json())
 		.then(data => {
 
-			if (data.result) {
-				dispatch(login({email: signUpEmail, token: data.token}));
-				setSignUpEmail('');
-				setSignUpPassword('');
+			if (data.result === true) {
+				dispatch(updateInfoUser({email: signInEmail, token: data.token}));
+				setSignInEmail('');
+				setSignInPassword('');
 				
-				handleSubmit();
+				navigation.navigate('BenevoleMenu');
 
 				}
 			});
 	};
 
-
-	// const handleConnection = () => {
-	// 	fetch('http://localhost:3000/users/signin', {
-	// 		method: 'POST',
-	// 		headers: { 'Content-Type': 'application/json' },
-	// 		body: JSON.stringify({ email: signInEmail, password: signInPassword }),
-	// 	}).then(response => response.json())
-	// 		.then(data => {
-	// 			if (data.result) {
-	// 				dispatch(login({email: signInEmail, token: data.token}));
-	// 				setSignInEmail('');
-	// 				setSignInPassword('');
-	// 			}
-	// 		});
-	// };
 
 // 	const handleLogout = () => {
 // 		dispatch(logout());
@@ -92,7 +75,7 @@ export default function Connexion({navigation}) {
 					<SafeAreaView>
 						<Text style={styles.email}>Email</Text>
 
-						<TextInput style={styles.input} />
+						<TextInput style={styles.input} onChangeText={(value) => setSignInEmail(value)} value={signInEmail}/>
 					</SafeAreaView>
 				</View>
 
@@ -100,12 +83,12 @@ export default function Connexion({navigation}) {
 					<SafeAreaView>
 						<Text style={styles.mdp}>Mot de passe</Text>
 
-						<TextInput style={styles.input} />
+						<TextInput style={styles.input} onChangeText={(value) => setSignInPassword(value)} value={signInPassword}/>
 					</SafeAreaView>
 				</View>
 
 				<TouchableOpacity
-					onPress={() => navigation.navigate("BenevoleMenu")}
+					onPress={() => handleConnection()}
 					style={styles.button}
 					activeOpacity={0.8}
 				>
