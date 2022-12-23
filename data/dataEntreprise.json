@@ -3,5 +3,7 @@
 
     { "name": "E.LECLERC", "profession": "Supermarché", "adresse": "155 Cr Saint-Louis, 33300 Bordeaux", "coordinates": { "latitude": 44.8404, "longitude": -0.5805 } },
 
-    { "name": "La Comtesse", "profession": "Bar", "adresse": "25 Rue Parlement Saint-Pierre, 33000 Bordeaux", "coordinates": { "latitude": 44.8403895, "longitude": -0.5715296 } }
+    { "name": "La Comtesse", "profession": "Bar", "adresse": "25 Rue Parlement Saint-Pierre, 33000 Bordeaux", "coordinates": { "latitude": 44.8403895, "longitude": -0.5715296 } },
+
+    { "name": "mama work", "profession": "Bar", "adresse": "51 Quai Lawton, 33300 Bordeaux", "coordinates": { "latitude": 44.8643007, "longitude": -0.5571934 } }
 ]

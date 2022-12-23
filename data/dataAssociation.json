@@ -4,5 +4,8 @@
 
     { "name": "SPORT Asso", "adresse": "47 Rue de Lorraine, 33400 Talence, France", "coordinates": { "latitude": 44.82213481905809, "longitude": -0.5913061628141958 } },
 
-    { "name": "SDF Asso", "adresse": "69 Rue Frédéric Bentayoux, 33300 Bordeaux, France", "coordinates": { "latitude": 44.85727856040841, "longitude": -0.5788635625082716 } }
+    { "name": "SDF Asso", "adresse": "69 Rue Frédéric Bentayoux, 33300 Bordeaux, France", "coordinates": { "latitude": 44.85727856040841, "longitude": -0.5788635625082716 } },
+
+    { "name": "echoAlliance", "adresse": "10 Avenue du Président Robert Schuman, 33110 Le Bouscat, France", "coordinates": { "latitude": 44.854525229129734, "longitude": -0.593564757771996 } }
+
 ]

@@ -47,8 +47,10 @@ export default function AssociationInscription({ navigation }) {
 	const [passwordError, setPasswordError] = useState(false);
 
 	const handleLongPress = (e) => {
-		setCoordinates(e.nativeEvent.coordinate);
+		setCoordinates(e.nativeEvent.coordinate)
+	}
 
+	if (coordinates) {
 		fetch(`http://api-adresse.data.gouv.fr/reverse/?lon=${coordinates.longitude}&lat=${coordinates.latitude}`)
 			.then((response) => response.json())
 			.then((data) => {
@@ -62,7 +64,7 @@ export default function AssociationInscription({ navigation }) {
 
 	const handleInscription = () => {
 
-		if (password1 === password2 && EMAIL_REGEX.test(email) && WEB_REGEX.test(webSite) ) {
+		if (password1 === password2 && EMAIL_REGEX.test(email) && WEB_REGEX.test(webSite)) {
 			fetch('http://10.33.211.185:3000/association/inscription', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
@@ -92,7 +94,7 @@ export default function AssociationInscription({ navigation }) {
 		if (webSite !== null && !WEB_REGEX.test(webSite)) {
 			setWebSiteError(!webSiteError)
 		}
-		
+
 	}
 
 
@@ -117,11 +119,11 @@ export default function AssociationInscription({ navigation }) {
 							</View>
 							<View>
 								<Text style={styles.rna}>Password</Text>
-								<TextInput style={styles.input} onChangeText={(value) => setPassword1(value)} value={password1} secureTextEntry={true}/>
+								<TextInput style={styles.input} onChangeText={(value) => setPassword1(value)} value={password1} secureTextEntry={true} />
 							</View>
 							<View>
 								<Text style={styles.rna}>Password</Text>
-								<TextInput style={styles.input} onChangeText={(value) => setPassword2(value)} value={password2} secureTextEntry={true}/>
+								<TextInput style={styles.input} onChangeText={(value) => setPassword2(value)} value={password2} secureTextEntry={true} />
 								{passwordError && <Text style={styles.error}>password error</Text>}
 							</View>
 							<View>
@@ -147,39 +149,39 @@ export default function AssociationInscription({ navigation }) {
 									style={{ height: 400, width: 340 }}
 									onLongPress={(e) => handleLongPress(e)}
 								>
-									{coordinates && <Marker coordinate={coordinates} pinColor="red" title='Ma Position' />}
-								</MapView>
-							</View>
-
-							<View>
-								<Text style={styles.mdp}>Code Postal</Text>
-								<TextInput style={styles.input} onChangeText={(value) => setCodePostal(value)} value={codePostal} />
-
-								<Text style={styles.mdp}>Ville</Text>
-								<TextInput style={styles.input} onChangeText={(value) => setCity(value)} value={city} />
-
-								<Text style={styles.mdp}>Rue</Text>
-								<TextInput style={styles.input} onChangeText={(value) => setRue(value)} value={rue} />
-
-								<Text style={styles.mdp}>Numéro</Text>
-								<TextInput style={styles.input} onChangeText={(value) => setNumero(value)} value={numero} />
-							</View>
+								{coordinates && <Marker coordinate={coordinates} pinColor="red" title='Ma Position' />}
+							</MapView>
 						</View>
-					</ScrollView>
-					<TouchableOpacity
-						onPress={() => handleInscription()}
-						style={styles.button}
-						activeOpacity={0.8}
-					>
-						<View >
-							<Text style={styles.textButton}>Inscription</Text>
 
+						<View>
+							<Text style={styles.mdp}>Code Postal</Text>
+							<TextInput style={styles.input} onChangeText={(value) => setCodePostal(value)} value={codePostal} />
+
+							<Text style={styles.mdp}>Ville</Text>
+							<TextInput style={styles.input} onChangeText={(value) => setCity(value)} value={city} />
+
+							<Text style={styles.mdp}>Rue</Text>
+							<TextInput style={styles.input} onChangeText={(value) => setRue(value)} value={rue} />
+
+							<Text style={styles.mdp}>Numéro</Text>
+							<TextInput style={styles.input} onChangeText={(value) => setNumero(value)} value={numero} />
 						</View>
-					</TouchableOpacity>
 				</View>
+			</ScrollView>
+			<TouchableOpacity
+				onPress={() => handleInscription()}
+				style={styles.button}
+				activeOpacity={0.8}
+			>
+				<View >
+					<Text style={styles.textButton}>Inscription</Text>
 
-			</SafeAreaView>
-		</KeyboardAvoidingView>
+				</View>
+			</TouchableOpacity>
+		</View>
+
+			</SafeAreaView >
+		</KeyboardAvoidingView >
 
 	);
 }
@@ -293,5 +295,5 @@ const styles = StyleSheet.create({
 	error: {
 		marginBottom: 10,
 		color: 'red',
-	  },
+	},
 });

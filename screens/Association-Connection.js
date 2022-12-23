@@ -31,7 +31,7 @@ export default function AssociationConnection({ navigation }) {
 
 	const handleInscription = () => {
 		
-			fetch('http://10.33.211.185:3000/association/connexion', {
+			fetch('http://10.0.0.2:3000/association/connexion', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ password: password1, email: email, }),
@@ -48,7 +48,7 @@ export default function AssociationConnection({ navigation }) {
 				}
 				);
 
-			fetch('http://10.33.211.185:3000/evenement/allEvent')
+			fetch('http://10.0.0.2:3000/evenement/allEvent')
 				.then((response) => response.json())
 				.then((data) => {
 					if (data.result === true) {
@@ -58,7 +58,7 @@ export default function AssociationConnection({ navigation }) {
 					}
 				}
 				);
-				fetch('http://10.33.211.185:3000/association/assoData')
+				fetch('http://10.0.0.2:3000/association/assoData')
 				.then((response) => response.json())
 				.then((data) => {
 					if (data.result === true) {
@@ -67,7 +67,7 @@ export default function AssociationConnection({ navigation }) {
 					}
 				}
 				);
-				fetch('http://10.33.211.185:3000/entreprise/all')
+				fetch('http://10.0.0.2:3000/entreprise/all')
 				.then((response) => response.json())
 				.then((data) => {
 					if (data.result === true) {

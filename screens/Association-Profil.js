@@ -27,15 +27,20 @@ export default function BenevoleMission({ navigation }) {
 			</View>
 			<View style={styles.container1}>
 				<Text style={styles.txt}>Nom:</Text>
-				<Text>{Nom}</Text>
+				{/* <Text>{Nom}</Text> */}
+				<Text >echoAlliance</Text>
+
 			</View>
 			<View style={styles.container1}>
 				<Text style={styles.txt}>Adresse:</Text>
+				<Text>10 Avenue du Président Robert Schuman, 33110 Le Bouscat, France</Text>
 				<Text>{Adresse}</Text>
 			</View>
 			<View style={styles.container1}>
 				<Text style={styles.txt}>Site internet:</Text>
-				<Text>{siteWeb}</Text>
+				{/* <Text>{siteWeb}</Text> */}
+				<Text>http://www.echoalliance.fr</Text>
+
 			</View>
 
 			<View style={styles.container2}>

@@ -69,7 +69,7 @@ export default function MapScreen() {
 		};
 		const opacity = calculatePreciseDistance() > sliderValue ? 0 : 1
 		if (isAssociationSelected && opacity === 1) {
-			
+
 			return (
 				<Marker key={i} opacity={opacity} coordinate={data.coordinates} pinColor="red" title={data.name} >
 				</Marker>
@@ -168,7 +168,16 @@ export default function MapScreen() {
 
 			</View>
 
-			<MapView mapType="terrain" style={{ flex: 1 }} showsUserLocation={showsUserLocation}>
+			<MapView
+				mapType="terrain"
+				style={{ flex: 1 }}
+				showsUserLocation={showsUserLocation}
+				initialRegion={{
+					latitude: 12.78825,
+					longitude: -122.4324,
+					latitudeDelta: 0.0922,
+					longitudeDelta: 0.0421,
+				}}>
 
 				{entreprises}
 				{associations}
@@ -210,6 +219,6 @@ const styles = StyleSheet.create({
 	},
 	modalMarker: {
 		flex: 1,
-		backgroundColor:'#ffffff'
+		backgroundColor: '#ffffff'
 	}
 });
