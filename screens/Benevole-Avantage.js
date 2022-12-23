@@ -7,6 +7,7 @@ import {
 	View,
 	FlatList,
 	TouchableOpacity,
+	ImageBackground,
 } from "react-native";
 import dataEntreprise from "../data/dataEntreprise.json";
 import { getDistance, getPreciseDistance } from "geolib";
@@ -15,69 +16,39 @@ import { useEffect, useState } from "react";
 export default function BenevoleAvantage({ navigation }) {
 	const entrepriseData = dataEntreprise;
 
-	const [currentPosition, setCurrentPosition] = useState(null);
-	useEffect(() => {
-		(async () => {
-			const { status } =
-				await Location.requestForegroundPermissionsAsync();
-			if (status === "granted") {
-				Location.watchPositionAsync(
-					{ distanceInterval: 10 },
-					(location) => {
-						setShowsUserLocation(true);
-						setCurrentPosition(location.coords);
-					}
-				);
-			}
-		})();
-	}, []);
 
-	const entreprises = entrepriseData.map((data, i) => {
-		const calculatePreciseDistance = () => {
-			if (currentPosition) {
-				var pdis = getPreciseDistance(
-					{
-						latitude: currentPosition.latitude,
-						longitude: currentPosition.longitude,
-					},
-					{
-						latitude: data.coordinates.latitude,
-						longitude: data.coordinates.longitude,
-					}
-				);
-				let total = Math.round(pdis / 1000);
-				return total;
-			}
-		};
 
-		return (
-			<View style={styles.container2} key={i}>
-				<Text>
-					{calculatePreciseDistance()} / {data.profession} /{" "}
-				</Text>
-			</View>
-		);
-	});
+		
 
 	return (
-		<KeyboardAvoidingView
-			style={styles.container}
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
+		<ImageBackground
+			source={require("../assets/avantage.jpg")}
+			style={styles.background}
 		>
-			<View style={styles.container3}>
-				<Text style={styles.txt}>
-					Distance / Entreprise / Avantages
-				</Text>
-				{entreprises}
-			</View>
-		</KeyboardAvoidingView>
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior={Platform.OS === "ios" ? "padding" : "height"}
+			>
+				{/* <View style={styles.container3}> 
+					<Text style={styles.txt}>
+					 Entreprise / Avantages
+					</Text>
+
+					
+				 </View> */}
+			</KeyboardAvoidingView>
+		</ImageBackground>
 	);
 }
 
 const styles = StyleSheet.create({
+	background: {
+		width: "100%",
+		height: "100%",
+	},
 	container: {
 		flex: 1,
-		backgroundColor: "#ffffff",
+		backgroundColor: "rgba(52, 52, 52, 0.8)",
 		justifyContent: "space-around",
 	},
 	header: {

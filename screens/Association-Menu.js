@@ -121,12 +121,11 @@ const styles = StyleSheet.create({
 	off: {
 		alignItems: "flex-end",
 	},
-	glass: { color: "#ffffff", marginTop: 80 },
+	glass: { color: "#ffffff", marginTop: 60 },
 	title: {
 		fontSize: 30,
 		fontWeight: "600",
 		color: "#ffffff",
-		marginBottom: 30,
 	},
 
 	buttonOpacity: {
@@ -144,24 +143,24 @@ const styles = StyleSheet.create({
 		flexWrap: "wrap",
 	},
 	card1: {
-		height: 280,
-		width: 380,
+		height: "40%",
+		width: "92%",
 		backgroundColor: "#ffffff",
 		margin: 5,
 		alignItems: "center",
 		borderWidth: 1,
+		marginTop: "10%",
 	},
 	card2: {
-		height: 280,
-		width: 185,
+		height: "40%",
+		width: "45%",
 		backgroundColor: "#0CA789",
 		margin: 5,
 		borderWidth: 1,
-		marginBottom: 50,
 	},
 	card3: {
-		height: 280,
-		width: 185,
+		height: "40%",
+		width: "45%",
 		backgroundColor: "#ffffff",
 		margin: 5,
 		borderWidth: 1,
@@ -169,7 +168,7 @@ const styles = StyleSheet.create({
 	associationimage: {
 		height: 80,
 		width: 80,
-		marginTop: 80,
+		marginTop: 60,
 	},
 	associationtext: {
 		fontWeight: "bold",
@@ -179,7 +178,7 @@ const styles = StyleSheet.create({
 	mapimage: {
 		height: 80,
 		width: 80,
-		marginTop: 80,
+		marginTop: 60,
 	},
 	evenements: { color: "#ffffff", fontWeight: "bold", fontSize: 20 },
 });

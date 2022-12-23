@@ -8,6 +8,7 @@ import {
 	FlatList,
 	TouchableOpacity,
 	Modal,
+	ImageBackground,
 } from "react-native";
 import { useReducer, useState } from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -73,9 +74,8 @@ export default function AssociationEvent({ navigation }) {
 					</View>
 				</View>
 			</Modal>
-		)
-	}
-
+		);
+	};
 
 	// AssoEvent = EventData.map((data,i) => {
 	// 	const name= data.name;
@@ -89,32 +89,37 @@ export default function AssociationEvent({ navigation }) {
 	// })
 
 	return (
-		<KeyboardAvoidingView
-			style={styles.container}
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
+		<ImageBackground
+			source={require("../assets/backgrounda.jpg")}
+			style={styles.background}
 		>
-			<View style={styles.container2}>
-				<View style={styles.container21}>
-					<Text style={styles.txt}>Rajouter un event:</Text>
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior={Platform.OS === "ios" ? "padding" : "height"}
+			>
+				<View style={styles.container2}>
+					<View style={styles.container21}>
+						<Text style={styles.txt}>Rajouter un event:</Text>
+					</View>
+					<View style={styles.container22}>
+						<TouchableOpacity
+							style={styles.buttonOpacity}
+							onPress={() =>
+								navigation.navigate("AssociationAddEvent")
+							}
+						>
+							<Image
+								style={styles.add}
+								source={require("../assets/logo-add.png")}
+							/>
+						</TouchableOpacity>
+					</View>
 				</View>
-				<View style={styles.container22}>
-					<TouchableOpacity
-						style={styles.buttonOpacity}
-						onPress={() =>
-							navigation.navigate("AssociationAddEvent")
-						}
-					>
-						<Image
-							style={styles.add}
-							source={require("../assets/logo-add.png")}
-						/>
-					</TouchableOpacity>
-				</View>
-			</View>
-			<View style={styles.container3}>
-				<Text style={styles.txt}>Evenements en cours:</Text>
+				<View style={styles.container34}>
+					<View style={styles.container3}>
+						<Text style={styles.txt}>Evenements en cours:</Text>
 
-				{/* <FlatList
+						{/* <FlatList
 					data={AssoEvent}
 					renderItem={({ item }) => (
 						<View style={styles.modalContainer}>
@@ -131,30 +136,38 @@ export default function AssociationEvent({ navigation }) {
 						</View>
 					)}
 				/> */}
-			</View>
-			{Arrow}
+					</View>
+					{Arrow}
 
-			<View style={styles.container4}>
-				<TouchableOpacity
-					style={styles.buttonOpacity}
-					onPress={() =>
-						navigation.navigate("AssociationEventSubscriptions")
-					}
-				>
-					<Image
-						style={styles.profile}
-						source={require("../assets/logo-profile.png")}
-					/>
-				</TouchableOpacity>
-			</View>
-		</KeyboardAvoidingView>
+					<View style={styles.container4}>
+						<TouchableOpacity
+							style={styles.buttonOpacity}
+							onPress={() =>
+								navigation.navigate(
+									"AssociationEventSubscriptions"
+								)
+							}
+						>
+							<Image
+								style={styles.profile}
+								source={require("../assets/logo-profile.png")}
+							/>
+						</TouchableOpacity>
+					</View>
+				</View>
+			</KeyboardAvoidingView>
+		</ImageBackground>
 	);
 }
 
 const styles = StyleSheet.create({
+	background: {
+		width: "100%",
+		height: "100%",
+	},
 	container: {
 		flex: 1,
-		backgroundColor: "#ffffff",
+		backgroundColor: "rgba(52, 52, 52, 0.5)",
 		justifyContent: "space-around",
 	},
 	header: {
@@ -197,13 +210,18 @@ const styles = StyleSheet.create({
 		width: 130,
 	},
 	container3: {
-		backgroundColor: "#ffffff",
 		margin: 5,
 		padding: 5,
 	},
+	container4: {
+		margin: 5,
+		padding: 5,
+	},
+	container34: { flexDirection: "row", flexWrap: "wrap" },
+
 	txt: {
 		fontWeight: "bold",
-		color: "#0CA789",
+		color: "#ffffff",
 		fontWeight: "bold",
 		textDecorationLine: "underline",
 		fontSize: 15,
@@ -223,5 +241,9 @@ const styles = StyleSheet.create({
 	add: { height: 20, width: 20, marginLeft: 10 },
 	newModal: { flex: 1, marginTop: 50 },
 	newModal2: { flex: 1, alignItems: "center", marginBottom: 150 },
-	profile: { height: 20, width: 20, marginLeft: 10 },
+	profile: {
+		height: 20,
+		width: 20,
+		marginLeft: 10,
+	},
 });

@@ -1,4 +1,8 @@
 import React from "react";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInfoUser } from '../reducers/user';
+
 import {
 	KeyboardAvoidingView,
 	Platform,
@@ -11,10 +15,56 @@ import {
 	ImageBackground,
 } from "react-native";
 
-export default function BenevoleConnection({ navigation }) {
+const BACKEND_ADRESS = '192.168.1.62:3000';
+
+
+export default function Connexion({navigation}) {
+
+	const dispatch = useDispatch();
+	// const user = useSelector((state) => state.user.value);
+
+	const [signInEmail, setSignInEmail] = useState('');
+	const [signInPassword, setSignInPassword] = useState('');
+
+	// const handleSubmit = () => {
+	// 	dispatch(updateEmail(email));
+	// 	navigation.navigate('BenevoleMenu');
+	//   };
+
+	
+	const handleConnection = () => {
+
+		if (signInEmail.length === 0 || signInPassword === 0) {
+			return;
+		  }
+
+		fetch(`http://${BACKEND_ADRESS}/benevole/connexion`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ email: signInEmail, password: signInPassword }),
+		}).then(response => response.json())
+		.then(data => {
+
+			if (data.result === true) {
+				dispatch(updateInfoUser({email: signInEmail, token: data.token}));
+				setSignInEmail('');
+				setSignInPassword('');
+				
+				navigation.navigate('BenevoleMenu');
+
+				}
+			});
+	};
+
+
+// 	const handleLogout = () => {
+// 		dispatch(logout());
+// 	};
+
+
 	return (
 		<ImageBackground
-			source={require("../assets/benevoleconnection.jpeg")}
+			source={require("../assets/volunteer.jpg")}
 			style={styles.background}
 		>
 			<KeyboardAvoidingView
@@ -25,7 +75,7 @@ export default function BenevoleConnection({ navigation }) {
 					<SafeAreaView>
 						<Text style={styles.email}>Email</Text>
 
-						<TextInput style={styles.input} />
+						<TextInput style={styles.input} onChangeText={(value) => setSignInEmail(value)} value={signInEmail}/>
 					</SafeAreaView>
 				</View>
 
@@ -33,12 +83,12 @@ export default function BenevoleConnection({ navigation }) {
 					<SafeAreaView>
 						<Text style={styles.mdp}>Mot de passe</Text>
 
-						<TextInput style={styles.input} />
+						<TextInput style={styles.input} onChangeText={(value) => setSignInPassword(value)} value={signInPassword} secureTextEntry={true}/>
 					</SafeAreaView>
 				</View>
 
 				<TouchableOpacity
-					onPress={() => navigation.navigate("BenevoleMenu")}
+					onPress={() => handleConnection()}
 					style={styles.button}
 					activeOpacity={0.8}
 				>
@@ -58,18 +108,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: "space-evenly",
 		backgroundColor: "rgba(52, 52, 52, 0.8)",
-	},
-
-	background1: {
-		backgroundColor: "#439798",
-		borderRadius: 10,
-		margin: "3%",
-		marginTop: 100,
-	},
-	background2: {
-		backgroundColor: "#439798",
-		borderRadius: 10,
-		margin: "3%",
 	},
 
 	input: {

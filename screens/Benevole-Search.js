@@ -9,6 +9,7 @@ import {
 	FlatList,
 	ScrollView,
 	Modal,
+	ImageBackground,
 } from "react-native";
 import dataEvent from "../data/dataEvent.json";
 import { getDistance, getPreciseDistance } from "geolib";
@@ -140,46 +141,59 @@ export default function BenevoleSearch({ navigation }) {
 	});
 
 	return (
-		<KeyboardAvoidingView
-			style={styles.container}
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
+		<ImageBackground
+			source={require("../assets/trefle.jpg")}
+			style={styles.background}
 		>
-			<View style={styles.search}>
-				<TouchableOpacity onPress={() => handleSearchAdvanceModal()}>
-					<View style={styles.searchButton}>
-						<Text style={styles.searchText}>Recherche Avancée</Text>
-					</View>
-				</TouchableOpacity>
-				<TouchableOpacity onPress={() => handleFilterModal()}>
-					<View style={styles.filterButton}>
-						<Text style={styles.filterText}>Filtre</Text>
-					</View>
-				</TouchableOpacity>
-			</View>
-
-			{modalFunction()}
-
-			<ScrollView style={styles.scrollView}>
-				{events}
-				{events}
-				{events}
-			</ScrollView>
-
-			<TouchableOpacity
-				onPress={() => navigation.navigate("TabNavigator")}
-				style={styles.button}
-				activeOpacity={0.8}
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior={Platform.OS === "ios" ? "padding" : "height"}
 			>
-				<Text style={styles.textButton}>Map</Text>
-			</TouchableOpacity>
-		</KeyboardAvoidingView>
+				<View style={styles.search}>
+					<TouchableOpacity
+						onPress={() => handleSearchAdvanceModal()}
+					>
+						<View style={styles.searchButton}>
+							<Text style={styles.searchText}>
+								Recherche Avancée
+							</Text>
+						</View>
+					</TouchableOpacity>
+					<TouchableOpacity onPress={() => handleFilterModal()}>
+						<View style={styles.filterButton}>
+							<Text style={styles.filterText}>Filtre</Text>
+						</View>
+					</TouchableOpacity>
+				</View>
+
+				{modalFunction()}
+
+				<ScrollView style={styles.scrollView}>
+					{events}
+					{events}
+					{events}
+				</ScrollView>
+
+				<TouchableOpacity
+					onPress={() => navigation.navigate("TabNavigator")}
+					style={styles.button}
+					activeOpacity={0.8}
+				>
+					<Text style={styles.textButton}>Map</Text>
+				</TouchableOpacity>
+			</KeyboardAvoidingView>
+		</ImageBackground>
 	);
 }
 
 const styles = StyleSheet.create({
+	background: {
+		width: "100%",
+		height: "100%",
+	},
 	container: {
 		flex: 1,
-		backgroundColor: "#ffffff",
+		backgroundColor: "rgba(52, 52, 52, 0.8)",
 		justifyContent: "space-around",
 	},
 	header: {
@@ -283,7 +297,7 @@ const styles = StyleSheet.create({
 	searchButton: {
 		alignItems: "center",
 		height: 35,
-		width: 180,
+		width: 160,
 		backgroundColor: "#0CA789",
 		borderRadius: 10,
 		padding: 5,
@@ -309,7 +323,7 @@ const styles = StyleSheet.create({
 	filterButton: {
 		alignItems: "center",
 		height: 35,
-		width: 180,
+		width: 160,
 		backgroundColor: "#0CA789",
 		borderRadius: 10,
 		padding: 5,

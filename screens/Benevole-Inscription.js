@@ -1,4 +1,8 @@
 import React from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateInfoUser } from "../reducers/user";
+
 import {
 	KeyboardAvoidingView,
 	Platform,
@@ -8,53 +12,137 @@ import {
 	View,
 	SafeAreaView,
 	TextInput,
+	ImageBackground,
 } from "react-native";
 
+const BACKEND_ADRESS = '192.168.1.62:3000';
+
+
 export default function BenevoleInscription({ navigation }) {
+
+	// const dispatch = useDispatch();
+	const user = useSelector((state) => state.user.value);
+
+	const [signUpNom, setSignUpNom] = useState(null);
+	const [signUpPrenom, setSignUpPrenom] = useState(null);
+	const [signUpEmail, setSignUpEmail] = useState(null);
+	const [signUpPassword, setSignUpPassword] = useState(null);
+	const [signUpPassword2, setSignUpPassword2] = useState(null);
+	const [signUpDateNaissance, setSignUpDateNaissance] = useState(null);
+
+
+	const handleRegister = () => {
+		fetch(`http://${BACKEND_ADRESS}/benevole/inscription`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				name: signUpPrenom,
+				lastName: signUpNom,
+				email: signUpEmail,
+				password: signUpPassword,
+				dateNaissance: signUpDateNaissance,
+			},
+			),
+		}).then(response => response.json())
+			.then(data => {
+
+				console.log(data);
+
+				// if (data.result) {
+				// 	console.log(data);
+				// 	dispatch(addBenevole(data));
+				// 	setSignUpNom('');
+				// 	setSingUpPrenom('');
+				// 	setSignUpEmail('');
+				// 	setSignUpPassword('');
+				// 	setSignUpDateNaissance('');
+				// }
+
+				if (data.result === true) {
+					navigation.navigate("Home");
+				}
+			});
+	};
+
 	return (
-		<KeyboardAvoidingView
-			style={styles.container}
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
+		<ImageBackground
+			source={require("../assets/paysage.jpg")}
+			style={styles.background}
 		>
-			<View style={styles.background}>
-				<SafeAreaView>
-					<Text style={styles.nom}>Nom</Text>
-					<TextInput style={styles.input} />
-
-					<Text style={styles.prenom}>Prénom</Text>
-
-					<TextInput style={styles.input} />
-
-					<Text style={styles.email}>Email</Text>
-					<TextInput style={styles.input} />
-					<Text style={styles.mdp}>Mot de passe</Text>
-
-					<TextInput style={styles.input} />
-				</SafeAreaView>
-			</View>
-
-			<TouchableOpacity
-				onPress={() => navigation.navigate("BenevoleMenu")}
-				style={styles.button}
-				activeOpacity={0.8}
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior={Platform.OS === "ios" ? "padding" : "height"}
 			>
-				<Text style={styles.textButton}>Inscription</Text>
-			</TouchableOpacity>
-		</KeyboardAvoidingView>
+				<View style={styles.background1}>
+					<SafeAreaView>
+						<Text style={styles.nom}>Nom</Text>
+						<TextInput
+							style={styles.input}
+							onChangeText={(value) => setSignUpNom(value)}
+							value={signUpNom}
+						/>
+
+						<Text style={styles.prenom}>Prénom</Text>
+						<TextInput
+							style={styles.input}
+							onChangeText={(value) => setSignUpPrenom(value)}
+							value={signUpPrenom}
+						/>
+
+						{/* <Text style={styles.date}>Date de naissance</Text>
+						<TextInput
+							style={styles.input}
+							onChangeText={(value) =>
+								setSignUpDateNaissance(value)
+							}
+							value={signUpDateNaissance}
+						/> */}
+
+						<Text style={styles.email}>Email</Text>
+						<TextInput
+							style={styles.input}
+							onChangeText={(value) => setSignUpEmail(value)}
+							value={signUpEmail}
+						/>
+
+						<Text style={styles.mdp}>Mot de passe</Text>
+						<TextInput
+							style={styles.input}
+							onChangeText={(value) => setSignUpPassword(value)}
+							value={signUpPassword}
+						/>
+
+						<Text style={styles.mdp}>Mot de passe confirmation</Text>
+						<TextInput
+							style={styles.input}
+							onChangeText={(value) => setSignUpPassword2(value)}
+							value={signUpPassword2}
+						/>
+					</SafeAreaView>
+				</View>
+
+				<TouchableOpacity
+					onPress={() => handleRegister()}
+					style={styles.button}
+					activeOpacity={0.8}
+				>
+					<Text style={styles.textButton}>Inscription</Text>
+				</TouchableOpacity>
+			</KeyboardAvoidingView>
+		</ImageBackground>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "#ffffff",
-		justifyContent: "space-around",
-	},
 
+		justifyContent: "space-around",
+		backgroundColor: "rgba(52, 52, 52, 0.8)",
+	},
 	background: {
-		backgroundColor: "#439798",
-		borderRadius: 10,
-		margin: "3%",
+		width: "100%",
+		height: "100%",
 	},
 
 	input: {

@@ -8,54 +8,64 @@ import {
 	View,
 	SafeAreaView,
 	TextInput,
+	ImageBackground,
 } from "react-native";
 
 export default function EntrepriseConnection({ navigation }) {
 	return (
-		<KeyboardAvoidingView
-			style={styles.container}
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
+		<ImageBackground
+			source={require("../assets/fondecran.jpeg")}
+			style={styles.background}
 		>
-			<View style={styles.container1}>
-				<View style={styles.background}>
-					<Text style={styles.palier}>Palier 1</Text>
-					<SafeAreaView>
-						<TextInput style={styles.input} />
-					</SafeAreaView>
-				</View>
-			</View>
-			<View style={styles.container1}>
-				<View style={styles.background}>
-					<Text style={styles.palier}>Palier 2</Text>
-					<SafeAreaView>
-						<TextInput style={styles.input} />
-					</SafeAreaView>
-				</View>
-			</View>
-			<View style={styles.container1}>
-				<View style={styles.background}>
-					<Text style={styles.palier}>Palier 3</Text>
-					<SafeAreaView>
-						<TextInput style={styles.input} />
-					</SafeAreaView>
-				</View>
-			</View>
-
-			<TouchableOpacity
-				onPress={() => navigation.navigate("EntrepriseMenu")}
-				style={styles.button}
-				activeOpacity={0.8}
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior={Platform.OS === "ios" ? "padding" : "height"}
 			>
-				<Text style={styles.textButton}>Sauvegarder</Text>
-			</TouchableOpacity>
-		</KeyboardAvoidingView>
+				<View style={styles.container1}>
+					<View style={styles.background2}>
+						<Text style={styles.palier}>Palier 1</Text>
+						<SafeAreaView>
+							<TextInput style={styles.input} />
+						</SafeAreaView>
+					</View>
+				</View>
+				<View style={styles.container1}>
+					<View style={styles.background2}>
+						<Text style={styles.palier}>Palier 2</Text>
+						<SafeAreaView>
+							<TextInput style={styles.input} />
+						</SafeAreaView>
+					</View>
+				</View>
+				<View style={styles.container1}>
+					<View style={styles.background2}>
+						<Text style={styles.palier}>Palier 3</Text>
+						<SafeAreaView>
+							<TextInput style={styles.input} />
+						</SafeAreaView>
+					</View>
+				</View>
+
+				<TouchableOpacity
+					onPress={() => navigation.navigate("EntrepriseMenu")}
+					style={styles.button}
+					activeOpacity={0.8}
+				>
+					<Text style={styles.textButton}>Sauvegarder</Text>
+				</TouchableOpacity>
+			</KeyboardAvoidingView>
+		</ImageBackground>
 	);
 }
 
 const styles = StyleSheet.create({
+	background: {
+		width: "100%",
+		height: "100%",
+	},
 	container: {
 		flex: 1,
-		backgroundColor: "#ffffff",
+		backgroundColor: "rgba(52, 52, 52, 0.5)",
 		justifyContent: "space-around",
 	},
 
@@ -65,17 +75,16 @@ const styles = StyleSheet.create({
 		flexWrap: "wrap",
 		flexDirection: "column",
 	},
-	background: {
-		backgroundColor: "#439798",
+	background2: {
 		borderRadius: 10,
-		marginLeft: "2%",
+		width: "95%",
 	},
 
 	input: {
 		height: 35,
 		margin: 15,
 		borderWidth: 1,
-		width: 305,
+		width: "90%",
 		backgroundColor: "#ffffff",
 		padding: 5,
 	},

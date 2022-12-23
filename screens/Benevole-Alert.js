@@ -53,58 +53,59 @@ export default function BenevoleAlert({ navigation }) {
 						ref={(ref) => (cameraRef = ref)}
 						style={styles.camera}
 					>
-						<View style={styles.buttonsContainer}>
-							<TouchableOpacity
-								onPress={() =>
-									setType(
-										type === CameraType.back
-											? CameraType.front
-											: CameraType.back
-									)
-								}
-							>
-								<FontAwesome
-									name="rotate-right"
-									size={25}
-									color="#ffffff"
-								/>
-							</TouchableOpacity>
-
-							<TouchableOpacity
-								onPress={() =>
-									setFlashMode(
-										flashMode === FlashMode.off
-											? FlashMode.on
-											: FlashMode.off
-									)
-								}
-							>
-								<FontAwesome
-									name="flash"
-									size={25}
-									color={
-										flashMode === FlashMode.off
-											? "#ffffff"
-											: "#e8be4b"
+							<View style={styles.buttonsContainer}>
+								<TouchableOpacity
+									onPress={() =>
+										setType(
+											type === CameraType.back
+												? CameraType.front
+												: CameraType.back
+										)
 									}
-								/>
-							</TouchableOpacity>
-						</View>
+								>
+									<FontAwesome
+										name="rotate-right"
+										size={25}
+										color="#ffffff"
+									/>
+								</TouchableOpacity>
 
-						<View style={styles.snapContainer}>
-							<TouchableOpacity
-								onPress={() =>
-									cameraRef && takePicture() && handlePhoto()
-								}
-							>
-								<FontAwesome
-									name="circle-thin"
-									size={95}
-									color="#ffffff"
-								/>
-							</TouchableOpacity>
-						</View>
+								<TouchableOpacity
+									onPress={() =>
+										setFlashMode(
+											flashMode === FlashMode.off
+												? FlashMode.on
+												: FlashMode.off
+										)
+									}
+								>
+									<FontAwesome
+										name="flash"
+										size={25}
+										color={
+											flashMode === FlashMode.off
+												? "#ffffff"
+												: "#e8be4b"
+										}
+									/>
+								</TouchableOpacity>
+							</View>
+
+							<View style={styles.snapContainer}>
+								<TouchableOpacity
+									onPress={() =>
+										cameraRef && takePicture() && handlePhoto()
+									}
+								>
+									<FontAwesome
+										name="circle-thin"
+										size={95}
+										color="#ffffff"
+									/>
+								</TouchableOpacity>
+							</View>
 					</Camera>
+
 				</Modal>
 			);
 		}
@@ -136,7 +137,7 @@ export default function BenevoleAlert({ navigation }) {
 				<Text style={styles.temoignage}>Témoignage:</Text>
 			</View>
 			<View style={styles.container3}>
-				<TextInput autoCorrect={true} > </TextInput>
+				<TextInput autoCorrect={true}></TextInput>
 			</View>
 			<View style={styles.container4}>
 				<TouchableOpacity onPress={() => handlePhoto()}>
@@ -149,7 +150,7 @@ export default function BenevoleAlert({ navigation }) {
 			<View style={styles.container5}>
 				{photos}
 			</View>
-			 {modalPhoto()}
+			{modalPhoto()}
 			<TouchableOpacity
 				onPress={() => navigation.navigate("BenevoleProfil")}
 				style={styles.button}
@@ -181,7 +182,7 @@ const styles = StyleSheet.create({
 	},
 	paysage: {
 		height: 50,
-		width: 50
+		width: 50,
 	},
 	container1: {
 		alignItems: "center",
@@ -212,7 +213,7 @@ const styles = StyleSheet.create({
 		borderRadius: 100,
 		alignItems: "center",
 		justifyContent: "center",
-		marginLeft: "37%",
+		marginLeft: "36%",
 	},
 	container5: {
 		marginRight: "5%",
@@ -237,13 +238,18 @@ const styles = StyleSheet.create({
 	},
 	temoignage: {
 		fontWeight: "bold",
-		fontSize: 20,
+		fontSize: 15,
+		textDecorationLine: "underline",
 	},
 	camera: {
 		flex: 1,
 		backgroundColor: "#fff",
+		justifyContent: "space-between",
+
 	},
 	buttonsContainer: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
 		marginTop: 60,
 		marginLeft: 20,
 		marginRight: 20,
@@ -251,5 +257,10 @@ const styles = StyleSheet.create({
 	},
 	snapContainer: {
 		justifyContent: "center",
+		alignItems: "center"
 	},
+	Modal: {
+		justifyContent: "space-evenly",
+		flexDirection:'column'
+	}
 });

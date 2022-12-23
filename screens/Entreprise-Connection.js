@@ -19,8 +19,7 @@ import { updateInfoUser } from '../reducers/user';
 
 import { useSelector } from 'react-redux';
 
-
-
+const BACKEND_ADRESS = '192.168.1.62:3000';
 
 export default function EntrepriseConnection({ navigation }) {
 	const [email, setEmail] = useState(null);
@@ -30,7 +29,7 @@ export default function EntrepriseConnection({ navigation }) {
 
 	const handleConnection = () => {
 
-		fetch('http://10.0.0.2:3000/entreprise/connexion', {
+		fetch(`http://${BACKEND_ADRESS}/entreprise/connexion`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ password: password1, email: email, }),
@@ -47,7 +46,7 @@ export default function EntrepriseConnection({ navigation }) {
 			}
 			);
 
-		fetch('http://10.0.0.2:3000/evenement/allEvent')
+		fetch(`http://${BACKEND_ADRESS}/evenement/allEvent`)
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.result === true) {
@@ -57,7 +56,7 @@ export default function EntrepriseConnection({ navigation }) {
 				}
 			}
 			);
-		fetch('http://10.0.0.2:3000/association/assoData')
+		fetch(`http://${BACKEND_ADRESS}/association/assoData`)
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.result === true) {
@@ -66,7 +65,7 @@ export default function EntrepriseConnection({ navigation }) {
 				}
 			}
 			);
-		fetch('http://10.0.0.2:3000/entreprise/all')
+		fetch(`http://${BACKEND_ADRESS}/entreprise/all`)
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.result === true) {
@@ -81,7 +80,7 @@ export default function EntrepriseConnection({ navigation }) {
 
 	return (
 		<ImageBackground
-			source={require("../assets/entrepriseconnection.jpeg")}
+			source={require("../assets/organic.jpg")}
 			style={styles.background}
 		>
 			<KeyboardAvoidingView
@@ -91,7 +90,7 @@ export default function EntrepriseConnection({ navigation }) {
 				<View style={styles.background1}>
 					<Text style={styles.email}>Email</Text>
 					<SafeAreaView>
-						<TextInput style={styles.input} onChangeText={(value) => setEmail(value)} value={email}/>
+						<TextInput style={styles.input} onChangeText={(value) => setEmail(value)} value={email} />
 					</SafeAreaView>
 				</View>
 				<View style={styles.background2}>
@@ -124,23 +123,11 @@ const styles = StyleSheet.create({
 		justifyContent: "space-evenly",
 	},
 
-	background1: {
-		backgroundColor: "#439798",
-		borderRadius: 10,
-		margin: "3%",
-		marginTop: 100,
-	},
-	background2: {
-		backgroundColor: "#439798",
-		borderRadius: 10,
-		margin: "3%",
-	},
-
 	input: {
 		height: 35,
 		margin: 15,
 		borderWidth: 1,
-		width: 305,
+		width: "90%",
 		backgroundColor: "#ffffff",
 		padding: 5,
 	},
@@ -171,12 +158,16 @@ const styles = StyleSheet.create({
 		textShadowOffset: { width: 0, height: 2 },
 		textShadowRadius: 5,
 	},
-
 	email: {
 		color: "#ffffff",
 		marginLeft: 5,
 		marginTop: 5,
 		fontWeight: "bold",
 	},
-	mdp: { color: "#ffffff", marginLeft: 5, marginTop: 5, fontWeight: "bold" },
+	mdp: {
+		color: "#ffffff",
+		marginLeft: 5,
+		marginTop: 5,
+		fontWeight: "bold"
+	},
 });

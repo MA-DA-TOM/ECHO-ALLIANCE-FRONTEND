@@ -18,9 +18,9 @@ import { updateInfoUser } from '../reducers/user';
 
 import { useSelector } from 'react-redux';
 
+const BACKEND_ADRESS = '192.168.1.62:3000';
 
 export default function AssociationConnection({ navigation }) {
-
 	const [email, setEmail] = useState(null);
 	const [password1, setPassword1] = useState(null);
 	const [accountError, set2accountError] = useState(false);
@@ -31,7 +31,7 @@ export default function AssociationConnection({ navigation }) {
 
 	const handleInscription = () => {
 		
-			fetch('http://10.0.0.2:3000/association/connexion', {
+			fetch(`http://${BACKEND_ADRESS}/association/connexion`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ password: password1, email: email, }),
@@ -48,7 +48,7 @@ export default function AssociationConnection({ navigation }) {
 				}
 				);
 
-			fetch('http://10.0.0.2:3000/evenement/allEvent')
+			fetch(`http://${BACKEND_ADRESS}/evenement/allEvent`)
 				.then((response) => response.json())
 				.then((data) => {
 					if (data.result === true) {
@@ -58,7 +58,7 @@ export default function AssociationConnection({ navigation }) {
 					}
 				}
 				);
-				fetch('http://10.0.0.2:3000/association/assoData')
+				fetch(`http://${BACKEND_ADRESS}/association/assoData`)
 				.then((response) => response.json())
 				.then((data) => {
 					if (data.result === true) {
@@ -67,7 +67,7 @@ export default function AssociationConnection({ navigation }) {
 					}
 				}
 				);
-				fetch('http://10.0.0.2:3000/entreprise/all')
+				fetch(`http://${BACKEND_ADRESS}/entreprise/all`)
 				.then((response) => response.json())
 				.then((data) => {
 					if (data.result === true) {
@@ -124,18 +124,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: "rgba(52, 52, 52, 0.8)",
 		justifyContent: "space-evenly",
-	},
-
-	background1: {
-		backgroundColor: "#439798",
-		borderRadius: 10,
-		margin: "3%",
-		marginTop: 100,
-	},
-	background2: {
-		backgroundColor: "#439798",
-		borderRadius: 10,
-		margin: "3%",
 	},
 
 	input: {

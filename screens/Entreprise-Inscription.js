@@ -10,26 +10,25 @@ import {
 	TextInput,
 	ScrollView,
 	Modal,
-	Image
+	ImageBackground,
 } from "react-native";
-import { Marker } from 'react-native-maps';
-import MapView from 'react-native-maps';
-import { useState } from 'react';
-
+import { Marker } from "react-native-maps";
+import MapView from "react-native-maps";
+import { useState } from "react";
 
 // Grabbed from emailregex.com
-const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const EMAIL_REGEX =
+	/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-const TEL_REGEX = /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/g;
+const TEL_REGEX =
+	/\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/g;
 
 const SIRET_REGEX = /\d{14}/g;
 
-const WEB_REGEX = /^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})(\/([\da-z\.-]+))*\/?(([\w\.-]+)\.([\da-z]{2,6}))?((\#[\w\.-]+)|(\?([\da-z]+(=[\da-z]+)?)(&([\da-z]+(=[\da-z]+)?))*))?/i
-
-
+const WEB_REGEX =
+	/^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})(\/([\da-z\.-]+))*\/?(([\w\.-]+)\.([\da-z]{2,6}))?((\#[\w\.-]+)|(\?([\da-z]+(=[\da-z]+)?)(&([\da-z]+(=[\da-z]+)?))*))?/i;
 
 export default function AssociationInscription({ navigation }) {
-
 	const [name, setName] = useState(null);
 	const [email, setEmail] = useState(null);
 	const [password1, setPassword1] = useState();
@@ -46,28 +45,28 @@ export default function AssociationInscription({ navigation }) {
 	const [prenomDirigeant, setPrenomDirigeant] = useState(null);
 	const [telephone, setTelephone] = useState(null);
 
-	const [accountError, setAccountError] = useState(false)
+	const [accountError, setAccountError] = useState(false);
 	const [emailError, setEmailError] = useState(false);
 	const [webSiteError, setWebSiteError] = useState(false);
 	const [siretError, setSiretError] = useState(false);
 	const [telError, setTelError] = useState(false);
 	const [passwordError, setPasswordError] = useState(false);
 
-
 	const handleLongPress = (e) => {
 		setCoordinates(e.nativeEvent.coordinate);
-		console.log(coordinates)
+		console.log(coordinates);
 
-		fetch(`http://api-adresse.data.gouv.fr/reverse/?lon=${coordinates.longitude}&lat=${coordinates.latitude}`)
+		fetch(
+			`http://api-adresse.data.gouv.fr/reverse/?lon=${coordinates.longitude}&lat=${coordinates.latitude}`
+		)
 			.then((response) => response.json())
 			.then((data) => {
 				setCodePostal(data.features[0].properties.postcode);
 				setCity(data.features[0].properties.city);
 				setRue(data.features[0].properties.street);
-				setNumero(data.features[0].properties.housenumber)
-			})
-	}
-
+				setNumero(data.features[0].properties.housenumber);
+			});
+	};
 
 	const handleInscription = () => {
 
@@ -82,24 +81,24 @@ export default function AssociationInscription({ navigation }) {
 						setAccountError(true);
 					}
 					if (data.result === true) {
-						navigation.navigate("Home")
+						navigation.navigate("Home");
 					}
 				});
 		}
 		if (password1 !== password2) {
-			setPasswordError(!passwordError)
+			setPasswordError(!passwordError);
 		}
 		if (!EMAIL_REGEX.test(email)) {
-			setEmailError(!emailError)
+			setEmailError(!emailError);
 		}
 		if (!WEB_REGEX.test(webSite)) {
-			setWebSiteError(!webSiteError)
+			setWebSiteError(!webSiteError);
 		}
 		// if (!SIRET_REGEX.test(siret)) {
 		// 	setSiretError(!siretError)
 		// }
 		if (webSite !== null && !WEB_REGEX.test(webSite)) {
-			setWebSiteError(!webSiteError)
+			setWebSiteError(!webSiteError);
 		}
 		// if (!TEL_REGEX.test(telephone)) {
 		// 	setTelError(!telError)
@@ -108,140 +107,267 @@ export default function AssociationInscription({ navigation }) {
 
 
 	return (
-
-		<KeyboardAvoidingView
-			style={styles.container}
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
+		<ImageBackground
+			source={require("../assets/trefle.jpg")}
+			style={styles.background}
 		>
-			<SafeAreaView>
-				<View style={styles.container2}>
-					<ScrollView>
-						<View style={styles.background}>
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior={Platform.OS === "ios" ? "padding" : "height"}
+			>
+				<SafeAreaView>
+					<View style={styles.container2}>
+						<ScrollView>
+							<View style={styles.background}>
+								<View>
+									<Text style={styles.nom}>
+										Nom de l'entreprise
+									</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) => setName(value)}
+										value={name}
+									/>
+								</View>
+								<View>
+									<Text style={styles.adresse}>Email</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setEmail(value)
+										}
+										value={email}
+									/>
+									{emailError && (
+										<Text style={styles.error}>
+											email error
+										</Text>
+									)}
+								</View>
+								<View>
+									<Text style={styles.rna}>Password</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setPassword1(value)
+										}
+										value={password1}
+										secureTextEntry={true}
+									/>
+								</View>
+								<View>
+									<Text style={styles.rna}>Password</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setPassword2(value)
+										}
+										value={password2}
+										secureTextEntry={true}
+									/>
+									{passwordError && (
+										<Text style={styles.error}>
+											password error
+										</Text>
+									)}
+								</View>
+								<View>
+									<Text style={styles.email}>
+										Site Web (optionel)
+									</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setWebSite(value)
+										}
+										value={webSite}
+									/>
+									{webSiteError && (
+										<Text style={styles.error}>
+											website error
+										</Text>
+									)}
+								</View>
+								<View>
+									<Text style={styles.mdp}>Numéro siret</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setSiret(value)
+										}
+										value={siret}
+									/>
+									{siretError && (
+										<Text style={styles.error}>
+											Invalid siret number
+										</Text>
+									)}
+								</View>
+								<View>
+									<Text style={styles.mdp}>
+										Description de votre association (raison
+										d'être)
+									</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setDescription(value)
+										}
+										value={description}
+									/>
+								</View>
+								<View>
+									<Text style={styles.mdp}>
+										Nom du dirigeant (cette information ne
+										sera pas visible par les autres
+										utilisateurs, elle nous sert à vous
+										contacter en cas de problème)
+									</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setNomDirigeant(value)
+										}
+										value={nomDirigeant}
+									/>
+
+									<Text style={styles.mdp}>
+										Prenom du dirigeant (cette information
+										ne sera pas visible par les autres
+										utilisateurs, elle nous sert à vous
+										contacter en cas de problème)
+									</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setPrenomDirigeant(value)
+										}
+										value={prenomDirigeant}
+									/>
+
+									<Text style={styles.mdp}>
+										Telephone (cette information ne sera pas
+										visible par les autres utilisateurs,
+										elle nous sert à vous contacter en cas
+										de problème)
+									</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setTelephone(value)
+										}
+										value={telephone}
+									/>
+									{telError && (
+										<Text style={styles.error}>
+											Invalid telephone number
+										</Text>
+									)}
+								</View>
+
+								<View style={styles.space}>
+									<Text style={styles.mdp}>
+										{" "}
+										Restez appuyé pour selectionner votre
+										localisation. Cette localisation sera
+										visible par tous les membres.{" "}
+									</Text>
+									<MapView
+										mapType="hybrid"
+										style={{ height: 400, width: "95%" }}
+										onLongPress={(e) => handleLongPress(e)}
+									>
+										{coordinates && (
+											<Marker
+												coordinate={coordinates}
+												pinColor="red"
+												title="Ma Position"
+											/>
+										)}
+									</MapView>
+								</View>
+
+								<View>
+									<Text style={styles.mdp}>Code Postal</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setCodePostal(value)
+										}
+										value={codePostal}
+									/>
+
+									<Text style={styles.mdp}>Ville</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) => setCity(value)}
+										value={city}
+									/>
+
+									<Text style={styles.mdp}>Rue</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) => setRue(value)}
+										value={rue}
+									/>
+
+									<Text style={styles.mdp}>Numéro</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setNumero(value)
+										}
+										value={numero}
+									/>
+								</View>
+							</View>
+						</ScrollView>
+						<TouchableOpacity
+							onPress={() => navigation.navigate("Home")}
+							style={styles.button}
+							activeOpacity={0.8}
+						>
 							<View>
-								<Text style={styles.nom}>Nom de l'entreprise</Text>
-								<TextInput style={styles.input} onChangeText={(value) => setName(value)} value={name} />
+								<Text style={styles.textButton}>
+									Inscription
+								</Text>
 							</View>
-							<View>
-								<Text style={styles.adresse}>Email</Text>
-								<TextInput style={styles.input} onChangeText={(value) => setEmail(value)} value={email} />
-								{emailError && <Text style={styles.error}>email error</Text>}
-							</View>
-							<View>
-								<Text style={styles.rna}>Password</Text>
-								<TextInput style={styles.input} onChangeText={(value) => setPassword1(value)} value={password1} secureTextEntry={true}/>
-							</View>
-							<View>
-								<Text style={styles.rna}>Password</Text>
-								<TextInput style={styles.input} onChangeText={(value) => setPassword2(value)} value={password2} secureTextEntry={true}/>
-								{passwordError && <Text style={styles.error}>password error</Text>}
-							</View>
-							<View>
-								<Text style={styles.email}>Site Web (optionel)</Text>
-								<TextInput style={styles.input} onChangeText={(value) => setWebSite(value)} value={webSite} />
-								{webSiteError && <Text style={styles.error}>website error</Text>}
-							</View>
-							<View>
-								<Text style={styles.mdp}>Numéro siret</Text>
-								<TextInput style={styles.input} onChangeText={(value) => setSiret(value)} value={siret} />
-								{siretError && <Text style={styles.error}>Invalid siret number</Text>}
-							</View>
-							<View>
-								<Text style={styles.mdp}>Description de votre entreprise ,dsk </Text>
-								<TextInput style={styles.input} onChangeText={(value) => setDescription(value)} value={description} />
-							</View>
-							<View>
-								<Text style={styles.mdp}>Nom du dirigeant (cette information ne sera pas visible par les autres utilisateurs, elle nous sert à vous contacter en cas de problème)</Text>
-								<TextInput style={styles.input} onChangeText={(value) => setNomDirigeant(value)} value={nomDirigeant} />
-
-								<Text style={styles.mdp}>Prenom du dirigeant (cette information ne sera pas visible par les autres utilisateurs, elle nous sert à vous contacter en cas de problème)</Text>
-								<TextInput style={styles.input} onChangeText={(value) => setPrenomDirigeant(value)} value={prenomDirigeant} />
-
-								<Text style={styles.mdp}>Telephone (cette information ne sera pas visible par les autres utilisateurs, elle nous sert à vous contacter en cas de problème)</Text>
-								<TextInput style={styles.input} onChangeText={(value) => setTelephone(value)} value={telephone} />
-								{telError && <Text style={styles.error}>Invalid telephone number</Text>}
-							</View>
-
-							<View style={styles.space}>
-								<Text style={styles.mdp}> Rester appuyer pour selectionner votre localisation.
-									Cette localisation sera visible par tous les membres. </Text>
-								<MapView
-									mapType="hybrid"
-									style={{ height: 400, width: 353 }}
-									onLongPress={(e) => handleLongPress(e)}
-								>
-									{coordinates && <Marker coordinate={coordinates} pinColor="red" title='Ma Position' />}
-								</MapView>
-							</View>
-
-
-							<View>
-								<Text style={styles.mdp}>Code Postal</Text>
-								<TextInput style={styles.input} onChangeText={(value) => setCodePostal(value)} value={codePostal} />
-
-								<Text style={styles.mdp}>Ville</Text>
-								<TextInput style={styles.input} onChangeText={(value) => setCity(value)} value={city} />
-
-								<Text style={styles.mdp}>Rue</Text>
-								<TextInput style={styles.input} onChangeText={(value) => setRue(value)} value={rue} />
-
-								<Text style={styles.mdp}>Numéro</Text>
-								<TextInput style={styles.input} onChangeText={(value) => setNumero(value)} value={numero} />
-							</View>
-						</View>
-					</ScrollView>
-					<TouchableOpacity
-						onPress={() => handleInscription()}
-						style={styles.button}
-						activeOpacity={0.8}
-					>
-						<View >
-							<Text style={styles.textButton}>Inscription</Text>
-
-						</View>
-					</TouchableOpacity>
-				</View>
-
-			</SafeAreaView>
-		</KeyboardAvoidingView>
-
+						</TouchableOpacity>
+					</View>
+				</SafeAreaView>
+			</KeyboardAvoidingView>
+		</ImageBackground>
 	);
 }
 
 const styles = StyleSheet.create({
+	background: {
+		width: "100%",
+		height: "100%",
+	},
 	modal: {
 		flex: 1,
 	},
 	container: {
-		flex: 1,
-		backgroundColor: "#ffffff",
+		backgroundColor: "rgba(52, 52, 52, 0.8)",
 		justifyContent: "space-around",
 	},
 
 	container2: {
-		justifyContent: "space-around",
 		marginBottom: "5%",
 		flexWrap: "wrap",
 		flexDirection: "column",
-	},
-	background: {
-		flexDirection: "column",
-		backgroundColor: "#439798",
-		borderRadius: 10,
-		margin: "2%",
-		marginBottom: "25%"
 	},
 
 	input: {
 		height: 35,
 		margin: 15,
 		borderWidth: 1,
-		width: 305,
+		width: "85%",
 		backgroundColor: "#ffffff",
 		padding: 5,
 	},
 	container2: {
-		justifyContent: "space-between",
-
 		marginLeft: "5%",
 		flexWrap: "wrap",
 		flexDirection: "column",
@@ -284,27 +410,27 @@ const styles = StyleSheet.create({
 		color: "#ffffff",
 		marginLeft: 5,
 		marginTop: 5,
-		fontWeight: "bold"
+		fontWeight: "bold",
 	},
 	adresse: {
 		color: "#ffffff",
 		marginLeft: 5,
-		fontWeight: "bold"
+		fontWeight: "bold",
 	},
 	rna: {
 		color: "#ffffff",
 		marginLeft: 5,
-		fontWeight: "bold"
+		fontWeight: "bold",
 	},
 	email: {
 		color: "#ffffff",
 		marginLeft: 5,
-		fontWeight: "bold"
+		fontWeight: "bold",
 	},
 	mdp: {
 		color: "#ffffff",
 		marginLeft: 5,
-		fontWeight: "bold"
+		fontWeight: "bold",
 	},
 	photo: {
 		height: 70,
@@ -312,10 +438,10 @@ const styles = StyleSheet.create({
 	},
 	modalInscriptionError: {
 		flex: 3,
-		backgroundColor: '#000000'
+		backgroundColor: "#000000",
 	},
 	error: {
 		marginBottom: 10,
-		color: 'red',
-	  },
+		color: "red",
+	},
 });
