@@ -78,9 +78,6 @@ export default function Home({ navigation }) {
 							</Text>
 						</View>
 						<View style={styles.boutons3}>
-							<TouchableOpacity style={styles.buttonC}>
-								<Text style={styles.textButton}>Charte</Text>
-							</TouchableOpacity>
 							<View style={styles.divboutons}>
 								<TouchableOpacity
 									style={styles.ICbutton}
@@ -146,9 +143,6 @@ export default function Home({ navigation }) {
 							</Text>
 						</View>
 						<View style={styles.boutons3}>
-							<TouchableOpacity style={styles.buttonC}>
-								<Text style={styles.textButton}>Charte</Text>
-							</TouchableOpacity>
 							<View style={styles.divboutons}>
 								<TouchableOpacity
 									style={styles.ICbutton}
@@ -215,9 +209,7 @@ export default function Home({ navigation }) {
 							</Text>
 						</View>
 						<View style={styles.boutons3}>
-							<TouchableOpacity style={styles.buttonC}>
-								<Text style={styles.textButton}>Charte</Text>
-							</TouchableOpacity>
+					
 							<View style={styles.divboutons}>
 								<TouchableOpacity
 									style={styles.ICbutton}

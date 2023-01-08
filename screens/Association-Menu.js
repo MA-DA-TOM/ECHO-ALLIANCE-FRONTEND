@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import { deleteInfoAsso } from '../reducers/association';
 import { deleteInfoEvent } from '../reducers/event';
 import { deleteInfoEntreprise } from '../reducers/entreprise';
+import { deleteInfoUser } from "../reducers/user";
 
 import { useSelector } from 'react-redux';
 
@@ -26,6 +27,7 @@ export default function AssociationMenu({ navigation }) {
 		dispatch(deleteInfoAsso());
 		dispatch(deleteInfoEvent());
 		dispatch(deleteInfoEntreprise());
+		dispatch(deleteInfoUser())
 		navigation.navigate("Home")
 	}
 

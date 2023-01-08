@@ -14,8 +14,24 @@ import {
 	faMagnifyingGlassLocation,
 	faTicket,
 } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from 'react-redux';
+import { deleteInfoAsso } from '../reducers/association';
+import { deleteInfoEvent } from '../reducers/event';
+import { deleteInfoEntreprise } from '../reducers/entreprise';
+import { deleteInfoUser } from "../reducers/user";
 
 export default function BenevoleMenu({ navigation }) {
+
+	const dispatch = useDispatch();
+
+	const handleDisconnect = () => {
+		dispatch(deleteInfoAsso());
+		dispatch(deleteInfoEvent());
+		dispatch(deleteInfoEntreprise());
+		dispatch(deleteInfoUser())
+		navigation.navigate("Home")
+	}
+
 	return (
 		<ImageBackground
 			source={require("../assets/plante.jpg")}
@@ -27,7 +43,7 @@ export default function BenevoleMenu({ navigation }) {
 			>
 				<View style={styles.off}>
 					<TouchableOpacity
-						onPress={() => navigation.navigate("Home")}
+						onPress={() => handleDisconnect()}
 					>
 						<FontAwesomeIcon
 							icon={faPowerOff}

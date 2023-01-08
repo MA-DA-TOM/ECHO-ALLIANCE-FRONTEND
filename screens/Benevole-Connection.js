@@ -2,7 +2,9 @@ import React from "react";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateInfoUser } from '../reducers/user';
-
+import { updateInfoAsso } from '../reducers/association';
+import { updateInfoEvent } from '../reducers/event';
+import { updateInfoEntreprise } from '../reducers/entreprise';
 import {
 	KeyboardAvoidingView,
 	Platform,
@@ -34,27 +36,51 @@ export default function Connexion({navigation}) {
 	
 	const handleConnection = () => {
 
-		if (signInEmail.length === 0 || signInPassword === 0) {
-			return;
-		  }
-
 		fetch(`http://${BACKEND_ADRESS}/benevole/connexion`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ email: signInEmail, password: signInPassword }),
-		}).then(response => response.json())
-		.then(data => {
-
-			if (data.result === true) {
-				dispatch(updateInfoUser({email: signInEmail, token: data.token}));
-				setSignInEmail('');
-				setSignInPassword('');
-				
-				navigation.navigate('BenevoleMenu');
-
+			body: JSON.stringify({ password: signInPassword, email: signInEmail, }),
+		}).then((response) => response.json())
+			.then((data) => {
+				if (data.result === false) {
+					set2accountError(true);
 				}
-			});
-	};
+				if (data.result === true) {
+					console.log(data.data, "user")
+					dispatch(updateInfoUser(data.data));
+				}
+			}
+			);
+
+		fetch(`http://${BACKEND_ADRESS}/evenement/allEvent`)
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.result === true) {
+					console.log(data.data, 'event bdd')
+					dispatch(updateInfoEvent(data.data));
+				}
+			}
+			);
+		fetch(`http://${BACKEND_ADRESS}/association/assoData`)
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.result === true) {
+					console.log(data.data, 'asso bdd')
+					dispatch(updateInfoAsso(data.data));
+				}
+			}
+			);
+		fetch(`http://${BACKEND_ADRESS}/entreprise/all`)
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.result === true) {
+					console.log(data.data, 'entreprise bdd')
+					dispatch(updateInfoEntreprise(data.data));
+				}
+			}
+			);
+				navigation.navigate("BenevoleMenu");
+	}
 
 
 // 	const handleLogout = () => {

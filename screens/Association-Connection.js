@@ -41,7 +41,7 @@ export default function AssociationConnection({ navigation }) {
 						set2accountError(true);
 					}
 					if (data.result === true) {
-						console.log(data.data, "my asso bdd")
+						console.log(data.data, "user")
 						dispatch(updateInfoUser(data.data));
 						// navigation.navigate("AssociationMenu");
 					}

@@ -8,10 +8,8 @@ import {
 	ImageBackground,
 } from "react-native";
 
-export default function AssociationEvent({ navigation }) {
-	const dataToBecomeDynamic = [
-		{ key: "Personne 1 : Nom - Prénom - Age - ID - Numéro" },
-	];
+export default function AssociationEventSubscriptions({ navigation }) {
+	
 
 	return (
 		<ImageBackground

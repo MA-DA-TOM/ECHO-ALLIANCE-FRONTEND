@@ -11,6 +11,8 @@ import {
 	ImageBackground,
 	ScrollView,
 } from "react-native";
+import { useSelector } from 'react-redux'
+
 
 export default function BenevoleProfil({ navigation }) {
 	const now = new Date();
@@ -18,6 +20,17 @@ export default function BenevoleProfil({ navigation }) {
 	const annee = now.getFullYear();
 	const mois = ("0" + now.getMonth() + 1).slice(-2);
 	const jour = ("0" + now.getDate()).slice(-2);
+
+	const UserReducerValue = useSelector((state) => state.user.value);
+	const UserData = UserReducerValue[0]
+	console.log(UserReducerValue,'user')
+	const UserFirstName = UserData.name
+	const UserLastName = UserData.lastName
+	const totalHeure = UserData.hours
+	const level = UserData.level
+	
+
+
 	return (
 		<ImageBackground
 			source={require("../assets/fondecran.jpeg")}
@@ -61,17 +74,20 @@ export default function BenevoleProfil({ navigation }) {
 					<View style={styles.container3}>
 						<View style={styles.fake}>
 							<Text style={styles.txt}>Nom:</Text>
-							<Text style={styles.fakeText}>	Arthuys</Text>
+							<Text style={styles.fakeText}>	{UserFirstName}</Text>
 						</View>
 						<View style={styles.fake}>
 							<Text style={styles.txt}>Prenom: </Text>
-							<Text style={styles.fakeText}>	Ruben</Text>
+							<Text style={styles.fakeText}>	{UserLastName}</Text>
 						</View>
 						<View style={styles.fake}>
 							<Text style={styles.txt}>Rang: </Text>
-							<Text style={styles.fakeText}>	0/3</Text>
+							<Text style={styles.fakeText}>	{level}/3</Text>
 						</View>
-
+						<View style={styles.fake}>
+							<Text style={styles.txt}>Nombre d'heure ce mois ci: </Text>
+							<Text style={styles.fakeText}>	{totalHeure}	</Text>
+						</View>
 						<View style={styles.fake}>
 							<Text style={styles.txt}>Nombre d'heure avant le prochain palier: </Text>
 							<Text style={styles.fakeText}>	5</Text>

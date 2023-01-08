@@ -10,8 +10,25 @@ import {
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faPowerOff, faTags } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from 'react-redux';
+import { deleteInfoAsso } from '../reducers/association';
+import { deleteInfoEvent } from '../reducers/event';
+import { deleteInfoEntreprise } from '../reducers/entreprise';
+import { deleteInfoUser } from "../reducers/user";
 
 export default function EntreprisenMenu({ navigation }) {
+
+	const dispatch = useDispatch();
+
+
+	const handleDisconnect = () => {
+		dispatch(deleteInfoAsso());
+		dispatch(deleteInfoEvent());
+		dispatch(deleteInfoEntreprise());
+		dispatch(deleteInfoUser())
+		navigation.navigate("Home")
+	}
+
 	return (
 		<ImageBackground
 			source={require("../assets/backgrounde.jpg")}
@@ -23,7 +40,7 @@ export default function EntreprisenMenu({ navigation }) {
 			>
 				<View style={styles.off}>
 					<TouchableOpacity
-						onPress={() => navigation.navigate("Home")}
+						onPress={() => handleDisconnect()}
 					>
 						<FontAwesomeIcon
 							icon={faPowerOff}
@@ -73,7 +90,7 @@ export default function EntreprisenMenu({ navigation }) {
 					<View style={styles.card3}>
 						<TouchableOpacity
 							style={styles.buttonOpacity}
-							onPress={() => navigation.navigate("BenevoleMap")}
+							onPress={() => navigation.navigate("EntrepriseMaps")}
 						>
 							<Text style={styles.map}>Map</Text>
 							<Image

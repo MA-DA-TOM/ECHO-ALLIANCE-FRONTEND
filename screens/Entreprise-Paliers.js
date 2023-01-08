@@ -10,8 +10,53 @@ import {
 	TextInput,
 	ImageBackground,
 } from "react-native";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateInfoUser, deleteInfoUser } from "../reducers/user";
+import entreprise from "../reducers/entreprise";
+
+
+const BACKEND_ADRESS = '192.168.1.62:3000';
 
 export default function EntrepriseConnection({ navigation }) {
+
+	const dispatch = useDispatch()
+
+	const entrepriseReducerValue = useSelector((state) => state.user.value);
+	const entrepriseData = entrepriseReducerValue[0];
+	console.log(entrepriseData, 'entrepriseData')
+
+	// if (entrepriseData) {
+	// 	const offre1 = entrepriseData.offres.premier
+	// 	const offre2 = entrepriseData.offres.deuxieme
+	// 	const offre3 = entrepriseData.offres.troisieme
+	// }
+
+
+	const [palier1, setPalier1] = useState(null);
+	const [palier2, setPalier2] = useState(null);
+	const [palier3, setPalier3] = useState(null)
+
+	const handlePalier = () => {
+		fetch(`http://${BACKEND_ADRESS}/entreprise/offres`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ email: entrepriseData.email, offre1: palier1, offre2: palier2, offre3: palier3 }),
+		})
+		fetch(`http://${BACKEND_ADRESS}/entreprise/getone`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ email: entrepriseData.email, }),
+		}).then((response) => response.json())
+			.then((data) => {
+				dispatch(deleteInfoUser());
+				dispatch(updateInfoUser(data.data))
+			}
+			)
+			// .then(navigation.navigate("EntrepriseMenu"));	
+	}
+
 	return (
 		<ImageBackground
 			source={require("../assets/fondecran.jpeg")}
@@ -24,30 +69,24 @@ export default function EntrepriseConnection({ navigation }) {
 				<View style={styles.container1}>
 					<View style={styles.background2}>
 						<Text style={styles.palier}>Palier 1</Text>
-						<SafeAreaView>
-							<TextInput style={styles.input} />
-						</SafeAreaView>
+						<TextInput style={styles.input} onChangeText={(value) => setPalier1(value)} value={palier1} />
 					</View>
 				</View>
 				<View style={styles.container1}>
 					<View style={styles.background2}>
 						<Text style={styles.palier}>Palier 2</Text>
-						<SafeAreaView>
-							<TextInput style={styles.input} />
-						</SafeAreaView>
+						<TextInput style={styles.input} onChangeText={(value) => setPalier2(value)} value={palier2} />
 					</View>
 				</View>
 				<View style={styles.container1}>
 					<View style={styles.background2}>
 						<Text style={styles.palier}>Palier 3</Text>
-						<SafeAreaView>
-							<TextInput style={styles.input} />
-						</SafeAreaView>
+						<TextInput style={styles.input} onChangeText={(value) => setPalier3(value)} value={palier3} />
 					</View>
 				</View>
 
 				<TouchableOpacity
-					onPress={() => navigation.navigate("EntrepriseMenu")}
+					onPress={() => handlePalier()}
 					style={styles.button}
 					activeOpacity={0.8}
 				>

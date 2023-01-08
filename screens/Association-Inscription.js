@@ -16,6 +16,8 @@ import { Marker } from "react-native-maps";
 import MapView from "react-native-maps";
 import { useState } from "react";
 
+const BACKEND_ADRESS = '192.168.1.62:3000';
+
 const EMAIL_REGEX =
 	/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -63,11 +65,11 @@ export default function AssociationInscription({ navigation }) {
 
 	const handleInscription = () => {
 
-		if (password1 === password2 && EMAIL_REGEX.test(email) && WEB_REGEX.test(webSite)) {
-			fetch('http://10.33.211.185:3000/association/inscription', {
+		if (password1 === password2 ) {
+			fetch(`http://${BACKEND_ADRESS}/association/inscription`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ name: name, password: password1, description: description, siteWeb: webSite, email: email, RNA: RNA, latitude: coordinates.latitude, longitude: coordinates.longitude, numero: numero, rue: rue, ville: city, codePostal: codePostal }),
+				body: JSON.stringify({ name: name, password: password1, description: description, email: email, RNA: RNA, latitude: coordinates.latitude, longitude: coordinates.longitude, numero: numero, rue: rue, ville: city, codePostal: codePostal }),
 			}).then((response) => response.json())
 				.then((data) => {
 					if (data.result === false) {
@@ -81,18 +83,18 @@ export default function AssociationInscription({ navigation }) {
 		if (password1 !== password2) {
 			setPasswordError(!passwordError);
 		}
-		if (email && !EMAIL_REGEX.test(email)) {
-			setEmailError(!emailError);
-		}
-		if (!WEB_REGEX.test(webSite)) {
-			setWebSiteError(!webSiteError);
-		}
+		// if (email && !EMAIL_REGEX.test(email)) {
+		// 	setEmailError(!emailError);
+		// }
+		// if (!WEB_REGEX.test(webSite)) {
+		// 	setWebSiteError(!webSiteError);
+		// }
 		// if (!RNA_REGEX.test(RNA)) {
 		// 	setRNAError(!RNAError)
 		// }
-		if (webSite !== null && !WEB_REGEX.test(webSite)) {
-			setWebSiteError(!webSiteError);
-		}
+		// if (webSite !== null && !WEB_REGEX.test(webSite)) {
+		// 	setWebSiteError(!webSiteError);
+		// }
 
 	}
 
@@ -160,7 +162,7 @@ export default function AssociationInscription({ navigation }) {
 										</Text>
 									)}
 								</View>
-								<View>
+								{/* <View>
 									<Text style={styles.email}>
 										Site Web (optionel)
 									</Text>
@@ -176,7 +178,7 @@ export default function AssociationInscription({ navigation }) {
 											website error
 										</Text>
 									)}
-								</View>
+								</View> */}
 								<View>
 									<Text style={styles.mdp}>Numéro RNA</Text>
 									<TextInput
@@ -305,11 +307,6 @@ const styles = StyleSheet.create({
 		width: "85%",
 		backgroundColor: "#ffffff",
 		padding: 5,
-	},
-	container2: {
-		marginLeft: "5%",
-		flexWrap: "wrap",
-		flexDirection: "column",
 	},
 
 	button: {

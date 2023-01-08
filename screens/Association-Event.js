@@ -16,77 +16,40 @@ import { useDispatch } from 'react-redux';
 import { updateInfoUser } from '../reducers/user';
 import { useSelector } from 'react-redux';
 
+const BACKEND_ADRESS = '192.168.1.62:3000';
+
 export default function AssociationEvent({ navigation }) {
 
-	// const EventData = [null];
-	const [modalCurrentEvent, setModalCurrentEvent] = useState(false);
+	const events = []
+	const showEvent = () => {
+		fetch(`http://${BACKEND_ADRESS}/association/assoData/az`).then((response) => response.json())
+			.then((data) => {
+				events.push(data)
+			})
+	}
+	showEvent()
+	console.log(events)
 
-	const handleModalCurrentEvent = () => {
-		setModalCurrentEvent(!modalCurrentEvent);
-	};
-
-	const Arrow = () => {
+	const myEvents = events.map((data, i) => {
+		const nameEvent = data.name;
+		console.log(nameEvent)
+		const dateEvent = data.startDate;
+		console.log(dateEvent)
 		return (
-			<Modal visible={modalCurrentEvent} animationType="fade">
-				<View style={styles.newModal}>
-					<FontAwesome
-						name="arrow-left"
-						size={25}
-						color="#0CA789"
-						onPress={() => handleModalCurrentEvent()}
+			<View style={styles.container3}>
+				<Text>{nameEvent} le {dateEvent}</Text>
+
+				<TouchableOpacity
+					style={styles.buttonOpacity}
+				>
+					<Image
+						style={styles.profile}
+						source={require("../assets/logo-profile.png")}
 					/>
-				</View>
-				<View style={styles.newModal2}>
-					<View style={styles.container2}>
-						<View style={styles.container21b}>
-							<View style={styles.container211}>
-								<Text style={styles.txt}>Evenement:</Text>
-							</View>
-							<View style={styles.container212}>
-								<FlatList
-									data={[
-										{ key: "Lieu" },
-										{ key: "Date" },
-										{ key: "Heure" },
-										{ key: "Description" },
-									]}
-									renderItem={({ item }) => (
-										<Text style={styles.item}>
-											{"\u2022" + " "}
-											{item.key}
-										</Text>
-									)}
-								/>
-							</View>
-						</View>
-
-						<View style={styles.container22b}>
-							<View style={styles.container221}>
-								<Text style={styles.map}>Map</Text>
-							</View>
-							<View style={styles.container222}>
-								<Image
-									style={styles.mapimage}
-									source={require("../assets/logo-map.png")}
-								/>
-							</View>
-						</View>
-					</View>
-				</View>
-			</Modal>
-		);
-	};
-
-	// AssoEvent = EventData.map((data,i) => {
-	// 	const name= data.name;
-	// 	const date = data.dateDebut;
-	// 	const participants = data.benevoles.length;
-	// return (
-	// 	<View>
-	// 		<Text>{name} le {date}, nb participants : {participants}</Text>
-	// 	</View>
-	// )
-	// })
+				</TouchableOpacity>
+			</View>
+		)
+	})
 
 	return (
 		<ImageBackground
@@ -118,42 +81,10 @@ export default function AssociationEvent({ navigation }) {
 				<View style={styles.container34}>
 					<View style={styles.container3}>
 						<Text style={styles.txt}>Evenements en cours:</Text>
-
-						{/* <FlatList
-					data={AssoEvent}
-					renderItem={({ item }) => (
-						<View style={styles.modalContainer}>
-							<Text style={styles.item}>
-								{"\u2022" + " "}
-								{item.key}
-							</Text>
-							<FontAwesome
-								name="arrow-right"
-								size={25}
-								color="#0CA789"
-								onPress={() => handleModalCurrentEvent()}
-							/>
-						</View>
-					)}
-				/> */}
 					</View>
-					{Arrow}
 
-					<View style={styles.container4}>
-						<TouchableOpacity
-							style={styles.buttonOpacity}
-							onPress={() =>
-								navigation.navigate(
-									"AssociationEventSubscriptions"
-								)
-							}
-						>
-							<Image
-								style={styles.profile}
-								source={require("../assets/logo-profile.png")}
-							/>
-						</TouchableOpacity>
-					</View>
+						{myEvents}
+				
 				</View>
 			</KeyboardAvoidingView>
 		</ImageBackground>

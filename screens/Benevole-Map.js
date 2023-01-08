@@ -18,15 +18,22 @@ import dataEntreprise from "../data/dataEntreprise.json";
 import dataAssociation from "../data/dataAssociation.json";
 import Checkbox from "expo-checkbox";
 import Slider from "@react-native-community/slider";
+import { useSelector } from 'react-redux'
+
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-const BACKEND_ADRESS = '10.33.210.252:3000';
+// const BACKEND_ADRESS = '192.168.1.62:3000';
 
 
 export default function MapScreen() {
-	const eventsData = dataEvent;
-	const associationsData = dataAssociation;
-	const entreprisesData = dataEntreprise;
+
+	const eventsData = useSelector((state) => state.event.value);
+	const finalEventData = eventsData[0]
+	const associationsData = useSelector((state) => state.association.value);
+	const finalAssoData = associationsData[0]
+	const entreprisesData = useSelector((state) => state.entreprise.value);
+	const finalEntreprise = entreprisesData[0]
+	console.log(finalEntreprise)
 
 	const [sliderValue, setSliderValue] = useState();
 
@@ -55,17 +62,14 @@ export default function MapScreen() {
 				);
 			}
 		})();
-		// fetch(`http://${BACKEND_ADRESS}/places/${user.name}`)
-		// .then((response) => response.json())
-		// .then((data) => {
-		//   data.result && dispatch(importPlace(data.places));
-		//  });
 	}, []);
 
 	const [isAssociationSelected, setIsAssociationSelected] = useState(true);
 
 	//Markers des assos, events et entreprises
-	const associations = associationsData.map((data, i) => {
+	const associations = finalAssoData.map((data, i) => {
+		const adress = data.adress[0]
+
 		const calculatePreciseDistance = () => {
 			if (currentPosition) {
 				var pdis = getPreciseDistance(
@@ -74,8 +78,8 @@ export default function MapScreen() {
 						longitude: currentPosition.longitude,
 					},
 					{
-						latitude: data.coordinates.latitude,
-						longitude: data.coordinates.longitude,
+						latitude: adress.coordinate.latitude,
+						longitude: adress.coordinate.longitude,
 					}
 				);
 				let total = Math.round(pdis / 1000);
@@ -88,16 +92,17 @@ export default function MapScreen() {
 				<Marker
 					key={i}
 					opacity={opacity}
-					coordinate={data.coordinates}
+					coordinate={{ latitude: adress.coordinate.latitude, longitude: adress.coordinate.longitude }}
 					pinColor="red"
 					title={data.name}
+					description={data.description}
 				></Marker>
 			);
 		}
 	});
 
 	const [isEventsSelected, setIsEventsSelected] = useState(true);
-	const events = eventsData.map((data, i) => {
+	const events = finalEventData.map((data, i) => {
 		const calculatePreciseDistance = () => {
 			if (currentPosition) {
 				var pdis = getPreciseDistance(
@@ -106,8 +111,8 @@ export default function MapScreen() {
 						longitude: currentPosition.longitude,
 					},
 					{
-						latitude: data.coordinates.latitude,
-						longitude: data.coordinates.longitude,
+						latitude: data.adress.coordinate.latitude,
+						longitude: data.adress.coordinate.longitude,
 					}
 				);
 				let total = Math.round(pdis / 1000);
@@ -120,16 +125,17 @@ export default function MapScreen() {
 			return (
 				<Marker
 					key={i}
-					coordinate={data.coordinates}
+					coordinate={{ latitude: data.adress.coordinate.latitude, longitude: data.adress.coordinate.longitude }}
 					pinColor="orange"
-					title={data.nameAssociation}
+					title={data.name}
+					description={data.description}
 				></Marker>
 			);
 		}
 	});
 
 	const [isEntreprisesSelected, setIsEntreprisesSelected] = useState(true);
-	const entreprises = entreprisesData.map((data, i) => {
+	const entreprises = finalEntreprise.map((data, i) => {
 		const calculatePreciseDistance = () => {
 			if (currentPosition) {
 				var pdis = getPreciseDistance(
@@ -138,8 +144,8 @@ export default function MapScreen() {
 						longitude: currentPosition.longitude,
 					},
 					{
-						latitude: data.coordinates.latitude,
-						longitude: data.coordinates.longitude,
+						latitude: data.adress.coordinate.latitude,
+						longitude: data.adress.coordinate.longitude,
 					}
 				);
 				let total = Math.round(pdis / 1000);
@@ -152,9 +158,10 @@ export default function MapScreen() {
 			return (
 				<Marker
 					key={i}
-					coordinate={data.coordinates}
+					coordinate={{ latitude: data.adress.coordinate.latitude, longitude: data.adress.coordinate.longitude }}
 					pinColor="blue"
-					title={data.name && data.profession}
+					title={data.name}
+					description={data.description}
 				></Marker>
 			);
 		}

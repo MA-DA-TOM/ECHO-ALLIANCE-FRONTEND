@@ -75,32 +75,6 @@ const TabNavigator = () => {
 	);
 };
 
-//// On n'est pas obligé de faire une Tab pour aller d'une page à une autre ////
-
-// const ProfileNavigator = () => {
-// 	return (
-// 		<Tab.Navigator
-// 			screenOptions={({ route }) => ({
-// 				tabBarIcon: ({ color, size }) => {
-// 					let iconName = "";
-
-// 					return (
-// 						<FontAwesome
-// 							name={iconName}
-// 							size={size}
-// 							color={color}
-// 						/>
-// 					);
-// 				},
-// 				tabBarActiveTintColor: "#ec6e5b",
-// 				tabBarInactiveTintColor: "#335561",
-// 				headerShown: false,
-// 			})}
-// 		>
-// 			<Tab.Screen name=" " component={ProfileScreen} />
-// 		</Tab.Navigator>
-// 	);
-// };
 
 export default function App() {
 	return (

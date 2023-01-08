@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import {
 	KeyboardAvoidingView,
 	Platform,
@@ -39,9 +38,8 @@ export default function EntrepriseConnection({ navigation }) {
 					set2accountError(true);
 				}
 				if (data.result === true) {
-					console.log(data.data, "use bdd")
+					console.log(data.data, "user")
 					dispatch(updateInfoUser(data.data));
-					// navigation.navigate("AssociationMenu");
 				}
 			}
 			);
@@ -52,7 +50,6 @@ export default function EntrepriseConnection({ navigation }) {
 				if (data.result === true) {
 					console.log(data.data, 'event bdd')
 					dispatch(updateInfoEvent(data.data));
-					// navigation.navigate("AssociationMenu");
 				}
 			}
 			);
@@ -71,10 +68,10 @@ export default function EntrepriseConnection({ navigation }) {
 				if (data.result === true) {
 					console.log(data.data, 'entreprise bdd')
 					dispatch(updateInfoEntreprise(data.data));
-					navigation.navigate("EntrepriseMenu");
 				}
 			}
 			);
+				navigation.navigate("EntrepriseMenu");
 	}
 
 

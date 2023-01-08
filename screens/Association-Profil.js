@@ -14,13 +14,31 @@ import {
 import { useDispatch } from 'react-redux';
 import { updateInfoAsso } from '../reducers/association';
 import { useSelector } from 'react-redux'
+import { Marker } from "react-native-maps";
+import MapView from "react-native-maps";
 
-export default function BenevoleMission({ navigation }) {
 
-	const Nom = useSelector((state) => state.user.value[0].name);
-	const Adresse = useSelector((state) => state.user.value[0].Adresse);
-	const siteWeb = useSelector((state) => state.user.value[0].siteWeb);
-	const description = useSelector((state) => state.user.value[0].description);
+export default function AssociationProfil({ navigation }) {
+
+
+	const UserReducerValue = useSelector((state) => state.user.value);
+
+	const UserData = UserReducerValue[0]
+	console.log(UserData)
+
+	const userAdresse = `${UserData.adress[0].number} ${UserData.adress[0].street} ${UserData.adress[0].zipCode} ${UserData.adress[0].city}`;
+	const UserName = UserData.name
+	const UserDescription = UserData.description
+
+	const latitude = UserData.adress[0].coordinate.latitude;
+	const longitude = UserData.adress[0].coordinate.longitude;
+	const entrepriseRgion = {
+		latitude: latitude,
+		longitude: longitude,
+		latitudeDelta: 0.03,
+		longitudeDelta: 0.03,
+	};
+
 
 	return (
 		<ImageBackground
@@ -42,35 +60,33 @@ export default function BenevoleMission({ navigation }) {
 				<View style={styles.container1}>
 					<View style={styles.fake}>
 						<Text style={styles.txt}>Nom:</Text>
-						{/* <Text>{Nom}</Text> */}
-						<Text style={styles.fakeText}>		echoAlliance</Text>
+						<Text style={styles.fakeText}>		{UserName}</Text>
 					</View>
 					<View style={styles.fake}>
-					<Text style={styles.txt}>Adresse:</Text>
-					{/* <Text>{Adresse}</Text> */}
-					<Text style={styles.fakeText}>	 10 Avenue du Président Robert Schuman, 33110 Le Bouscat, France</Text>
+						<Text style={styles.txt}>Adresse:</Text>
+						<Text style={styles.fakeText}>	 {userAdresse}</Text>
+					</View>
 				</View>
-
-				<View style={styles.fake}>
-					<Text style={styles.txt}>Site internet:</Text>
-					{/* <Text>{siteWeb}</Text> */}
-					<Text style={styles.fakeText}		>www.echoAlliance.fr</Text>
-				</View>
-			</View>
-			<View style={styles.container2}>
 				<View style={styles.container2b}>
-					<Image
-						style={styles.logo}
-						source={require("../assets/logo-map.png")}
-					/>
+					<MapView
+						mapType="hybrid"
+						style={{ height: '100%', width: "100%" }}
+						initialRegion={entrepriseRgion}
+					>
+
+						<Marker
+							coordinate={entrepriseRgion}
+							pinColor="red"
+							title="Mon Association"
+						/>
+
+					</MapView>
 				</View>
-			</View>
-			<Text style={styles.txt}>Description:</Text>
-			<View style={styles.container3}>
-				{/* <Text>{description}</Text> */}
-				<Text> Maintenance et amélioration de la plateforme echoAlliance</Text>
-			</View>
-		</KeyboardAvoidingView>
+				<Text style={styles.txt}>Description:</Text>
+				<View style={styles.container3}>
+					<Text> {UserDescription}</Text>
+				</View>
+			</KeyboardAvoidingView>
 		</ImageBackground >
 	);
 }
@@ -87,11 +103,11 @@ const styles = StyleSheet.create({
 		justifyContent: "space-evenly",
 	},
 
-	container1: { 
-		borderWidth: 1, 
-		borderColor: "#ffffff", 
+	container1: {
+		borderWidth: 1,
+		borderColor: "#ffffff",
 		backgroundColor: '#ffffff',
-		opacity: 0.7, 
+		opacity: 0.7,
 	},
 	container2: {
 		flexDirection: "row",
@@ -118,16 +134,13 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderRadius: 100,
 	},
-	container2: {
-		alignItems: "center",
-		justifyContent: "center",
-	},
 	container2b: {
-		height: 160,
-		width: 160,
+		height: '40%',
+		width: '100%',
 		backgroundColor: "#ffffff",
 		alignItems: "center",
 		justifyContent: "center",
+		flexDirection: "row",
 		borderWidth: 1,
 	},
 	container3: {
@@ -137,7 +150,7 @@ const styles = StyleSheet.create({
 		marginLeft: 4,
 		borderColor: "#ffffff",
 		backgroundColor: '#ffffff',
-		opacity: 0.6, 
+		opacity: 0.6,
 	},
 	images: {
 		flexDirection: "row",

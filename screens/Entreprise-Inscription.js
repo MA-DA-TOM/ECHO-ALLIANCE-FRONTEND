@@ -16,17 +16,13 @@ import { Marker } from "react-native-maps";
 import MapView from "react-native-maps";
 import { useState } from "react";
 
+const BACKEND_ADRESS = '192.168.1.62:3000';
 // Grabbed from emailregex.com
 const EMAIL_REGEX =
 	/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-const TEL_REGEX =
-	/\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/g;
-
-const SIRET_REGEX = /\d{14}/g;
-
 const WEB_REGEX =
-	/^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})(\/([\da-z\.-]+))*\/?(([\w\.-]+)\.([\da-z]{2,6}))?((\#[\w\.-]+)|(\?([\da-z]+(=[\da-z]+)?)(&([\da-z]+(=[\da-z]+)?))*))?/i;
+	/^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})(\/([\da-z\.-]+))*\/?(([\w\.-]+)\.([\da-z]{2,6}))?((\#[\w\.-]+)|(\?([\da-z]+(=[\da-z]+)?)(&([\da-z]+(=[\da-z]+)?))*))?/i
 
 export default function AssociationInscription({ navigation }) {
 	const [name, setName] = useState(null);
@@ -44,6 +40,11 @@ export default function AssociationInscription({ navigation }) {
 	const [nomDirigeant, setNomDirigeant] = useState(null);
 	const [prenomDirigeant, setPrenomDirigeant] = useState(null);
 	const [telephone, setTelephone] = useState(null);
+	// const [offre1, setOffre1] = useState(null);
+	// const [offre2, setOffre2] = useState(null);
+	// const [offre3, setOffre3] = useState(null);
+
+
 
 	const [accountError, setAccountError] = useState(false);
 	const [emailError, setEmailError] = useState(false);
@@ -55,7 +56,9 @@ export default function AssociationInscription({ navigation }) {
 	const handleLongPress = (e) => {
 		setCoordinates(e.nativeEvent.coordinate);
 		console.log(coordinates);
+	}
 
+	if (coordinates) {
 		fetch(
 			`http://api-adresse.data.gouv.fr/reverse/?lon=${coordinates.longitude}&lat=${coordinates.latitude}`
 		)
@@ -70,39 +73,22 @@ export default function AssociationInscription({ navigation }) {
 
 	const handleInscription = () => {
 
-		if (password1 === password2 && EMAIL_REGEX.test(email) && WEB_REGEX.test(webSite) /*&& TEL_REGEX.test(telephone) && SIRET_REGEX.test(siret)*/) {
-			fetch('http://10.33.211.185:3000/entreprise/inscription', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ name: name, password: password1, description: description, siteWeb: webSite, email: email, siret: siret, latitude: coordinates.latitude, longitude: coordinates.longitude, numero: numero, rue: rue, ville: city, codePostal: codePostal, nom: nomDirigeant, prenom: prenomDirigeant, telephone: telephone}),
-			}).then((response) => response.json())
-				.then((data) => {
-					if (data.result === false) {
-						setAccountError(true);
-					}
-					if (data.result === true) {
-						navigation.navigate("Home");
-					}
-				});
-		}
-		if (password1 !== password2) {
-			setPasswordError(!passwordError);
-		}
-		if (!EMAIL_REGEX.test(email)) {
-			setEmailError(!emailError);
-		}
-		if (!WEB_REGEX.test(webSite)) {
-			setWebSiteError(!webSiteError);
-		}
-		// if (!SIRET_REGEX.test(siret)) {
-		// 	setSiretError(!siretError)
-		// }
-		if (webSite !== null && !WEB_REGEX.test(webSite)) {
-			setWebSiteError(!webSiteError);
-		}
-		// if (!TEL_REGEX.test(telephone)) {
-		// 	setTelError(!telError)
-		// }
+		// if (password1 === password2 && EMAIL_REGEX.test(email) && WEB_REGEX.test(webSite) && TEL_REGEX.test(telephone) && SIRET_REGEX.test(siret)) {
+		fetch(`http://${BACKEND_ADRESS}/entreprise/inscription`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ name: name, password: password1, description: description, siteWeb: webSite, email: email, siret: siret, latitude: coordinates.latitude, longitude: coordinates.longitude, numero: numero, rue: rue, ville: city, codePostal: codePostal, nom: nomDirigeant, prenom: prenomDirigeant, telephone: telephone }),
+		}).then((response) => response.json())
+			.then((data) => {
+				if (data.result === false) {
+					console.log(data.result)
+					setAccountError(true);
+				}
+				if (data.result === true) {
+					console.log(data)
+					navigation.navigate("Home");
+				}
+			});
 	}
 
 
@@ -156,7 +142,7 @@ export default function AssociationInscription({ navigation }) {
 									/>
 								</View>
 								<View>
-									<Text style={styles.rna}>Password</Text>
+									<Text style={styles.rna}>Password confirmation</Text>
 									<TextInput
 										style={styles.input}
 										onChangeText={(value) =>
@@ -205,8 +191,7 @@ export default function AssociationInscription({ navigation }) {
 								</View>
 								<View>
 									<Text style={styles.mdp}>
-										Description de votre association (raison
-										d'être)
+										Description de votre entreprise
 									</Text>
 									<TextInput
 										style={styles.input}
@@ -264,6 +249,41 @@ export default function AssociationInscription({ navigation }) {
 										</Text>
 									)}
 								</View>
+
+								{/* <View>
+									<Text style={styles.mdp}>
+									1ère offre de votre entreprise pour une personne qui fait entre 5 et 9h de bénévolat par mois
+									</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setOffre1(value)
+										}
+										value={offre1}
+									/>
+
+									<Text style={styles.mdp}>
+									2ème offre de votre entreprise pour une personne qui fait entre 10 et 14h de bénévolat par mois
+									</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setOffre2(value)
+										}
+										value={offre2}
+									/>
+
+									<Text style={styles.mdp}>
+										3ème offre de votre entreprise pour une personne qui fait 15h de bénévolat et plus par mois
+									</Text>
+									<TextInput
+										style={styles.input}
+										onChangeText={(value) =>
+											setOffre3(value)
+										}
+										value={offre3}
+									/>
+								</View> */}
 
 								<View style={styles.space}>
 									<Text style={styles.mdp}>
@@ -323,7 +343,7 @@ export default function AssociationInscription({ navigation }) {
 							</View>
 						</ScrollView>
 						<TouchableOpacity
-							onPress={() => navigation.navigate("Home")}
+							onPress={() => handleInscription()}
 							style={styles.button}
 							activeOpacity={0.8}
 						>
